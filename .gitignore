@@ -1,0 +1,43 @@
+# Node dependencies & VitePress
+node_modules/
+**/.vitepress/dist/
+**/.vitepress/cache/
+
+# Environment variables
+.env
+.env.local
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# System files
+.DS_Store
+Thumbs.db
+
+
+# Môi trường ảo & dependencies
+.venv/
+venv/
+node_modules/
+
+# Khóa bảo mật & cấu hình cục bộ
+.env
+.env.local
+
+# Dữ liệu lớn (PDFs, CSDL, Models)
+evidence_pool/pdfs/
+*.sqlite3
+*.csv
+*.parquet
+*.pth
+*.onnx
+
+# Cache
+__pycache__/
+.pytest_cache/
+dist/
+build/
