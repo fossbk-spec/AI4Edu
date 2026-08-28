@@ -1,0 +1,9 @@
+# Tự động chuẩn hóa line endings về LF khi lưu vào Git
+* text=auto eol=lf
+
+# Các file nhị phân giữ nguyên định dạng gốc
+*.png binary
+*.jpg binary
+*.pdf binary
+*.docx binary
+*.xlsx binary

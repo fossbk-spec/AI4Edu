@@ -31,5 +31,5 @@ Quy tắc ứng xử:
 
 Để cài đặt AI Tutor trong ứng dụng web hoặc ứng dụng di động:
 - Gọi API với `chats.create()` giữ ngữ cảnh hội thoại.
-- Sử dụng mô hình `gemini-2.5-flash` hoặc `gemini-1.5-flash` với độ trễ thấp.
+- Sử dụng mô hình `gemini-3.7-flash` với độ trễ thấp và khả năng suy luận nhanh.
 - Xem chi tiết tại [Lab 1: Chatbot Trợ giảng bằng Python](/hands-on/python-lab-tutor).

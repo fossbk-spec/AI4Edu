@@ -25,7 +25,7 @@ Hãy áp dụng phương pháp Socratic:
 def run_tutor():
     client = genai.Client()
     chat = client.chats.create(
-        model="gemini-2.5-flash",
+        model="gemini-3.7-flash",
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_INSTRUCTION,
             temperature=0.4,

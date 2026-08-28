@@ -5,6 +5,11 @@ import os
 import sys
 import json
 from dotenv import load_dotenv
+
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 from pydantic import BaseModel, Field
 from google import genai
 from google.genai import types
@@ -36,7 +41,7 @@ def grade_submission(essay_text: str, topic: str):
     """
     
     response = client.models.generate_content(
-        model='gemini-2.5-flash',
+        model='gemini-3.7-flash',
         contents=prompt,
         config=types.GenerateContentConfig(
             response_mime_type="application/json",

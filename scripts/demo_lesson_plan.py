@@ -4,6 +4,11 @@ Script tự động tạo Kế hoạch Bài dạy (Giáo án 5E) bằng Gemini A
 import os
 import sys
 from dotenv import load_dotenv
+
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 from google import genai
 from google.genai import types
 
@@ -34,7 +39,7 @@ def generate_lesson_plan(subject: str, grade: str, topic: str):
     print(f"🔄 Đang tạo giáo án cho chủ đề '{topic}' ({subject} {grade})...\n")
     
     response = client.models.generate_content(
-        model='gemini-2.5-flash',
+        model='gemini-3.7-flash',
         contents=prompt,
         config=types.GenerateContentConfig(
             temperature=0.3,

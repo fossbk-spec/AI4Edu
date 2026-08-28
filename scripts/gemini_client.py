@@ -3,7 +3,13 @@ Gemini API Client Helper for AI4Edu Labs
 Uses official google-genai SDK
 """
 import os
+import sys
 from dotenv import load_dotenv
+
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 from google import genai
 from google.genai import types
 
@@ -24,7 +30,7 @@ def interactive_tutor():
     )
     
     chat = client.chats.create(
-        model="gemini-2.5-flash",
+        model="gemini-3.7-flash",
         config=types.GenerateContentConfig(
             system_instruction=system_prompt,
             temperature=0.4

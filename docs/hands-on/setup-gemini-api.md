@@ -1,6 +1,6 @@
 # Hướng dẫn Cài đặt & Cấu hình Gemini API Key từ Google AI Studio
 
-Để sử dụng các mô hình AI mới nhất của Google (như Gemini 2.5 Flash / Gemini 1.5 Pro) trong các công cụ AI4Edu, bạn cần lấy **API Key miễn phí** từ Google AI Studio và cấu hình vào dự án.
+Để sử dụng các mô hình AI mới nhất của Google (như Gemini 3.7 Flash) trong các công cụ AI4Edu, bạn cần lấy **API Key miễn phí** từ Google AI Studio và cấu hình vào dự án.
 
 ---
 
@@ -75,7 +75,7 @@ load_dotenv()
 
 client = genai.Client()
 response = client.models.generate_content(
-    model='gemini-2.5-flash',
+    model='gemini-3.7-flash',
     contents='Xin chào! Hãy giới thiệu ngắn gọn về vai trò của Gemini trong giáo dục.',
 )
 
