@@ -13,6 +13,7 @@ __pycache__/
 .venv/
 venv/
 *.egg-info/
+AI4Edu_Full_Context_for_Claude.md
 
 # System files
 .DS_Store

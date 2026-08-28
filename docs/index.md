@@ -46,6 +46,7 @@ Dự án **AI4Edu (Artificial Intelligence for Education)** được thiết k�
 
 | Chủ đề | Nội dung chính | Trạng thái |
 | :--- | :--- | :--- |
+| **Phân cấp Học đường** | Ứng dụng AI từ Mầm non, Tiểu học, THCS, THPT đến Đại học | ✅ Sẵn sàng |
 | **Cấu hình API** | Hướng dẫn cài đặt `google-genai` SDK & API Key | ✅ Sẵn sàng |
 | **Kỹ thuật Prompting** | Mẫu Prompt tạo giáo án 5E và Bloom Taxonomy | ✅ Sẵn sàng |
 | **Python Lab 1** | Xây dựng AI Tutor hỗ trợ học sinh học Toán/Lý/Hóa | ✅ Sẵn sàng |
