@@ -237,12 +237,25 @@ MATH_GRADE_3_TEXTBOOK_CONTENT: Dict[str, Dict[str, Any]] = {
     }
 }
 
+import re
+
 def get_textbook_lesson_detail(grade: int, topic: str) -> Optional[Dict[str, Any]]:
-    """Tìm kiếm nội dung trích dẫn chi tiết nguyên văn từ SGK."""
-    if grade != 3:
+    """Tìm kiếm nội dung trích dẫn chi tiết nguyên văn từ SGK chuẩn xác."""
+    if grade != 3 or not topic:
         return None
     topic_clean = topic.strip().lower()
-    for key, val in MATH_GRADE_3_TEXTBOOK_CONTENT.items():
-        if key.lower() in topic_clean or val["title"].lower() in topic_clean or topic_clean in val["title"].lower():
+    
+    # 1. Thử match theo tiêu đề đầy đủ
+    for val in MATH_GRADE_3_TEXTBOOK_CONTENT.values():
+        if val["title"].lower() in topic_clean or topic_clean in val["title"].lower():
             return val
+            
+    # 2. Match chính xác theo mã bài (ví dụ "Bài 20" không bao giờ nhầm với "Bài 2")
+    # Sắp xếp các key theo độ dài giảm dần ("Bài 20" trước "Bài 2")
+    sorted_keys = sorted(MATH_GRADE_3_TEXTBOOK_CONTENT.keys(), key=len, reverse=True)
+    for key in sorted_keys:
+        pattern = r'\b' + re.escape(key.lower()) + r'\b'
+        if re.search(pattern, topic_clean):
+            return MATH_GRADE_3_TEXTBOOK_CONTENT[key]
+            
     return None

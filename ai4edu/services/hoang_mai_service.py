@@ -7,14 +7,26 @@ from ai4edu.models.lesson_plan_2345 import LessonPlan2345
 from ai4edu.models.differentiated_task import DifferentiatedTaskSet
 from ai4edu.models.primary_assessment import PrimaryAssessmentTT27
 
+import re
+
 def _find_curriculum_lesson(grade: int, subject: str, topic: str) -> Optional[Dict[str, Any]]:
     """Tìm thông tin bài học trong dữ liệu chuẩn SGK để cấp bối cảnh chính xác cho AI."""
-    if subject in ["math", "Toán", "Toán học"]:
+    if subject in ["math", "Toán", "Toán học"] and topic:
         lessons = MATH_GRADE_3_LESSONS if grade == 3 else (MATH_GRADE_5_LESSONS if grade == 5 else [])
         topic_clean = topic.strip().lower()
+        
+        # 1. Match theo tiêu đề đầy đủ
         for l in lessons:
             title_clean = l["title"].strip().lower()
-            if topic_clean in title_clean or title_clean in topic_clean or l["id"].lower() in topic_clean:
+            if topic_clean in title_clean or title_clean in topic_clean:
+                return l
+                
+        # 2. Match theo số thứ tự bài học với word boundary (ví dụ "Bài 20" không bao giờ nhầm với "Bài 2")
+        sorted_lessons = sorted(lessons, key=lambda x: len(x["title"].split(":")[0]), reverse=True)
+        for l in sorted_lessons:
+            lesson_prefix = l["title"].split(":")[0].strip().lower() # "bài 20", "bài 2"
+            pattern = r'\b' + re.escape(lesson_prefix) + r'\b'
+            if re.search(pattern, topic_clean):
                 return l
     return None
 
