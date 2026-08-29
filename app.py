@@ -19,6 +19,7 @@ load_dotenv()
 # Import các service từ ai4edu package
 from ai4edu.core.prompt_engine import PromptEngine
 from ai4edu.core.llm_provider import UnifiedLLMClient, SUPPORTED_PROVIDERS
+from ai4edu.data.math_curriculum import get_math_lessons
 from ai4edu.services.hoang_mai_service import (
     generate_lesson_plan_2345,
     generate_differentiated_taskset,
@@ -190,7 +191,7 @@ st.markdown("""
 <div class="main-header">
     <div class="badge-hm">🏫 TRƯỜNG TIỂU HỌC HOÀNG MAI • CHẤT LƯỢNG CAO & ĐỔI MỚI SÁNG TẠO</div>
     <h1>🎓 AI4Edu Hub - Trợ Lý AI Giáo Dục Đa Mô Hình (Gemini / Claude / GPT)</h1>
-    <p>Hệ thống ứng dụng Trí tuệ Nhân tạo hỗ trợ soạn bài 5 cột (CV 2345), phân hóa học sinh khá giỏi, đánh giá Thông tư 27 và xuất Google Docs / Word.</p>
+    <p>Tích hợp trọn bộ danh mục bài học SGK Toán Lớp 3 & Lớp 5 (Tập 1, 2) • Soạn KHBD 5 cột • Phân hóa 4 tầng • Xuất Google Docs / Word.</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -213,6 +214,7 @@ with st.sidebar:
     selected_grade_num = st.selectbox(
         "Chọn Khối Lớp:",
         grade_options,
+        index=2 if 3 in grade_options else 0, # Mặc định chọn Lớp 3 hoặc 5
         format_func=lambda x: f"Khối Lớp {x}"
     )
     
@@ -302,11 +304,34 @@ with tab1:
     st.subheader("📑 Soạn Kế Hoạch Bài Dạy 5 Cột Chuẩn Công Văn 2345/BGDĐT-GDTH")
     st.write(f"Đang sử dụng mô hình: **{model_labels.get(selected_model_id, selected_model_id)}**")
     
+    # Bộ chọn bài học từ SGK nếu là Toán Lớp 3 hoặc Lớp 5
+    selected_topic_default = "Hình vuông - Hình tròn"
+    if selected_subject_id == "math" and selected_grade_num in [3, 5]:
+        st.markdown(f"##### 📚 Chọn Bài Học Từ Danh Mục SGK Toán Lớp {selected_grade_num} (Chuẩn CTGDPT 2018):")
+        col_v1, col_v2 = st.columns([1, 3])
+        with col_v1:
+            vol_choice = st.selectbox("Chọn Tập sách:", ["Tất cả (Tập 1 & 2)", "Tập 1 (HK I)", "Tập 2 (HK II)"], key="vol_t1")
+            vol_idx = 1 if "Tập 1" in vol_choice else (2 if "Tập 2" in vol_choice else 0)
+            available_lessons = get_math_lessons(selected_grade_num, vol_idx)
+            lesson_labels = [f"{l['title']}  ({l['topic_group']})" for l in available_lessons]
+        with col_v2:
+            lesson_pick = st.selectbox(
+                "Danh sách bài học chính thức:",
+                ["✏️ [Tự nhập chủ đề tùy chỉnh...]"] + lesson_labels,
+                key="sgk_pick_t1"
+            )
+        if lesson_pick != "✏️ [Tự nhập chủ đề tùy chỉnh...]":
+            # Trích xuất tên bài
+            selected_topic_default = lesson_pick.split("  (")[0]
+        else:
+            selected_topic_default = "Diện tích hình thang" if selected_grade_num == 5 else "Bảng nhân 7, bảng chia 7"
+
     col_t1, col_t2 = st.columns([3, 1])
     with col_t1:
         lesson_topic = st.text_input(
-            "Tên bài học / Chủ đề:",
-            value="Phân số và phép cộng phân số cùng mẫu số" if selected_grade_num >= 4 else "Hình vuông - Hình tròn"
+            "Tên bài học / Chủ đề (Có thể chỉnh sửa chi tiết):",
+            value=selected_topic_default,
+            key="input_topic_t1"
         )
     with col_t2:
         include_adv = st.checkbox("Thử thách HS khá giỏi", value=True, help="Tích hợp các câu hỏi mở và nhiệm vụ mở rộng tránh lặp lại SGK")
@@ -477,9 +502,23 @@ with tab2:
     st.subheader("🎯 Phân Hóa 4 Tầng Nhiệm Vụ Cho Học Sinh Khá Giỏi & Cần Hỗ Trợ")
     st.write("Từ 1 đơn vị kiến thức, chia tách thành 4 tầng bài tập/nhiệm vụ với giàn giáo hỗ trợ (Scaffolding) phù hợp năng lực từng nhóm học sinh.")
     
+    diff_topic_default = "Diện tích hình thang" if selected_grade_num == 5 else "Cộng trừ có nhớ trong phạm vi 100"
+    if selected_subject_id == "math" and selected_grade_num in [3, 5]:
+        st.markdown(f"##### 📚 Chọn Bài Học Từ SGK Toán Lớp {selected_grade_num}:")
+        col_vd1, col_vd2 = st.columns([1, 3])
+        with col_vd1:
+            v_choice = st.selectbox("Chọn Tập:", ["Tất cả (Tập 1 & 2)", "Tập 1", "Tập 2"], key="vol_t2")
+            v_idx = 1 if "Tập 1" in v_choice else (2 if "Tập 2" in v_choice else 0)
+            avail_diff = get_math_lessons(selected_grade_num, v_idx)
+            diff_labels = [f"{l['title']}  ({l['topic_group']})" for l in avail_diff]
+        with col_vd2:
+            p_pick = st.selectbox("Danh sách bài học:", ["✏️ [Tự nhập chủ đề...]"] + diff_labels, key="sgk_pick_t2")
+        if p_pick != "✏️ [Tự nhập chủ đề...]":
+            diff_topic_default = p_pick.split("  (")[0]
+
     diff_topic = st.text_input(
         "Chủ đề / Đơn vị kiến thức cần phân hóa:",
-        value="Diện tích hình thang" if selected_grade_num == 5 else "Cộng trừ có nhớ trong phạm vi 100",
+        value=diff_topic_default,
         key="input_diff_topic"
     )
     
@@ -641,11 +680,25 @@ with tab5:
     st.subheader("🎮 Tạo Bộ Câu Hỏi Trắc Nghiệm Đố Vui Cho Quizizz / Wordwall / Kahoot")
     st.write("Tự động sinh bộ câu hỏi trắc nghiệm đố vui và xuất ra file Excel chuẩn để nạp vào Quizizz chỉ trong 1 cú click.")
     
+    quiz_topic_default = "Bài 23: Hình thang. Diện tích hình thang" if selected_grade_num == 5 else "Bài 10: Bảng nhân 7, bảng chia 7"
+    if selected_subject_id == "math" and selected_grade_num in [3, 5]:
+        st.markdown(f"##### 📚 Chọn Bài Học Từ SGK Toán Lớp {selected_grade_num}:")
+        col_vq1, col_vq2 = st.columns([1, 3])
+        with col_vq1:
+            vq_choice = st.selectbox("Chọn Tập:", ["Tất cả (Tập 1 & 2)", "Tập 1", "Tập 2"], key="vol_t5")
+            vq_idx = 1 if "Tập 1" in vq_choice else (2 if "Tập 2" in vq_choice else 0)
+            avail_quiz = get_math_lessons(selected_grade_num, vq_idx)
+            quiz_labels = [f"{l['title']}  ({l['topic_group']})" for l in avail_quiz]
+        with col_vq2:
+            q_pick = st.selectbox("Danh sách bài học:", ["✏️ [Tự nhập chủ đề...]"] + quiz_labels, key="sgk_pick_t5")
+        if q_pick != "✏️ [Tự nhập chủ đề...]":
+            quiz_topic_default = q_pick.split("  (")[0]
+
     col_q1, col_q2 = st.columns([3, 1])
     with col_q1:
         quiz_topic = st.text_input(
             "Chủ đề trò chơi trắc nghiệm:",
-            value="Không khí có những tính chất gì?" if selected_grade_num >= 4 else "Phép cộng trong phạm vi 20",
+            value=quiz_topic_default,
             key="input_quiz_topic"
         )
     with col_q2:
