@@ -250,10 +250,22 @@ with st.sidebar:
         format_func=lambda x: model_labels.get(x, x)
     )
     
+    # Hàm tiện ích lấy Secret từ os.getenv hoặc st.secrets trên Streamlit Cloud
+    def _get_key(key_name: str) -> Optional[str]:
+        val = os.getenv(key_name)
+        if val and val.strip():
+            return val.strip()
+        try:
+            if key_name in st.secrets:
+                return str(st.secrets[key_name]).strip()
+        except Exception:
+            pass
+        return None
+
     # Quản lý API Key cho từng Provider
     active_api_key = None
     if "Gemini" in selected_provider:
-        env_key = os.getenv("GEMINI_API_KEY")
+        env_key = _get_key("GEMINI_API_KEY")
         if env_key:
             st.success("✅ Gemini API Key: Đã sẵn sàng")
             active_api_key = env_key
@@ -263,7 +275,7 @@ with st.sidebar:
             if active_api_key:
                 os.environ["GEMINI_API_KEY"] = active_api_key
     elif "Claude" in selected_provider or "Anthropic" in selected_provider:
-        env_key = os.getenv("ANTHROPIC_API_KEY")
+        env_key = _get_key("ANTHROPIC_API_KEY")
         if env_key:
             st.success("✅ Anthropic Claude API Key: Đã sẵn sàng")
             active_api_key = env_key
@@ -273,7 +285,7 @@ with st.sidebar:
             if active_api_key:
                 os.environ["ANTHROPIC_API_KEY"] = active_api_key
     elif "OpenAI" in selected_provider:
-        env_key = os.getenv("OPENAI_API_KEY")
+        env_key = _get_key("OPENAI_API_KEY")
         if env_key:
             st.success("✅ OpenAI API Key: Đã sẵn sàng")
             active_api_key = env_key
