@@ -4,7 +4,25 @@ Chào mừng các thầy cô giáo **Trường Tiểu học Hoàng Mai** đến 
 
 ---
 
-## 🌟 1. Tầm Nhìn & Định Hướng Trường Chất Lượng Cao Hoàng Mai
+## 💻 1. Trải Nghiệm Ứng Dụng Web App Trực Quan (Streamlit)
+
+Giáo viên Trường Hoàng Mai có thể sử dụng ngay giao diện Web đồ họa trực quan không cần gõ lệnh:
+
+```powershell
+# Chạy Web App trên máy tính giáo viên
+streamlit run app.py
+```
+
+### 🌟 5 Tính Năng Nổi Bật Trên Web App:
+1. 📑 **Soạn KHBD 5 Cột (CV 2345):** Tự động sinh bảng 5 cột chuẩn và có nút **Tải file Word (.docx)** được định dạng sẵn bảng biểu, màu sắc sư phạm.
+2. 🎯 **Phân Hóa Nhiệm Vụ 4 Cấp Độ:** Sinh ngay 4 tầng bài tập (*Học sinh cần hỗ trợ $\rightarrow$ Đạt chuẩn $\rightarrow$ Khá $\rightarrow$ Giỏi/Nâng cao*) + Thử thách STEM mini.
+3. 📊 **Trợ Lý Đánh Giá Học Sinh (Thông tư 27):** Nhập nhanh ghi chú thực tế $\rightarrow$ AI sinh bảng đánh giá 3 mặt (*Môn học, Năng lực, Phẩm chất*) và đoạn văn nhận xét gửi phụ huynh để copy 1-click.
+4. 💬 **AI Socratic Tutor 24/7:** Khung chat tương tác gợi mở với các nhân vật thân thiện (*Bác Cú Thông Thái, Thỏ Trắng, Cô Giáo AI, Nhà Khoa Học Nhí*).
+5. 🎮 **Tạo Bộ Câu Hỏi Game Quizizz / Wordwall:** Sinh câu hỏi đố vui và **Tải file Excel mẫu chuẩn (.xlsx)** để import thẳng vào Quizizz.
+
+---
+
+## 🌟 2. Tầm Nhìn & Định Hướng Trường Chất Lượng Cao Hoàng Mai
 
 Trường Tiểu học Hoàng Mai xác định việc ứng dụng Trí tuệ Nhân tạo không chỉ dừng lại ở mức "biết sử dụng chatbot" mà hướng tới **Quy trình Sư phạm Số Toàn diện (End-to-End Digital Workflow)**, nhằm:
 1. **Giảm tải áp lực công việc hành chính & soạn bài thủ công** để giáo viên dành nhiều thời gian hơn cho việc tương tác, đồng hành cùng học sinh.
@@ -14,7 +32,7 @@ Trường Tiểu học Hoàng Mai xác định việc ứng dụng Trí tuệ Nh
 
 ---
 
-## 🧭 2. Khung 7 Trụ Cột Năng Lực AI Dành Cho Giáo Viên Hoàng Mai
+## 🧭 3. Khung 7 Trụ Cột Năng Lực AI Dành Cho Giáo Viên Hoàng Mai
 
 ```mermaid
 graph TD
@@ -40,9 +58,9 @@ graph TD
 
 ---
 
-## ⚡ 3. Bộ Lệnh Dòng Lệnh (CLI) Dành Riêng Cho Trường Hoàng Mai
+## ⚡ 4. Bộ Lệnh Dòng Lệnh (CLI) Dành Riêng Cho Trường Hoàng Mai
 
-Bộ công cụ `ai4edu.cli` đã được tích hợp sẵn các lệnh chuyên biệt phục vụ giáo viên:
+Bộ công cụ `ai4edu.cli` cũng được tích hợp sẵn các lệnh dòng lệnh:
 
 ```powershell
 # 1. Soạn Kế hoạch bài dạy 5 cột chuẩn CV 2345 (có nhiệm vụ mở rộng cho HS khá giỏi)

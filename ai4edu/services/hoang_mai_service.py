@@ -1,7 +1,6 @@
 from typing import Optional, List, Dict, Any
-from google.genai import types
-from ai4edu.core.client import get_genai_client, DEFAULT_MODEL
 from ai4edu.core.prompt_engine import PromptEngine
+from ai4edu.core.llm_provider import UnifiedLLMClient
 from ai4edu.models.lesson_plan_2345 import LessonPlan2345
 from ai4edu.models.differentiated_task import DifferentiatedTaskSet
 from ai4edu.models.primary_assessment import PrimaryAssessmentTT27
@@ -11,7 +10,7 @@ def generate_lesson_plan_2345(
     subject: str,
     topic: str,
     advanced_focus: bool = True,
-    model_name: str = DEFAULT_MODEL
+    llm_client: Optional[UnifiedLLMClient] = None
 ) -> LessonPlan2345:
     """
     Sinh Kế hoạch Bài dạy (KHBD) 5 cột chuẩn Công văn 2345/BGDĐT-GDTH cho Trường Tiểu học Hoàng Mai.
@@ -26,7 +25,7 @@ def generate_lesson_plan_2345(
     subject_name = subject_info.name if subject_info else subject
 
     advanced_prompt = (
-        "- ĐẶC BIỆT DÀNH CHO MÔ HÒ TRƯỜNG CHẤT LƯỢNG CAO HOÀNG MAI: Thiết kế các câu hỏi mở, nhiệm vụ mở rộng/thử thách sáng tạo "
+        "- ĐẶC BIỆT DÀNH CHO MÔ HÌNH TRƯỜNG CHẤT LƯỢNG CAO HOÀNG MAI: Thiết kế các câu hỏi mở, nhiệm vụ mở rộng/thử thách sáng tạo "
         "dành cho học sinh khá giỏi, tránh lặp lại nguyên bản nội dung SGK, tích hợp gợi ý học liệu số (Canva, Wordwall, Audio AI).\n"
         if advanced_focus else ""
     )
@@ -55,25 +54,15 @@ Yêu cầu cấu trúc Kế hoạch bài dạy 5 cột:
 Xuất kết quả định dạng JSON theo đúng schema LessonPlan2345.
 """
 
-    client = get_genai_client()
-    response = client.models.generate_content(
-        model=model_name,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json",
-            response_schema=LessonPlan2345,
-            temperature=0.3,
-        ),
-    )
-
-    return LessonPlan2345.model_validate_json(response.text)
+    client = llm_client or UnifiedLLMClient()
+    return client.generate_structured(prompt=prompt, schema_cls=LessonPlan2345)
 
 
 def generate_differentiated_taskset(
     grade: int,
     subject: str,
     topic: str,
-    model_name: str = DEFAULT_MODEL
+    llm_client: Optional[UnifiedLLMClient] = None
 ) -> DifferentiatedTaskSet:
     """
     Sinh 4 mức độ nhiệm vụ phân hóa (Cần hỗ trợ, Đạt chuẩn, Khá, Giỏi/Nâng cao) từ 1 đơn vị kiến thức.
@@ -103,18 +92,8 @@ Kèm theo 1 Thử thách sáng tạo liên môn / STEM mini.
 Xuất kết quả định dạng JSON theo đúng schema DifferentiatedTaskSet.
 """
 
-    client = get_genai_client()
-    response = client.models.generate_content(
-        model=model_name,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json",
-            response_schema=DifferentiatedTaskSet,
-            temperature=0.3,
-        ),
-    )
-
-    return DifferentiatedTaskSet.model_validate_json(response.text)
+    client = llm_client or UnifiedLLMClient()
+    return client.generate_structured(prompt=prompt, schema_cls=DifferentiatedTaskSet)
 
 
 def generate_tt27_assessment(
@@ -123,7 +102,7 @@ def generate_tt27_assessment(
     student_alias: str,
     evaluation_notes: str,
     period: str = "Cuối học kì I",
-    model_name: str = DEFAULT_MODEL
+    llm_client: Optional[UnifiedLLMClient] = None
 ) -> PrimaryAssessmentTT27:
     """
     Sinh nhận xét học sinh tiểu học chuẩn Thông tư 27/2020/TT-BGDĐT.
@@ -152,15 +131,5 @@ Yêu cầu theo Thông tư 27/2020:
 Xuất kết quả định dạng JSON theo đúng schema PrimaryAssessmentTT27.
 """
 
-    client = get_genai_client()
-    response = client.models.generate_content(
-        model=model_name,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json",
-            response_schema=PrimaryAssessmentTT27,
-            temperature=0.3,
-        ),
-    )
-
-    return PrimaryAssessmentTT27.model_validate_json(response.text)
+    client = llm_client or UnifiedLLMClient()
+    return client.generate_structured(prompt=prompt, schema_cls=PrimaryAssessmentTT27)
