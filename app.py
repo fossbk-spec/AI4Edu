@@ -25,6 +25,7 @@ from ai4edu.services.hoang_mai_service import (
 from ai4edu.services.ai_tutor import tutor_chat
 from ai4edu.services.docx_exporter import create_lesson_plan_docx
 from ai4edu.services.quizizz_exporter import generate_quizizz_questions, export_quiz_to_excel
+from ai4edu.services.gdocs_exporter import export_lesson_plan_to_markdown_for_gdocs
 
 # Cấu hình trang Streamlit
 st.set_page_config(
@@ -34,10 +35,10 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS cho giao diện hiện đại, cao cấp
+# Custom CSS cho giao diện hiện đại, cao cấp với độ tương phản màu chuẩn xác
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
     
     html, body, [class*="css"] {
         font-family: 'Inter', sans-serif;
@@ -77,18 +78,85 @@ st.markdown("""
         margin-bottom: 8px;
     }
     
-    .card-box {
-        background-color: #f8fafc;
-        border: 1px solid #e2e8f0;
-        border-radius: 10px;
-        padding: 18px;
-        margin-bottom: 16px;
+    /* Box Thử thách mở rộng cho HS khá giỏi với màu nổi bật, dễ đọc trên mọi nền */
+    .advanced-challenge-box {
+        background-color: #fffbeb !important;
+        border: 1.5px solid #fde68a !important;
+        border-left: 6px solid #d97706 !important;
+        padding: 14px 18px !important;
+        border-radius: 8px !important;
+        margin-top: 12px !important;
+        margin-bottom: 8px !important;
+        color: #0f172a !important;
+        box-shadow: 0 2px 6px rgba(217, 119, 6, 0.08);
     }
     
-    .tier-card-1 { border-left: 5px solid #10b981; background-color: #f0fdf4; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
-    .tier-card-2 { border-left: 5px solid #0284c7; background-color: #f0f9ff; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
-    .tier-card-3 { border-left: 5px solid #8b5cf6; background-color: #f5f3ff; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
-    .tier-card-4 { border-left: 5px solid #f59e0b; background-color: #fffbeb; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
+    .advanced-challenge-title {
+        color: #b45309 !important;
+        font-weight: 700 !important;
+        font-size: 15px !important;
+        display: inline-block;
+        margin-right: 6px;
+    }
+    
+    .advanced-challenge-content {
+        color: #1e293b !important;
+        font-weight: 500 !important;
+        font-size: 14.5px !important;
+        line-height: 1.5;
+    }
+    
+    /* Các thẻ 4 Tầng Phân Hóa với chữ đậm nét, tương phản cao */
+    .tier-card-1 { 
+        border-left: 6px solid #10b981; 
+        background-color: #f0fdf4; 
+        padding: 16px; 
+        border-radius: 8px; 
+        margin-bottom: 14px; 
+        color: #0f172a !important;
+        border: 1px solid #bbf7d0;
+    }
+    .tier-card-2 { 
+        border-left: 6px solid #0284c7; 
+        background-color: #f0f9ff; 
+        padding: 16px; 
+        border-radius: 8px; 
+        margin-bottom: 14px; 
+        color: #0f172a !important;
+        border: 1px solid #bae6fd;
+    }
+    .tier-card-3 { 
+        border-left: 6px solid #8b5cf6; 
+        background-color: #f5f3ff; 
+        padding: 16px; 
+        border-radius: 8px; 
+        margin-bottom: 14px; 
+        color: #0f172a !important;
+        border: 1px solid #ddd6fe;
+    }
+    .tier-card-4 { 
+        border-left: 6px solid #f59e0b; 
+        background-color: #fffbeb; 
+        padding: 16px; 
+        border-radius: 8px; 
+        margin-bottom: 14px; 
+        color: #0f172a !important;
+        border: 1px solid #fde68a;
+    }
+    
+    .tier-card-1 h4, .tier-card-2 h4, .tier-card-3 h4, .tier-card-4 h4 {
+        color: #0f172a !important;
+        font-weight: 700 !important;
+    }
+    
+    .tier-card-1 p, .tier-card-2 p, .tier-card-3 p, .tier-card-4 p {
+        color: #1e293b !important;
+        margin-bottom: 6px;
+    }
+    
+    .tier-card-1 strong, .tier-card-2 strong, .tier-card-3 strong, .tier-card-4 strong {
+        color: #0f172a !important;
+    }
     
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
@@ -120,7 +188,7 @@ st.markdown("""
 <div class="main-header">
     <div class="badge-hm">🏫 TRƯỜNG TIỂU HỌC HOÀNG MAI • CHẤT LƯỢNG CAO & ĐỔI MỚI SÁNG TẠO</div>
     <h1>🎓 AI4Edu Hub - Trợ Lý AI Giáo Dục Đa Mô Hình (Gemini / Claude / GPT)</h1>
-    <p>Hệ thống ứng dụng Trí tuệ Nhân tạo hỗ trợ soạn bài 5 cột (CV 2345), phân hóa học sinh khá giỏi, đánh giá Thông tư 27 và thiết kế học liệu số.</p>
+    <p>Hệ thống ứng dụng Trí tuệ Nhân tạo hỗ trợ soạn bài 5 cột (CV 2345), phân hóa học sinh khá giỏi, đánh giá Thông tư 27 và xuất Google Docs / Word.</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -259,17 +327,25 @@ with tab1:
     if "current_plan_2345" in st.session_state:
         plan = st.session_state["current_plan_2345"]
         
-        # Nút Tải Word .docx
-        docx_data = create_lesson_plan_docx(plan)
-        col_d1, col_d2, col_d3 = st.columns([2, 2, 4])
+        # Thanh công cụ Xuất File (Word & Google Docs Online)
+        st.markdown("#### 📤 Xuất & Đồng Bộ Học Liệu:")
+        col_d1, col_d2, col_d3 = st.columns([2, 2, 3])
         with col_d1:
+            docx_data = create_lesson_plan_docx(plan)
             st.download_button(
                 label="📥 Tải File Word (.docx)",
                 data=docx_data,
                 file_name=f"KHBD_{plan.subject}_Lop{selected_grade_num}_{lesson_topic}.docx",
                 mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             )
-        
+        with col_d2:
+            st.link_button("🌐 Mở Google Docs Mới (docs.new)", url="https://docs.new", help="Mở một tài liệu Google Docs mới trên trình duyệt để dán giáo án")
+            
+        with st.expander("📋 Xem & Sao Chép Nội Dung Cho Google Docs Online (1-Click)", expanded=False):
+            gdocs_md = export_lesson_plan_to_markdown_for_gdocs(plan)
+            st.caption("💡 **Mẹo:** Bấm nút Copy góc trên bên phải khung dưới đây, sau đó mở [Google Docs](https://docs.new) và nhấn `Ctrl + V` là có ngay giáo án chuẩn bảng 5 cột!")
+            st.code(gdocs_md, language="markdown")
+
         st.markdown(f"### 📋 Kế Hoạch Bài Dạy: {plan.lesson_title.upper()}")
         st.write(f"**Trường:** {plan.school_name} | **Khối lớp:** {plan.grade} | **Môn:** {plan.subject}")
         
@@ -298,8 +374,9 @@ with tab1:
                 
             if act.advanced_extension:
                 st.markdown(f"""
-                <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 10px; border-radius: 6px; margin-top: 8px;">
-                    <strong style="color: #b45309;">🌟 Thử thách mở rộng cho HS khá giỏi:</strong> {act.advanced_extension}
+                <div class="advanced-challenge-box">
+                    <span class="advanced-challenge-title">🌟 Thử thách mở rộng cho HS khá giỏi:</span>
+                    <span class="advanced-challenge-content">{act.advanced_extension}</span>
                 </div>
                 """, unsafe_allow_html=True)
             st.markdown("---")
@@ -340,7 +417,7 @@ with tab2:
             card_class = f"tier-card-{i}"
             st.markdown(f"""
             <div class="{card_class}">
-                <h4 style="margin:0 0 6px 0;">📌 {tier.tier_name.upper()} (Đối tượng: {tier.target_student_group} • Mức Bloom: {tier.bloom_level})</h4>
+                <h4 style="margin:0 0 8px 0;">📌 {tier.tier_name.upper()} (Đối tượng: {tier.target_student_group} • Mức Bloom: {tier.bloom_level})</h4>
                 <p><strong>🛠️ Giàn giáo hỗ trợ:</strong> {tier.pedagogical_scaffolding}</p>
                 <p><strong>📝 Nhiệm vụ giao cho HS:</strong> {tier.task_prompt}</p>
                 <p><strong>✅ Sản phẩm kỳ vọng:</strong> {tier.expected_output}</p>
@@ -349,9 +426,9 @@ with tab2:
             
         if ts.creative_challenge:
             st.markdown(f"""
-            <div style="background-color: #fdf2f8; border: 1px solid #f472b6; border-radius: 8px; padding: 14px; margin-top: 12px;">
-                <h4 style="color: #db2777; margin:0 0 6px 0;">🚀 THỬ THÁCH SÁNG TẠO LIÊN MÔN / STEM</h4>
-                <p>{ts.creative_challenge}</p>
+            <div style="background-color: #fdf2f8; border: 1.5px solid #f472b6; border-left: 6px solid #db2777; border-radius: 8px; padding: 16px; margin-top: 14px; color: #0f172a;">
+                <h4 style="color: #db2777; margin:0 0 6px 0; font-weight:700;">🚀 THỬ THÁCH SÁNG TẠO LIÊN MÔN / STEM</h4>
+                <p style="color: #1e293b; font-size: 14.5px; font-weight: 500; margin:0;">{ts.creative_challenge}</p>
             </div>
             """, unsafe_allow_html=True)
 
