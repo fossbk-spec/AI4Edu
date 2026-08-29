@@ -20,6 +20,7 @@ load_dotenv()
 from ai4edu.core.prompt_engine import PromptEngine
 from ai4edu.core.llm_provider import UnifiedLLMClient, SUPPORTED_PROVIDERS
 from ai4edu.data.math_curriculum import get_math_lessons
+from ai4edu.data.math_grade3_textbook_content import get_textbook_lesson_detail
 from ai4edu.services.hoang_mai_service import (
     generate_lesson_plan_2345,
     generate_differentiated_taskset,
@@ -346,6 +347,18 @@ with tab1:
     # Đảm bảo topic không bao giờ rỗng
     final_topic_t1 = lesson_topic.strip() if lesson_topic.strip() else default_topic_t1
 
+    # Hiển thị Trích dẫn Nội dung gốc từ Sách Giáo Khoa
+    tb_detail_t1 = get_textbook_lesson_detail(selected_grade_num, final_topic_t1)
+    if tb_detail_t1:
+        with st.expander(f"📖 Trích Dẫn Nguyên Văn Từ SGK: {tb_detail_t1['title']} ({tb_detail_t1['page']})", expanded=True):
+            st.markdown(f"**Vị trí:** `{tb_detail_t1['topic_group']}` • **Bộ sách:** *Kết nối tri thức với cuộc sống (NXB Giáo dục Việt Nam)*")
+            st.markdown("##### 📌 Khái niệm & Quy tắc gốc trong SGK:")
+            for c in tb_detail_t1.get("original_concepts", []):
+                st.markdown(f"- {c}")
+            st.markdown("##### 📝 Hoạt động khám phá & Bài tập mẫu gốc:")
+            for e in tb_detail_t1.get("original_exercises", []):
+                st.markdown(f"- {e}")
+
     if st.button("🚀 Tự Động Sinh Kế Hoạch Bài Dạy 2345", type="primary", key="btn_plan_2345"):
         with st.spinner(f"🔄 Đang phân tích Yêu cầu cần đạt SGK và xây dựng KHBD cho '{final_topic_t1}'..."):
             try:
@@ -541,6 +554,17 @@ with tab2:
     )
     
     final_topic_t2 = diff_topic.strip() if diff_topic.strip() else default_diff_t2
+
+    tb_detail_t2 = get_textbook_lesson_detail(selected_grade_num, final_topic_t2)
+    if tb_detail_t2:
+        with st.expander(f"📖 Trích Dẫn Nguyên Văn Từ SGK: {tb_detail_t2['title']} ({tb_detail_t2['page']})", expanded=False):
+            st.markdown(f"**Vị trí:** `{tb_detail_t2['topic_group']}` • **Bộ sách:** *Kết nối tri thức với cuộc sống*")
+            st.markdown("##### 📌 Khái niệm & Quy tắc gốc:")
+            for c in tb_detail_t2.get("original_concepts", []):
+                st.markdown(f"- {c}")
+            st.markdown("##### 📝 Hoạt động khám phá & Bài tập gốc:")
+            for e in tb_detail_t2.get("original_exercises", []):
+                st.markdown(f"- {e}")
 
     if st.button("✨ Thiết Kế 4 Tầng Nhiệm Vụ", type="primary", key="btn_differentiate"):
         with st.spinner(f"🔄 Đang thiết kế ma trận nhiệm vụ phân hóa 4 tầng cho '{final_topic_t2}'..."):

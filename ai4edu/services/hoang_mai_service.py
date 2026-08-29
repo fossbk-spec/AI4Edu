@@ -2,6 +2,7 @@ from typing import Optional, List, Dict, Any
 from ai4edu.core.prompt_engine import PromptEngine
 from ai4edu.core.llm_provider import UnifiedLLMClient
 from ai4edu.data.math_curriculum import MATH_GRADE_3_LESSONS, MATH_GRADE_5_LESSONS
+from ai4edu.data.math_grade3_textbook_content import get_textbook_lesson_detail
 from ai4edu.models.lesson_plan_2345 import LessonPlan2345
 from ai4edu.models.differentiated_task import DifferentiatedTaskSet
 from ai4edu.models.primary_assessment import PrimaryAssessmentTT27
@@ -48,10 +49,25 @@ CĂN CỨ BẮT BUỘC TỪ SÁCH GIÁO KHOA CHUẨN (KẾT NỐI TRI THỨC V�
 - Khối lớp: Lớp {matched_lesson['grade']}
 - Vị trí bài học: {matched_lesson['topic_group']}, Tập {matched_lesson['volume']}{page_info}
 - TÊN BÀI HỌC CHÍNH XÁC: "{matched_lesson['title']}"
+"""
+        # Đính kèm nội dung trích xuất nguyên bản từ file SGK
+        tb_detail = get_textbook_lesson_detail(grade, target_topic_title)
+        if tb_detail:
+            concepts_str = "\n".join([f"  + {c}" for c in tb_detail.get("original_concepts", [])])
+            exercises_str = "\n".join([f"  + {e}" for e in tb_detail.get("original_exercises", [])])
+            lesson_grounding += f"""
+NỘI DUNG NGUYÊN VĂN TRÍCH TỪ SÁCH GIÁO KHOA ({tb_detail['page']}):
+* Khái niệm, quy tắc và định nghĩa gốc:
+{concepts_str}
 
+* Hoạt động khám phá, ví dụ & bài tập gốc:
+{exercises_str}
+"""
+
+        lesson_grounding += f"""
 NGUYÊN TẮC CỐT LÕI (TUYỆT ĐỐI TUÂN THỦ):
 1. Trường 'lesson_title' trong JSON kết quả BẮT BUỘC PHẢI LÀ: "{matched_lesson['title']}".
-2. Nội dung các Hoạt động 1 (Khởi động), Hoạt động 2 (Khám phá), Hoạt động 3 (Luyện tập), Hoạt động 4 (Vận dụng) PHẢI CĂN CỨ VÀO ĐÚNG ĐƠN VỊ KIẾN THỨC CỦA BÀI HỌC NÀY. 
+2. Nội dung các Hoạt động 1 (Khởi động), Hoạt động 2 (Khám phá), Hoạt động 3 (Luyện tập), Hoạt động 4 (Vận dụng) PHẢI CĂN CỨ VÀO ĐÚNG ĐƠN VỊ KIẾN THỨC VÀ BÀI TẬP TRÍCH DẪN TỪ SGK Ở TRÊN. 
    TUYỆT ĐỐI KHÔNG BỊA ĐẶT NỘI DUNG HOẶC NHẦM SANG BÀI HỌC KHÁC!
 """
 
