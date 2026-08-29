@@ -4,62 +4,43 @@ Tài liệu này ghi lại toàn bộ tiến độ, các quyết định kiến 
 
 ---
 
-## 📅 Phiên làm việc: 28/08/2026
+## 📅 Phiên làm việc: 29/08/2026 - Mở rộng Chuyên Trang Tiểu Học Hoàng Mai & Hệ Sinh Thái K-12
 
-### 1. Trạng thái Hiện tại của Dự án
-- **Repository**: [`fossbk-spec/AI4Edu`](https://github.com/fossbk-spec/AI4Edu.git) (Nhánh `main`)
-- **Môi trường chạy**: Python 3.11+ / 3.13+, `google-genai` SDK v1+, VitePress 1.6+
-- **Mô hình AI chuẩn**: **`gemini-3.7-flash`** (thay thế cho `gemini-2.5-flash` đã deprecated)
+### 1. Trạng thái & Kiến trúc Mới
+- **Chuyên Trang Cấp Tiểu Học - Trường Tiểu Học Hoàng Mai (`docs/hoang-mai-primary/`):** Xây dựng bộ cẩm nang 7 trụ cột năng lực AI chuyên biệt cho mô hình trường chất lượng cao & đổi mới sáng tạo, bám sát Công văn 2345/BGDĐT-GDTH và Thông tư 27/2020/TT-BGDĐT.
+- **Quản lý phân cấp K-12 (CTGDPT 2018):** Triển khai đầy đủ 12 khối lớp (từ Lớp 1 đến Lớp 12), phân định rõ 3 cấp học (Tiểu học, THCS, THPT).
+- **Core AI Engine (`ai4edu` Package):** Chuyển đổi toàn bộ mã nguồn script rời rạc thành Python Package module hóa hoàn chỉnh, cấu hình động qua `ai4edu/config/curriculum_matrix.yaml`.
+- **Hỗ trợ Structured Outputs:** Tích hợp Pydantic v2 cho mô hình `LessonPlan2345`, `PrimaryAssessmentTT27`, `DifferentiatedTaskSet`, `LessonPlan5E`, `AssessmentResult`.
+- **Giao diện dòng lệnh (`ai4edu.cli`):** Cung cấp các sub-commands chuyên biệt: `list-grades`, `plan`, `plan-2345`, `differentiate`, `review-tt27`, `tutor`, `grade`.
 
 ---
 
 ### 2. Các Hạng mục Đã Hoàn thành trong Phiên này
 
-#### A. Hạ tầng & Môi trường Lập trình
-- [x] Tạo và cấu hình môi trường ảo Python [`.venv`](file:///d:/Antigravity/AI4Edu/.venv) trên Windows.
-- [x] Khắc phục lỗi `404 NOT_FOUND` bằng cách nâng cấp model sang `gemini-3.7-flash` cho:
-  - [`scripts/gemini_client.py`](file:///d:/Antigravity/AI4Edu/scripts/gemini_client.py) (AI Tutor Socratic)
-  - [`scripts/demo_lesson_plan.py`](file:///d:/Antigravity/AI4Edu/scripts/demo_lesson_plan.py) (Tạo giáo án 5E)
-  - [`scripts/demo_auto_grader.py`](file:///d:/Antigravity/AI4Edu/scripts/demo_auto_grader.py) (Chấm bài Pydantic Structured Outputs)
-- [x] Bổ sung cấu hình UTF-8 stream output tương thích với Windows PowerShell / Terminal.
-- [x] Cấu hình phím tắt đồng bộ Git nhanh: **`gsave`** (`git add` + `git commit` kèm timestamp + `git push`) và **`gload`** (`git pull`).
+#### A. Chuyên Trang Tiểu Học Hoàng Mai (`docs/hoang-mai-primary/`)
+- [x] [`index.md`](file:///c:/Antigravity/AI4Edu/docs/hoang-mai-primary/index.md): Cẩm nang tổng quan 7 trụ cột năng lực AI trường Hoàng Mai.
+- [x] [`lesson-planning-2345.md`](file:///c:/Antigravity/AI4Edu/docs/hoang-mai-primary/lesson-planning-2345.md): Hướng dẫn & Prompt Soạn KHBD 5 cột (CV 2345) và Chatbot đóng vai nhân vật ảo.
+- [x] [`differentiation-advanced.md`](file:///c:/Antigravity/AI4Edu/docs/hoang-mai-primary/differentiation-advanced.md): Phân hóa 4 tầng nhiệm vụ (Hỗ trợ - Chuẩn - Khá - Giỏi) và bài toán nhiều cách giải cho trường CLC.
+- [x] [`assessment-tt27.md`](file:///c:/Antigravity/AI4Edu/docs/hoang-mai-primary/assessment-tt27.md): Đánh giá & Nhận xét học sinh chuẩn Thông tư 27/2020 + Quy tắc ẩn danh dữ liệu Excel (De-identification).
+- [x] [`digital-toolchain.md`](file:///c:/Antigravity/AI4Edu/docs/hoang-mai-primary/digital-toolchain.md): Quy trình phối hợp công cụ số: `AI` $\rightarrow$ `Canva/Gamma` $\rightarrow$ `Quizizz/Wordwall` $\rightarrow$ `Excel` $\rightarrow$ `AI`.
+- [x] [`stem-ai-literacy.md`](file:///c:/Antigravity/AI4Edu/docs/hoang-mai-primary/stem-ai-literacy.md): Dự án STEM/STEAM phân bổ 5 khối lớp & Giáo dục năng lực số (AI Literacy) cho trẻ em.
+- [x] [`prompt-engineering.md`](file:///c:/Antigravity/AI4Edu/docs/hoang-mai-primary/prompt-engineering.md): Kỹ thuật Prompt Chaining & Tạo Trợ lý AI riêng cho từng Tổ chuyên môn (Khối 1 $\rightarrow$ Khối 5).
 
-#### B. Khối Tài liệu Phân cấp theo 5 Cấp học K-16 (`docs/education-levels/`)
-- [x] [`index.md`](file:///d:/Antigravity/AI4Edu/docs/education-levels/index.md): Ma trận phân cấp ứng dụng AI (Mầm non $\rightarrow$ Đại học).
-- [x] [`preschool.md`](file:///d:/Antigravity/AI4Edu/docs/education-levels/preschool.md): Giáo dục Mầm non (Kể chuyện tương tác, đa phương thức giọng nói/hình ảnh).
-- [x] [`primary.md`](file:///d:/Antigravity/AI4Edu/docs/education-levels/primary.md): Cấp Tiểu học (Gamification, trợ lý đọc/toán, bài tập phân hóa 3 mức).
-- [x] [`secondary.md`](file:///d:/Antigravity/AI4Edu/docs/education-levels/secondary.md): Cấp THCS (Tư duy Socratic môn KHTN, dự án STEM, chống chép bài giải).
-- [x] [`high-school.md`](file:///d:/Antigravity/AI4Edu/docs/education-levels/high-school.md): Cấp THPT (Cá nhân hóa luyện thi tốt nghiệp, Debate AI phản biện, hướng nghiệp).
-- [x] [`higher-education.md`](file:///d:/Antigravity/AI4Edu/docs/education-levels/higher-education.md): Đại học & Sau Đại học (Literature Review, RAG, thang đo 4 mức độ sử dụng AI).
+#### B. Khối Tài liệu K-12 (`docs/curriculum/`)
+- [x] Ma trận 12 khối lớp K-12 (`curriculum/index.md`).
+- [x] Cấp Tiểu học Lớp 1 - 5 (`curriculum/primary/`).
+- [x] Cấp THCS Lớp 6 - 9 (`curriculum/lower-secondary/`).
+- [x] Cấp THPT Lớp 10 - 12 (`curriculum/upper-secondary/`).
 
-#### C. Khối Tài liệu Phân loại theo Môn học & Ngành học
-- [x] **4 Cụm Môn học Phổ thông K-12 (`docs/subjects-k12/`)**:
-  - `math-computing.md`: Cụm Toán học & Tin học (Socratic giải toán, LaTeX, vẽ đồ thị, học code).
-  - `natural-sciences.md`: Cụm Khoa học Tự nhiên (Mô phỏng thí nghiệm, cơ chế phản ứng, di truyền).
-  - `social-humanities.md`: Cụm KH Xã hội & Nhân văn (Dàn ý Ngữ văn, đóng vai Lịch sử, số liệu Địa lý).
-  - `languages.md`: Cụm Ngoại ngữ (Luyện nói 1-1, chấm Writing theo rubric IELTS/VSTEP).
-- [x] **4 Khối Ngành Đại học (`docs/higher-ed-disciplines/`)**:
-  - `engineering-tech.md`: Kỹ thuật & Công nghệ (Sinh Unit Test, Code Review, MATLAB/CAD).
-  - `business-economics.md`: Kinh tế & Quản trị (Phân tích Báo cáo tài chính, Case studies, IMC).
-  - `law-social-sciences.md`: Luật & Xã hội (Tra cứu án lệ, RAG học thuật, chống bịa đặt trích dẫn).
-  - `medical-health.md`: Y - Dược & Sức khỏe (Bệnh nhân ảo, EBM/PICO, bảo mật bệnh án).
-
-#### D. Tích hợp Thẩm định Khoa học & Đồng bộ Claude.ai
-- [x] Bổ sung Mục 5 vào [`CLAUDE.md`](file:///d:/Antigravity/AI4Edu/CLAUDE.md): Tiêu chuẩn thẩm định sư phạm (5E, Bloom, Socratic, CTGDPT 2018).
-- [x] Tạo script [`scripts/export_docs_for_claude.py`](file:///d:/Antigravity/AI4Edu/scripts/export_docs_for_claude.py): Gom toàn bộ tài liệu thành 1 file ngữ cảnh duy nhất tải lên Claude.
+#### C. Xây dựng Package Python `ai4edu` & CLI
+- [x] `ai4edu/models/`: `lesson_plan_2345.py`, `primary_assessment.py`, `differentiated_task.py`, `curriculum.py`, `lesson_plan.py`, `assessment.py`.
+- [x] `ai4edu/services/`: `hoang_mai_service.py`, `lesson_planner.py`, `ai_tutor.py`, `auto_grader.py`.
+- [x] `ai4edu/cli.py`: Hỗ trợ đầy đủ lệnh dòng lệnh cho giáo viên tiểu học.
 
 ---
 
 ## 🎯 Kế hoạch Các bước Tiếp theo (Next Steps / Backlog)
 
-1. [ ] **Thêm các mã nguồn thực hành Lab chuyên biệt**:
-   - Lab chấm bài Writing tiếng Anh tự động theo rubric CEFR.
-   - Lab sinh dữ liệu trắc nghiệm có giải thích phương án gây nhiễu.
-2. [ ] **Xây dựng Giao diện Demo trực quan (Web UI / Streamlit / Next.js)** cho giáo viên trải nghiệm nhanh các tính năng AI Tutor và Soạn giáo án.
-3. [ ] **Thẩm định & Kiểm thử Thực tế**: Sử dụng Claude.ai để rà soát tính chuẩn xác của các câu prompt chuyên ngành.
-4. [ ] **Xuất bản Tài liệu Trực tuyến (CI/CD Deploy)** lên GitHub Pages / Vercel.
-
----
-
-> 💡 **Hướng dẫn cho AI ở Phiên làm việc / Máy tính tiếp theo:**
-> Hãy đọc file này cùng [`CLAUDE.md`](file:///d:/Antigravity/AI4Edu/CLAUDE.md) để nắm toàn bộ tiến độ, sau đó hỏi người dùng xem muốn tiếp tục triển khai hạng mục nào trong mục **Kế hoạch Tiếp theo**.
+1. [ ] **Xây dựng Giao diện Web App (Streamlit / Next.js)**: Cho phép giáo viên trường Hoàng Mai chọn Khối lớp từ dropdown menu và trực tiếp sử dụng AI Tutor / Soạn bài giảng 2345 trực quan.
+2. [ ] **Tích hợp RAG (Retrieval-Augmented Generation)**: Nạp tài liệu Sách giáo khoa (Kết nối tri thức, Chân trời sáng tạo, Cánh diều) vào Vector Store.
+3. [ ] **Xuất bản Tài liệu Trực tuyến (GitHub Pages / Vercel)**.

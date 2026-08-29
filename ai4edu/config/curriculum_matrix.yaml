@@ -1,0 +1,285 @@
+# Ma trận Khung Chương trình Giáo dục Phổ thông 2018 (K-12) & Hướng dẫn Sư phạm AI
+levels:
+  - id: "primary"
+    name: "Cấp Tiểu học"
+    grades: [1, 2, 3, 4, 5]
+    age_range: "6 - 11 tuổi"
+    pedagogical_focus: "Trực quan hóa, trò chơi hóa (Gamification), khích lệ tích cực, ngôn ngữ ngắn gọn dễ hiểu"
+    
+  - id: "lower_secondary"
+    name: "Cấp Trung học Cơ sở (THCS)"
+    grades: [6, 7, 8, 9]
+    age_range: "11 - 15 tuổi"
+    pedagogical_focus: "Khám phá khoa học, phát triển tư duy trừu tượng, phương pháp Socratic gợi mở, làm quen phương pháp giải quyết vấn đề"
+
+  - id: "upper_secondary"
+    name: "Cấp Trung học Phổ thông (THPT)"
+    grades: [10, 11, 12]
+    age_range: "15 - 18 tuổi"
+    pedagogical_focus: "Tư duy phản biện, học thuật chuyên sâu, định hướng nghề nghiệp, giải quyết bài toán phức hợp & phân tích đa chiều"
+
+grades:
+  - id: "grade_1"
+    grade_number: 1
+    level: "primary"
+    name: "Khối Lớp 1"
+    cognitive_stage: "Tiền thao tác đến thao tác cụ thể ban đầu"
+    tone_guideline: "Ngôn ngữ cực kỳ đơn giản, vui nhộn, nhiều hình tượng sinh động, câu từ dưới 15 từ, luôn khen ngợi nỗ lực của trẻ."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Đếm số 1-100", "Phép cộng trừ trong phạm vi 10 và 100 không nhớ", "Nhận biết hình vuông, tròn, tam giác, chữ nhật", "Xem giờ đúng"]
+      - id: "vietnamese"
+        name: "Tiếng Việt"
+        key_competencies: ["Nhận diện bảng chữ cái và dấu thanh", "Ghép âm, vần", "Tập đọc câu đơn", "Tập viết đúng nét chữ"]
+      - id: "nature_society"
+        name: "Tự nhiên và Xã hội"
+        key_competencies: ["Tìm hiểu bản thân, gia đình và trường học", "Chăm sóc sức khỏe và vệ sinh cá nhân", "Quan sát thực vật và động vật xung quanh"]
+
+  - id: "grade_2"
+    grade_number: 2
+    level: "primary"
+    name: "Khối Lớp 2"
+    cognitive_stage: "Thao tác cụ thể"
+    tone_guideline: "Ấm áp, biểu cảm, dùng các câu hỏi dẫn dắt dạng kể chuyện, khuyến khích trẻ tự diễn đạt suy nghĩ."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Phép cộng trừ có nhớ trong phạm vi 100", "Làm quen phép nhân chia (bảng 2 và 5)", "Đo lường: dm, m, kg, lít", "Đọc lịch và đồng hồ"]
+      - id: "vietnamese"
+        name: "Tiếng Việt"
+        key_competencies: ["Đọc hiểu đoạn văn ngắn", "Mở rộng vốn từ về gia đình, trường học, thiên nhiên", "Viết đoạn văn ngắn 3-5 câu kể về người thân, đồ vật"]
+      - id: "english"
+        name: "Tiếng Anh"
+        key_competencies: ["Từ vựng màu sắc, số đếm, đồ dùng học tập", "Phản xạ câu chào hỏi và mẫu câu giao tiếp cơ bản"]
+
+  - id: "grade_3"
+    grade_number: 3
+    level: "primary"
+    name: "Khối Lớp 3"
+    cognitive_stage: "Thao tác cụ thể nâng cao"
+    tone_guideline: "Khích lệ sự tự tin, gợi mở tò mò khám phá thế giới xung quanh và bước đầu làm quen công nghệ."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Bảng nhân chia 6, 7, 8, 9", "Số trong phạm vi 10.000 và 100.000", "Tính chu vi, diện tích hình chữ nhật, hình vuông", "Giải bài toán có đến hai bước tính"]
+      - id: "vietnamese"
+        name: "Tiếng Việt"
+        key_competencies: ["Luyện từ và câu: So sánh, nhân hóa", "Viết đoạn văn kể lại sự việc đã tham gia hoặc quan sát", "Đọc diễn cảm"]
+      - id: "informatics_tech"
+        name: "Tin học & Công nghệ"
+        key_competencies: ["Làm quen máy tính và chuột/bàn phím", "An toàn thông tin cá nhân cơ bản", "Luyện gõ 10 ngón"]
+
+  - id: "grade_4"
+    grade_number: 4
+    level: "primary"
+    name: "Khối Lớp 4"
+    cognitive_stage: "Bắt đầu hình thành tư duy trừu tượng sơ khai"
+    tone_guideline: "Khuyến khích học sinh giải thích nguyên nhân 'vì sao', lập dàn ý và xây dựng luận điểm đơn giản."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Số có nhiều chữ số", "Phân số và các phép tính phân số cơ bản", "Dấu hiệu chia hết cho 2, 3, 5, 9", "Hình bình hành, hình thoi", "Biểu đồ cột"]
+      - id: "vietnamese"
+        name: "Tiếng Việt"
+        key_competencies: ["Văn miêu tả cây cối, con vật", "Chủ ngữ, vị ngữ trong câu", "Tóm tắt văn bản", "Mở rộng vốn từ theo chủ đề"]
+      - id: "science"
+        name: "Khoa học"
+        key_competencies: ["Nước, không khí, ánh sáng, nhiệt độ", "Sự trao đổi chất ở người, động vật, thực vật", "Nấm và vi khuẩn"]
+      - id: "history_geography"
+        name: "Lịch sử và Địa lí"
+        key_competencies: ["Thiên nhiên và con người các vùng miền Việt Nam", "Các mốc lịch sử dựng nước và giữ nước tiêu biểu"]
+
+  - id: "grade_5"
+    grade_number: 5
+    level: "primary"
+    name: "Khối Lớp 5"
+    cognitive_stage: "Thao tác cụ thể thuần thục, chuẩn bị chuyển cấp THCS"
+    tone_guideline: "Nâng cao tính tự lập, hướng dẫn phương pháp tự học và rèn luyện kỹ năng tổng hợp thông tin."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Phân số & Hỗn số nâng cao", "Số thập phân và các phép tính số thập phân", "Tỉ số phần trăm", "Hình tam giác, hình thang, hình tròn, hình hộp chữ nhật", "Toán chuyển động đều"]
+      - id: "vietnamese"
+        name: "Tiếng Việt"
+        key_competencies: ["Văn tả cảnh, tả người", "Từ đồng nghĩa, trái nghĩa, từ nhiều nghĩa", "Liên kết câu trong đoạn văn", "Kỹ năng thuyết trình trước lớp"]
+      - id: "science"
+        name: "Khoa học"
+        key_competencies: ["Sự biến đổi của chất", "Năng lượng điện, mặt trời, gió", "Sinh sản và phát triển của sinh vật", "Môi trường và tài nguyên thiên nhiên"]
+
+  - id: "grade_6"
+    grade_number: 6
+    level: "lower_secondary"
+    name: "Khối Lớp 6"
+    cognitive_stage: "Bắt đầu tư duy trừu tượng & suy luận logic"
+    tone_guideline: "Gợi mở theo phương pháp Socratic, kích thích tư duy phản biện, kết nối kiến thức liên môn."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Tập hợp số tự nhiên, Số nguyên âm/dương", "Tính chia hết và số nguyên tố", "Phân số và số thập phân", "Hình học trực quan: Tam giác đều, lục giác đều, hình có trục đối xứng", "Thu thập và biểu diễn dữ liệu"]
+      - id: "literature"
+        name: "Ngữ văn"
+        key_competencies: ["Đọc hiểu truyền thuyết, cổ tích, truyện ngắn", "Viết bài văn tự sự kể lại trải nghiệm", "Viết bài văn miêu tả cảnh sinh hoạt", "Biện pháp tu từ ẩn dụ, hoán dụ"]
+      - id: "natural_sciences"
+        name: "Khoa học Tự nhiên"
+        key_competencies: ["Các phép đo cơ bản", "Các thể của chất và sự chuyển thể", "Tế bào - đơn vị cơ sở của sự sống", "Đa dạng thế giới sống", "Lực và chuyển động", "Năng lượng và sự truyền năng lượng"]
+      - id: "history_geography"
+        name: "Lịch sử và Địa lí"
+        key_competencies: ["Thời nguyên thủy đến các nền văn minh cổ đại", "Bản đồ, Trái Đất và các hiện tượng địa lí tự nhiên"]
+
+  - id: "grade_7"
+    grade_number: 7
+    level: "lower_secondary"
+    name: "Khối Lớp 7"
+    cognitive_stage: "Tư duy logic hình thức, chứng minh hình học"
+    tone_guideline: "Tập trung vào tính chặt chẽ trong suy luận toán học và khả năng phân tích ngữ liệu văn học."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Số hữu tỉ, Số thực", "Biểu thức đại số và Đa thức một biến", "Góc và đường thẳng song song", "Tam giác bằng nhau, Định lý Pythagoras", "Biến cố và xác suất đơn giản"]
+      - id: "literature"
+        name: "Ngữ văn"
+        key_competencies: ["Đọc hiểu thơ 4 chữ, 5 chữ, truyện ngụ ngôn", "Nghị luận xã hội và nghị luận văn học sơ giản", "Viết bài văn biểu cảm về con người, sự việc"]
+      - id: "natural_sciences"
+        name: "Khoa học Tự nhiên"
+        key_competencies: ["Nguyên tử, Bảng tuần hoàn các nguyên tố hóa học", "Liên kết hóa học, Phân tử", "Tốc độ chuyển động, Âm thanh", "Ánh sáng và sự phản xạ", "Trao đổi chất và chuyển hóa năng lượng ở sinh vật"]
+
+  - id: "grade_8"
+    grade_number: 8
+    level: "lower_secondary"
+    name: "Khối Lớp 8"
+    cognitive_stage: "Tư duy phản biện và nghiên cứu khoa học thực nghiệm"
+    tone_guideline: "Thử thách học sinh với các bài toán nhiều bước, hướng dẫn lập luận phản biện khoa học sắc bén."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Hằng đẳng thức đáng nhớ", "Phân thức đại số", "Hàm số bậc nhất $y=ax+b$", "Tứ giác, Định lý Thalès", "Tam giác đồng dạng", "Xác suất thực nghiệm"]
+      - id: "literature"
+        name: "Ngữ văn"
+        key_competencies: ["Văn bản thông tin, truyện lịch sử, hài kịch", "Viết bài văn nghị luận về một vấn đề đời sống", "Viết văn bản thuyết minh giải thích một hiện tượng tự nhiên"]
+      - id: "natural_sciences"
+        name: "Khoa học Tự nhiên"
+        key_competencies: ["Phản ứng hóa học, Mol, Nồng độ dung dịch", "Acid - Base - Oxide - Muối", "Khối lượng riêng, Áp suất chất lỏng/khí", "Cơ thể người và sức khỏe sinh học"]
+
+  - id: "grade_9"
+    grade_number: 9
+    level: "lower_secondary"
+    name: "Khối Lớp 9"
+    cognitive_stage: "Tư duy trừu tượng toàn diện, chuẩn bị thi chuyển cấp vào 10"
+    tone_guideline: "Chuẩn xác về mặt học thuật, chiến lược giải đề thi, tối ưu hóa thời gian và kỹ năng trình bày bài bản."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Căn bậc hai, Căn bậc ba", "Hệ hai phương trình bậc nhất hai ẩn", "Phương trình bậc hai $ax^2+bx+c=0$, Định lý Viète", "Hệ thức lượng trong tam giác vuông", "Đường tròn, Góc với đường tròn", "Hình trụ, hình nón, hình cầu"]
+      - id: "literature"
+        name: "Ngữ văn"
+        key_competencies: ["Văn học trung đại và hiện đại", "Nghị luận xã hội về tư tưởng đạo lí / hiện tượng đời sống", "Nghị luận văn học phân tích đoạn thơ, nhân vật truyện"]
+      - id: "natural_sciences"
+        name: "Khoa học Tự nhiên"
+        key_competencies: ["Kim loại, Phi kim, Hợp chất hữu cơ (Hydrocarbon, Alcohol, Acetic acid)", "Điện học, Cảm ứng điện từ, Quang học (Thấu kính)", "Di truyền học Mendel, DNA, Đột biến sinh học"]
+
+  - id: "grade_10"
+    grade_number: 10
+    level: "upper_secondary"
+    name: "Khối Lớp 10"
+    cognitive_stage: "Bắt đầu phân hóa chuyên sâu & tư duy mô hình hóa"
+    tone_guideline: "Mang phong cách học thuật, liên hệ kiến thức với ứng dụng công nghệ và thực tiễn ngành nghề."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Mệnh đề, Tập hợp", "Bất phương trình bậc hai một ẩn", "Hàm số bậc hai", "Vectơ và các phép toán vectơ", "Phương pháp tọa độ trong mặt phẳng (Đường thẳng, Đường tròn, Elip)", "Đại số tổ hợp (Quy tắc đếm, Hoán vị, Chỉnh hợp, Tổ hợp)"]
+      - id: "literature"
+        name: "Ngữ văn"
+        key_competencies: ["Thần thoại, Sử thi, Chèo/Tuồng dân gian", "Nghị luận về một tư tưởng triết lý/đạo đức", "Văn bản nghị luận xã hội nâng cao"]
+      - id: "history"
+        name: "Lịch sử"
+        key_competencies: ["Hiện thực lịch sử và nhận thức lịch sử", "Các nền văn minh thế giới thời cổ - trung đại", "Văn minh Đông Nam Á và Văn minh Đại Việt"]
+      - id: "geography"
+        name: "Địa lí"
+        key_competencies: ["Sử dụng bản đồ và hệ thống GIS", "Các quyển của Trái Đất (Thạch quyển, Khí quyển, Thủy quyển, Sinh quyển)", "Địa lí dân cư và kinh tế thế giới"]
+      - id: "economic_legal_education"
+        name: "Giáo dục Kinh tế và Pháp luật"
+        key_competencies: ["Nền kinh tế và các chủ thể kinh tế", "Thị trường và cơ chế thị trường", "Hệ thống chính trị và pháp luật nước CHXHCN Việt Nam"]
+      - id: "physics"
+        name: "Vật lí"
+        key_competencies: ["Động học chuyển động thẳng/biến đổi", "Động lực học (3 Định luật Newton, Lực ma sát, Lực hấp dẫn)", "Năng lượng, Công, Công suất, Định luật bảo toàn cơ năng"]
+      - id: "chemistry"
+        name: "Hóa học"
+        key_competencies: ["Cấu tạo nguyên tử, Bảng tuần hoàn", "Liên kết hóa học (Cộng hóa trị, Ion, Hydrogen)", "Phản ứng Oxi hóa - Khử", "Năng lượng hóa học (Enthalpy)"]
+      - id: "biology"
+        name: "Sinh học"
+        key_competencies: ["Thành phần hóa học của tế bào", "Cấu trúc tế bào nhân sơ và nhân thực", "Trao đổi chất và chuyển hóa năng lượng tế bào", "Chu kỳ tế bào và phân bào"]
+      - id: "informatics"
+        name: "Tin học"
+        key_competencies: ["Lập trình Python căn bản (Biến, Kiểu dữ liệu, Cấu trúc rẽ nhánh, Lặp, Hàm)", "An toàn thông tin và Đạo đức kỹ thuật số"]
+
+  - id: "grade_11"
+    grade_number: 11
+    level: "upper_secondary"
+    name: "Khối Lớp 11"
+    cognitive_stage: "Tư duy toán học và khoa học trừu tượng cao cấp"
+    tone_guideline: "Chuyên sâu, khuyến khích học sinh tự nghiên cứu, giải quyết các bài toán liên môn và thực nghiệm số liệu."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Hàm số lượng giác và Phương trình lượng giác", "Dãy số, Cấp số cộng, Cấp số nhân", "Giới hạn (Limit) và Hàm số liên tục", "Đạo hàm (Derivative) và Quy tắc tính đạo hàm", "Hình học không gian (Quan hệ song song và vuông góc)"]
+      - id: "literature"
+        name: "Ngữ văn"
+        key_competencies: ["Truyện ngắn hiện thực phê phán, Thơ Mới", "Tùy bút, Tản văn", "Nghị luận so sánh, đánh giá hai tác phẩm văn học"]
+      - id: "history"
+        name: "Lịch sử"
+        key_competencies: ["Cách mạng tư sản và sự xác lập CNTB", "Chủ nghĩa xã hội từ 1917 đến nay", "Quá trình xâm lược của chủ nghĩa thực dân ở Đông Nam Á", "Chiến tranh bảo vệ Tổ quốc trong lịch sử Việt Nam"]
+      - id: "geography"
+        name: "Địa lí"
+        key_competencies: ["Địa lí khu vực và quốc gia: Hoa Kỳ, EU, Nhật Bản, Trung Quốc, ASEAN"]
+      - id: "economic_legal_education"
+        name: "Giáo dục Kinh tế và Pháp luật"
+        key_competencies: ["Cạnh tranh, Cung cầu, Lạm phát, Thất nghiệp", "Quyền bình đẳng của công dân trước pháp luật", "Quyền dân chủ và quyền con người"]
+      - id: "physics"
+        name: "Vật lí"
+        key_competencies: ["Dao động điều hòa, Con lắc đơn/lò xo", "Sóng cơ và Sóng âm, Giao thoa sóng", "Điện trường, Điện thế, Tụ điện", "Dòng điện không đổi"]
+      - id: "chemistry"
+        name: "Hóa học"
+        key_competencies: ["Cân bằng hóa học", "Dung dịch điện li, pH", "Hóa hữu cơ đại cương: Hydrocarbon no/không no/thơm, Dẫn xuất Halogen, Alcohol, Phenol"]
+      - id: "biology"
+        name: "Sinh học"
+        key_competencies: ["Sinh lí thực vật (Quang hợp, Hô hấp)", "Sinh lí động vật (Tiêu hóa, Tuần hoàn, Hô hấp, Bài tiết)", "Cảm ứng và sinh trưởng ở sinh vật"]
+      - id: "informatics"
+        name: "Tin học"
+        key_competencies: ["Hệ quản trị cơ sở dữ liệu (SQL, Thiết kế CSDL)", "Cấu trúc dữ liệu và giải thuật (Tìm kiếm, Sắp xếp)"]
+
+  - id: "grade_12"
+    grade_number: 12
+    level: "upper_secondary"
+    name: "Khối Lớp 12"
+    cognitive_stage: "Tư duy phân tích tổng hợp & luyện thi Tốt nghiệp THPT / ĐGNL"
+    tone_guideline: "Học thuật chuẩn mực cao, tư duy hệ thống, phân hóa câu hỏi theo 4 mức độ Bloom (Nhận biết - Thông hiểu - Vận dụng - Vận dụng cao)."
+    subjects:
+      - id: "math"
+        name: "Toán học"
+        key_competencies: ["Ứng dụng Đạo hàm để khảo sát và vẽ đồ thị hàm số", "Nguyên hàm, Tích phân và Ứng dụng hình học/vật lí", "Hình học không gian Oxyz (Tọa độ điểm, Vectơ, Mặt phẳng, Đường thẳng, Mặt cầu)", "Xác suất có điều kiện và Công thức xác suất toàn phần"]
+      - id: "literature"
+        name: "Ngữ văn"
+        key_competencies: ["Văn học cách mạng, Văn học thời kỳ Đổi mới", "Kỹ năng làm bài Đọc hiểu văn bản hiện đại", "Nghị luận xã hội tích hợp thời sự", "Nghị luận văn học chuyên sâu"]
+      - id: "history"
+        name: "Lịch sử"
+        key_competencies: ["Thế giới từ năm 1945 đến nay (Trật tự thế giới hai cực Ianta, Xu thế toàn cầu hóa, ASEAN)", "Lịch sử Việt Nam từ 1919 đến nay", "Công cuộc Đổi mới từ 1986 đến nay"]
+      - id: "geography"
+        name: "Địa lí"
+        key_competencies: ["Địa lí tự nhiên, dân cư và kinh tế Việt Nam", "Chuyển dịch cơ cấu kinh tế theo ngành và lãnh thổ", "Phát triển kinh tế biển và bảo vệ chủ quyền biển đảo"]
+      - id: "economic_legal_education"
+        name: "Giáo dục Kinh tế và Pháp luật"
+        key_competencies: ["Tăng trưởng và phát triển kinh tế", "Hội nhập kinh tế quốc tế", "Pháp luật về bảo vệ môi trường, hôn nhân gia đình và kinh doanh"]
+      - id: "physics"
+        name: "Vật lí"
+        key_competencies: ["Vật lí nhiệt (Nhiệt độ, Nhiệt dung riêng, Khí lý tưởng)", "Từ trường và Cảm ứng điện từ", "Vật lí hạt nhân (Phóng xạ, Phản ứng phân hạch/nhiệt hạch)", "Lượng tử ánh sáng"]
+      - id: "chemistry"
+        name: "Hóa học"
+        key_competencies: ["Ester - Lipid, Xà phòng", "Carbohydrate (Glucose, Sacccharose, Tinh bột, Cellulose)", "Amine, Amino acid, Peptide, Protein", "Polymer & Vật liệu polymer", "Hóa học phức chất & Điện hóa học"]
+      - id: "biology"
+        name: "Sinh học"
+        key_competencies: ["Di truyền phân tử & Di truyền nhiễm sắc thể", "Di truyền quần thể & Ứng dụng công nghệ gene", "Tiến hóa sinh học", "Sinh thái học và Môi trường"]
+      - id: "informatics"
+        name: "Tin học"
+        key_competencies: ["Trí tuệ nhân tạo (AI) và Học máy cơ bản", "Khoa học dữ liệu (Data Science) và Lập trình Web"]
+

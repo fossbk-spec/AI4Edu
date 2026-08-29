@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress';
 
 export default defineConfig({
   title: 'AI4Edu Hub',
-  description: 'Bộ tài liệu & mã nguồn hướng dẫn ứng dụng Trí tuệ nhân tạo (AI) trong Giáo dục',
+  description: 'Bộ tài liệu & mã nguồn hướng dẫn ứng dụng Trí tuệ nhân tạo (AI) trong Giáo dục K-12 & Tiểu học Hoàng Mai',
   lang: 'vi-VN',
   cleanUrls: true,
   themeConfig: {
@@ -11,9 +11,9 @@ export default defineConfig({
     nav: [
       { text: 'Trang chủ', link: '/' },
       { text: 'Tổng quan', link: '/overview/' },
+      { text: '🏫 Tiểu học Hoàng Mai', link: '/hoang-mai-primary/' },
+      { text: 'Khung K-12 (Lớp 1-12)', link: '/curriculum/' },
       { text: 'Ứng dụng Chung', link: '/applications/ai-tutor' },
-      { text: 'Theo Cấp học', link: '/education-levels/' },
-      { text: 'Theo Môn & Ngành', link: '/subjects-k12/' },
       { text: 'Prompting', link: '/prompt-engineering/basic-prompts' },
       { text: 'Thực hành Code', link: '/hands-on/setup-gemini-api' }
     ],
@@ -29,8 +29,61 @@ export default defineConfig({
         ]
       },
       {
-        text: '🚀 2. Kịch bản & Ứng dụng Thực tế',
+        text: '🏫 2. Chuyên Trang Tiểu Học Hoàng Mai',
         collapsed: false,
+        items: [
+          { text: '🌟 Cẩm Nang Tổng Quan Hoàng Mai', link: '/hoang-mai-primary/' },
+          { text: '📝 Soạn KHBD 5 Cột (Công văn 2345)', link: '/hoang-mai-primary/lesson-planning-2345' },
+          { text: '🎯 Phân Hóa Nhiệm Vụ 4 Cấp Độ', link: '/hoang-mai-primary/differentiation-advanced' },
+          { text: '📊 Đánh Giá & Nhận Xét (Thông tư 27)', link: '/hoang-mai-primary/assessment-tt27' },
+          { text: '🛠️ Quy Trình Công Cụ Số (Toolchain)', link: '/hoang-mai-primary/digital-toolchain' },
+          { text: '🚀 STEM/STEAM & Năng Lực Số Trẻ Em', link: '/hoang-mai-primary/stem-ai-literacy' },
+          { text: '💡 Prompt Chaining & Trợ Lý Khối 1-5', link: '/hoang-mai-primary/prompt-engineering' }
+        ]
+      },
+      {
+        text: '📚 3. Khung K-12 theo Khối Lớp (CTGDPT 2018)',
+        collapsed: true,
+        items: [
+          { text: '📊 Ma trận Phân cấp K-12 (Tổng quan)', link: '/curriculum/' },
+          {
+            text: '🎒 Cấp Tiểu học (Lớp 1 - 5)',
+            collapsed: false,
+            items: [
+              { text: 'Tổng quan Cấp Tiểu học', link: '/curriculum/primary/' },
+              { text: '🧸 Khối Lớp 1 (Trực quan & Chữ số)', link: '/curriculum/primary/grade-1' },
+              { text: '🎒 Khối Lớp 2 (Kể chuyện & Tính toán 100)', link: '/curriculum/primary/grade-2' },
+              { text: '📘 Khối Lớp 3 (Bảng cửu chương & Tin học)', link: '/curriculum/primary/grade-3' },
+              { text: '🔬 Khối Lớp 4 (Khám phá Khoa học & Phân số)', link: '/curriculum/primary/grade-4' },
+              { text: '🎓 Khối Lớp 5 (Số thập phân & Chuyển cấp)', link: '/curriculum/primary/grade-5' }
+            ]
+          },
+          {
+            text: '📘 Cấp THCS (Lớp 6 - 9)',
+            collapsed: true,
+            items: [
+              { text: 'Tổng quan Cấp THCS', link: '/curriculum/lower-secondary/' },
+              { text: '🌱 Khối Lớp 6 (KHTN Tích hợp & Số nguyên)', link: '/curriculum/lower-secondary/grade-6' },
+              { text: '📐 Khối Lớp 7 (Đại số & Bảng tuần hoàn)', link: '/curriculum/lower-secondary/grade-7' },
+              { text: '🔬 Khối Lớp 8 (Hóa đại cương & Nghị luận)', link: '/curriculum/lower-secondary/grade-8' },
+              { text: '🎓 Khối Lớp 9 (Căn thức & Luyện thi vào 10)', link: '/curriculum/lower-secondary/grade-9' }
+            ]
+          },
+          {
+            text: '🎓 Cấp THPT (Lớp 10 - 12)',
+            collapsed: true,
+            items: [
+              { text: 'Tổng quan Cấp THPT', link: '/curriculum/upper-secondary/' },
+              { text: '🔭 Khối Lớp 10 (Phân ban & Định luật Newton)', link: '/curriculum/upper-secondary/grade-10' },
+              { text: '🔬 Khối Lớp 11 (Lượng giác, Đạo hàm & Hóa hữu cơ)', link: '/curriculum/upper-secondary/grade-11' },
+              { text: '🎯 Khối Lớp 12 (Tích phân, Oxyz & Thi TN THPT/ĐGNL)', link: '/curriculum/upper-secondary/grade-12' }
+            ]
+          }
+        ]
+      },
+      {
+        text: '🚀 4. Kịch bản & Ứng dụng Thực tế',
+        collapsed: true,
         items: [
           { text: 'Trợ giảng AI Thông minh (AI Tutor)', link: '/applications/ai-tutor' },
           { text: 'Soạn Giáo án & Đề thi Tự động', link: '/applications/lesson-planning' },
@@ -39,42 +92,24 @@ export default defineConfig({
         ]
       },
       {
-        text: '🏫 3. Phân loại theo Cấp học (K-16)',
-        collapsed: false,
+        text: '🏛️ 5. Cụm Môn học & Khối Ngành',
+        collapsed: true,
         items: [
-          { text: 'Ma trận Phân cấp AI (Tổng quan)', link: '/education-levels/' },
-          { text: '🧸 Giáo dục Mầm non', link: '/education-levels/preschool' },
-          { text: '🎒 Cấp Tiểu học', link: '/education-levels/primary' },
-          { text: '📘 Cấp Trung học Cơ sở (THCS)', link: '/education-levels/secondary' },
-          { text: '🎓 Cấp Trung học Phổ thông (THPT)', link: '/education-levels/high-school' },
-          { text: '🏛️ Đại học & Sau Đại học', link: '/education-levels/higher-education' }
-        ]
-      },
-      {
-        text: '📚 4. Cụm Môn học Phổ thông (K-12)',
-        collapsed: false,
-        items: [
-          { text: 'Tổng quan Cụm Môn học', link: '/subjects-k12/' },
+          { text: 'Tổng quan Cụm Môn học K-12', link: '/subjects-k12/' },
           { text: '📐 Toán & Tin học', link: '/subjects-k12/math-computing' },
-          { text: '🔬 Khoa học Tự nhiên (Lý - Hóa - Sinh)', link: '/subjects-k12/natural-sciences' },
-          { text: '📜 Xã hội & Nhân văn (Văn - Sử - Địa - GDCD)', link: '/subjects-k12/social-humanities' },
-          { text: '🌍 Ngoại ngữ & Kỹ năng Giao tiếp', link: '/subjects-k12/languages' }
-        ]
-      },
-      {
-        text: '🎓 5. Khối Ngành Đại học & NCKH',
-        collapsed: false,
-        items: [
-          { text: 'Tổng quan Khối Ngành Đại học', link: '/higher-ed-disciplines/' },
+          { text: '🔬 Khoa học Tự nhiên', link: '/subjects-k12/natural-sciences' },
+          { text: '📜 Xã hội & Nhân văn', link: '/subjects-k12/social-humanities' },
+          { text: '🌍 Ngoại ngữ & Kỹ năng Giao tiếp', link: '/subjects-k12/languages' },
+          { text: '🏛️ Khối Ngành Đại học (Tổng quan)', link: '/higher-ed-disciplines/' },
           { text: '⚙️ Kỹ thuật & Công nghệ', link: '/higher-ed-disciplines/engineering-tech' },
-          { text: '📊 Kinh tế, Kinh doanh & Quản lý', link: '/higher-ed-disciplines/business-economics' },
+          { text: '📊 Kinh tế & Quản lý', link: '/higher-ed-disciplines/business-economics' },
           { text: '⚖️ Luật & Khoa học Xã hội', link: '/higher-ed-disciplines/law-social-sciences' },
-          { text: '🩺 Y - Dược & Khoa học Sức khỏe', link: '/higher-ed-disciplines/medical-health' }
+          { text: '🩺 Y - Dược & Sức khỏe', link: '/higher-ed-disciplines/medical-health' }
         ]
       },
       {
-        text: '💡 6. Prompt Engineering cho Giáo viên',
-        collapsed: false,
+        text: '💡 6. Prompt Engineering cho Giáo dục',
+        collapsed: true,
         items: [
           { text: 'Kỹ thuật Prompt Cơ bản', link: '/prompt-engineering/basic-prompts' },
           { text: 'Bộ Thư viện Prompt Giáo dục', link: '/prompt-engineering/advanced-templates' }
@@ -94,7 +129,7 @@ export default defineConfig({
       provider: 'local'
     },
     footer: {
-      message: 'Xây dựng với ❤️ cho Cộng đồng Giáo dục Việt Nam',
+      message: 'Xây dựng với ❤️ cho Cộng đồng Giáo dục Việt Nam & Trường Tiểu học Hoàng Mai',
       copyright: 'Copyright © 2026 AI4Edu Hub'
     }
   }
