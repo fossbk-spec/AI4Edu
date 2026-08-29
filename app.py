@@ -1,6 +1,8 @@
 import os
 import sys
+import json
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 from dotenv import load_dotenv
 
@@ -25,7 +27,7 @@ from ai4edu.services.hoang_mai_service import (
 from ai4edu.services.ai_tutor import tutor_chat
 from ai4edu.services.docx_exporter import create_lesson_plan_docx
 from ai4edu.services.quizizz_exporter import generate_quizizz_questions, export_quiz_to_excel
-from ai4edu.services.gdocs_exporter import export_lesson_plan_to_markdown_for_gdocs
+from ai4edu.services.gdocs_exporter import export_lesson_plan_to_rich_html
 
 # Cấu hình trang Streamlit
 st.set_page_config(
@@ -329,22 +331,109 @@ with tab1:
         
         # Thanh công cụ Xuất File (Word & Google Docs Online)
         st.markdown("#### 📤 Xuất & Đồng Bộ Học Liệu:")
-        col_d1, col_d2, col_d3 = st.columns([2, 2, 3])
+        col_d1, col_d2 = st.columns([1, 1])
         with col_d1:
             docx_data = create_lesson_plan_docx(plan)
             st.download_button(
                 label="📥 Tải File Word (.docx)",
                 data=docx_data,
                 file_name=f"KHBD_{plan.subject}_Lop{selected_grade_num}_{lesson_topic}.docx",
-                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                help="Tải file Word có sẵn bảng biểu và màu sắc để mở trên Word hoặc kéo thả vào Google Drive"
             )
         with col_d2:
-            st.link_button("🌐 Mở Google Docs Mới (docs.new)", url="https://docs.new", help="Mở một tài liệu Google Docs mới trên trình duyệt để dán giáo án")
+            st.link_button("🌐 Mở Google Docs Mới (docs.new)", url="https://docs.new", help="Mở một tài liệu Google Docs mới trên trình duyệt")
             
-        with st.expander("📋 Xem & Sao Chép Nội Dung Cho Google Docs Online (1-Click)", expanded=False):
-            gdocs_md = export_lesson_plan_to_markdown_for_gdocs(plan)
-            st.caption("💡 **Mẹo:** Bấm nút Copy góc trên bên phải khung dưới đây, sau đó mở [Google Docs](https://docs.new) và nhấn `Ctrl + V` là có ngay giáo án chuẩn bảng 5 cột!")
-            st.code(gdocs_md, language="markdown")
+        with st.expander("📋 Sao Chép Bảng 5 Cột Cho Google Docs (Không Lỗi Format)", expanded=True):
+            st.markdown("""
+            <div style="background-color: #f0fdf4; border: 1px solid #86efac; border-left: 5px solid #16a34a; padding: 12px 16px; border-radius: 6px; margin-bottom: 12px; color: #166534;">
+                <strong>💡 Hướng dẫn dán vào Google Docs giữ 100% định dạng bảng:</strong><br>
+                1. Bấm nút màu xanh <b>"📋 SAO CHÉP ĐỊNH DẠNG GOOGLE DOCS"</b> bên dưới.<br>
+                2. Bấm nút <b>"🌐 Mở Google Docs Mới (docs.new)"</b> ở trên.<br>
+                3. Nhấn <b>Ctrl + V</b> (hoặc Chuột phải &rarr; Dán) vào Google Docs &rarr; <i>Giáo án sẽ tự động chuyển thành bảng 5 cột có màu sắc, kẻ ô chuẩn đẹp!</i>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            rich_html_content = export_lesson_plan_to_rich_html(plan)
+            json_rich_html = json.dumps(rich_html_content)
+            
+            # Interactive Rich Clipboard Copy Component
+            copy_widget_code = f"""
+            <div style="font-family: Arial, sans-serif;">
+                <button id="btn-copy-gdocs" onclick="copyRichText()" style="
+                    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+                    color: #ffffff;
+                    border: none;
+                    padding: 12px 22px;
+                    font-size: 14.5px;
+                    font-weight: bold;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.25);
+                    transition: all 0.2s;
+                ">
+                    📋 BẤM VÀO ĐÂY ĐỂ SAO CHÉP ĐỊNH DẠNG GOOGLE DOCS
+                </button>
+                <div id="copy-status" style="display:none; margin-top: 10px; padding: 10px 14px; background-color: #dcfce7; border: 1.5px solid #4ade80; border-radius: 6px; color: #14532d; font-weight: bold; font-size: 14px;">
+                    ✅ ĐÃ SAO CHÉP BẢNG 5 CỘT THÀNH CÔNG! Hãy mở Google Docs và bấm Ctrl + V.
+                </div>
+            </div>
+
+            <script>
+            function copyRichText() {{
+                const htmlData = {json_rich_html};
+                const plainText = htmlData.replace(/<style[^>]*>.*?<\\/style>/gs, '').replace(/<[^>]+>/g, ' ').replace(/\\s+/g, ' ').trim();
+                
+                if (navigator.clipboard && window.ClipboardItem) {{
+                    const blobHtml = new Blob([htmlData], {{ type: 'text/html' }});
+                    const blobText = new Blob([plainText], {{ type: 'text/plain' }});
+                    const data = [new ClipboardItem({{ 'text/html': blobHtml, 'text/plain': blobText }})];
+                    navigator.clipboard.write(data).then(() => {{
+                        showSuccess();
+                    }}).catch(err => {{
+                        fallbackCopy(htmlData);
+                    }});
+                }} else {{
+                    fallbackCopy(htmlData);
+                }}
+            }}
+
+            function fallbackCopy(html) {{
+                const div = document.createElement('div');
+                div.innerHTML = html;
+                div.style.position = 'fixed';
+                div.style.left = '-9999px';
+                document.body.appendChild(div);
+                const range = document.createRange();
+                range.selectNodeContents(div);
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+                document.execCommand('copy');
+                document.body.removeChild(div);
+                showSuccess();
+            }}
+
+            function showSuccess() {{
+                const status = document.getElementById('copy-status');
+                status.style.display = 'block';
+                const btn = document.getElementById('btn-copy-gdocs');
+                btn.style.background = '#0f766e';
+                btn.innerHTML = '✅ ĐÃ SAO CHÉP XONG!';
+            }}
+            </script>
+            """
+            components.html(copy_widget_code, height=95)
+            
+            st.markdown("##### 👁️ Xem trước bảng biểu định dạng Google Docs:")
+            st.markdown(f"""
+            <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; border: 1px solid #cbd5e1; max-height: 400px; overflow-y: auto; color: #000000;">
+                {rich_html_content}
+            </div>
+            """, unsafe_allow_html=True)
 
         st.markdown(f"### 📋 Kế Hoạch Bài Dạy: {plan.lesson_title.upper()}")
         st.write(f"**Trường:** {plan.school_name} | **Khối lớp:** {plan.grade} | **Môn:** {plan.subject}")
