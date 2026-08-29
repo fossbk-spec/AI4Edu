@@ -1,9 +1,21 @@
 from typing import Optional, List, Dict, Any
 from ai4edu.core.prompt_engine import PromptEngine
 from ai4edu.core.llm_provider import UnifiedLLMClient
+from ai4edu.data.math_curriculum import MATH_GRADE_3_LESSONS, MATH_GRADE_5_LESSONS
 from ai4edu.models.lesson_plan_2345 import LessonPlan2345
 from ai4edu.models.differentiated_task import DifferentiatedTaskSet
 from ai4edu.models.primary_assessment import PrimaryAssessmentTT27
+
+def _find_curriculum_lesson(grade: int, subject: str, topic: str) -> Optional[Dict[str, Any]]:
+    """Tìm thông tin bài học trong dữ liệu chuẩn SGK để cấp bối cảnh chính xác cho AI."""
+    if subject in ["math", "Toán", "Toán học"]:
+        lessons = MATH_GRADE_3_LESSONS if grade == 3 else (MATH_GRADE_5_LESSONS if grade == 5 else [])
+        topic_clean = topic.strip().lower()
+        for l in lessons:
+            title_clean = l["title"].strip().lower()
+            if topic_clean in title_clean or title_clean in topic_clean or l["id"].lower() in topic_clean:
+                return l
+    return None
 
 def generate_lesson_plan_2345(
     grade: int,
@@ -14,7 +26,7 @@ def generate_lesson_plan_2345(
 ) -> LessonPlan2345:
     """
     Sinh Kế hoạch Bài dạy (KHBD) 5 cột chuẩn Công văn 2345/BGDĐT-GDTH cho Trường Tiểu học Hoàng Mai.
-    Bao gồm 4 hoạt động (Khởi động, Khám phá, Luyện tập, Vận dụng) với 4 bước tổ chức thực hiện và nhiệm vụ mở rộng.
+    Căn cứ chặt chẽ 100% vào Sách Giáo Khoa (Kết nối tri thức với cuộc sống).
     """
     engine = PromptEngine()
     grade_info = engine.get_grade(grade)
@@ -24,9 +36,28 @@ def generate_lesson_plan_2345(
     subject_info = engine.get_subject(grade_info, subject)
     subject_name = subject_info.name if subject_info else subject
 
+    # Tìm thông tin SGK chính xác
+    matched_lesson = _find_curriculum_lesson(grade, subject, topic)
+    lesson_grounding = ""
+    target_topic_title = topic
+    if matched_lesson:
+        target_topic_title = matched_lesson["title"]
+        page_info = f" (Trang {matched_lesson.get('page')})" if 'page' in matched_lesson else ""
+        lesson_grounding = f"""
+CĂN CỨ BẮT BUỘC TỪ SÁCH GIÁO KHOA CHUẨN (KẾT NỐI TRI THỨC VỚI CUỘC SỐNG - NXB GIÁO DỤC VIỆT NAM):
+- Khối lớp: Lớp {matched_lesson['grade']}
+- Vị trí bài học: {matched_lesson['topic_group']}, Tập {matched_lesson['volume']}{page_info}
+- TÊN BÀI HỌC CHÍNH XÁC: "{matched_lesson['title']}"
+
+NGUYÊN TẮC CỐT LÕI (TUYỆT ĐỐI TUÂN THỦ):
+1. Trường 'lesson_title' trong JSON kết quả BẮT BUỘC PHẢI LÀ: "{matched_lesson['title']}".
+2. Nội dung các Hoạt động 1 (Khởi động), Hoạt động 2 (Khám phá), Hoạt động 3 (Luyện tập), Hoạt động 4 (Vận dụng) PHẢI CĂN CỨ VÀO ĐÚNG ĐƠN VỊ KIẾN THỨC CỦA BÀI HỌC NÀY. 
+   TUYỆT ĐỐI KHÔNG BỊA ĐẶT NỘI DUNG HOẶC NHẦM SANG BÀI HỌC KHÁC!
+"""
+
     advanced_prompt = (
         "- ĐẶC BIỆT DÀNH CHO MÔ HÌNH TRƯỜNG CHẤT LƯỢNG CAO HOÀNG MAI: Thiết kế các câu hỏi mở, nhiệm vụ mở rộng/thử thách sáng tạo "
-        "dành cho học sinh khá giỏi, tránh lặp lại nguyên bản nội dung SGK, tích hợp gợi ý học liệu số (Canva, Wordwall, Audio AI).\n"
+        "dành cho học sinh khá giỏi, tích hợp gợi ý học liệu số (Canva, Wordwall, Audio AI), giàn giáo tư duy phân hóa.\n"
         if advanced_focus else ""
     )
 
@@ -36,20 +67,26 @@ Hãy xây dựng Kế hoạch bài dạy chuẩn theo đúng hướng dẫn củ
 - Trường: Trường Tiểu học Hoàng Mai
 - Khối lớp: {grade_info.name} (Đặc điểm tâm lý: {grade_info.cognitive_stage})
 - Môn học: {subject_name}
-- Tên bài học / Chủ đề: {topic}
+- Tên bài học / Chủ đề: {target_topic_title}
 - Ngữ khí & Phương pháp: {grade_info.tone_guideline}
+
+{lesson_grounding}
 {advanced_prompt}
 
 Yêu cầu cấu trúc Kế hoạch bài dạy 5 cột:
-1. Yêu cầu cần đạt (YCKĐN) về Phẩm chất và Năng lực.
-2. Đồ dùng dạy học và thiết bị số.
-3. 4 Hoạt động học (Khởi động, Khám phá, Luyện tập, Vận dụng). Mỗi hoạt động phải có:
+1. 'school_name': "Trường Tiểu học Hoàng Mai"
+2. 'grade': "Khối Lớp {grade}"
+3. 'subject': "{subject_name}"
+4. 'lesson_title': "{target_topic_title}"
+5. Yêu cầu cần đạt (YCKĐN) về Phẩm chất và Năng lực bám sát nội dung bài học.
+6. Đồ dùng dạy học và thiết bị số.
+7. 4 Hoạt động học (Khởi động, Khám phá, Luyện tập, Vận dụng). Mỗi hoạt động phải có:
    - Mục tiêu
    - Nội dung
    - Sản phẩm
    - Tổ chức thực hiện (Gồm đủ 4 bước: 1. Chuyển giao nhiệm vụ -> 2. Thực hiện nhiệm vụ -> 3. Báo cáo, thảo luận -> 4. Kết luận, nhận định)
    - Nhiệm vụ mở rộng cho học sinh khá giỏi.
-4. Ghi chú phân hóa đối tượng.
+8. Ghi chú phân hóa đối tượng.
 
 Xuất kết quả định dạng JSON theo đúng schema LessonPlan2345.
 """
@@ -75,16 +112,19 @@ def generate_differentiated_taskset(
     subject_info = engine.get_subject(grade_info, subject)
     subject_name = subject_info.name if subject_info else subject
 
+    matched_lesson = _find_curriculum_lesson(grade, subject, topic)
+    target_topic_title = matched_lesson["title"] if matched_lesson else topic
+
     prompt = f"""
 Bạn là Chuyên gia Thiết kế Nhiệm vụ Học tập Phân hóa cho Trường Tiểu học Hoàng Mai.
 Từ một chủ đề / đơn vị kiến thức, hãy xây dựng 4 tầng nhiệm vụ học tập phân hóa theo năng lực:
 - Khối lớp: {grade_info.name}
 - Môn học: {subject_name}
-- Chủ đề: {topic}
+- Chủ đề / Bài học: {target_topic_title}
 
 4 Tầng phân hóa bắt buộc:
 1. Tầng 1 (Học sinh cần hỗ trợ): Nhiệm vụ có giàn giáo hỗ trợ tối đa (hình ảnh trực quan, mẫu câu, gợi ý từng bước).
-2. Tầng 2 (Học sinh đạt chuẩn): Nhiệm vụ bám sát yêu cầu cần đạt cơ bản trong SGK.
+2. Tầng 2 (Học sinh đạt chuẩn): Nhiệm vụ bám sát yêu cầu cần đạt cơ bản trong SGK của bài học này.
 3. Tầng 3 (Học sinh khá): Nhiệm vụ yêu cầu vận dụng, kết hợp 2 bước suy luận hoặc tự liên hệ thực tế.
 4. Tầng 4 (Học sinh giỏi / Nâng cao): Nhiệm vụ phát triển tư duy bậc cao (phản biện, giải quyết vấn đề, bài toán nhiều cách giải, sáng tạo).
 
@@ -118,17 +158,14 @@ Hãy hỗ trợ viết nhận xét đánh giá học sinh chuẩn mực theo đ�
 - Khối lớp: {grade_name}
 - Môn học: {subject}
 - Đợt đánh giá: {period}
-- Ghi chú quá trình học tập thực tế của giáo viên:
-{evaluation_notes}
+- Ghi chú thực tế của giáo viên: {evaluation_notes}
 
-Yêu cầu theo Thông tư 27/2020:
-1. Đánh giá Môn học: Chỉ rõ mức đạt (T/H/C), điểm nổi bật và biện pháp hỗ trợ/rèn luyện cụ thể, tránh nhận xét chung chung.
-2. Đánh giá Năng lực cốt lõi: Tự chủ - tự học, Giao tiếp - hợp tác, Giải quyết vấn đề & sáng tạo kèm biểu hiện cụ thể.
-3. Đánh giá Phẩm chất chủ yếu: Yêu nước, Nhân ái, Chăm chỉ, Trung thực, Trách nhiệm.
-4. Lời nhận xét gửi phụ huynh: Thân thiện, tôn trọng, mang tính khích lệ và định hướng hành động rõ ràng.
+Yêu cầu xuất kết quả định dạng JSON theo đúng schema PrimaryAssessmentTT27 gồm:
+1. Đánh giá Môn học & Hoạt động giáo dục (Mức Hoàn thành Tốt 'T' / Hoàn thành 'H' / Chưa hoàn thành 'C', nêu rõ điểm nổi bật và biện pháp hỗ trợ).
+2. Đánh giá Năng lực chung & Năng lực đặc thù.
+3. Đánh giá Phẩm chất chủ yếu (Yêu nước, Nhân ái, Chăm chỉ, Trung thực, Trách nhiệm).
+4. Lời nhận xét tổng hợp gửi phụ huynh (tôn trọng, khích lệ, cụ thể).
 5. Gợi ý 2-3 nhiệm vụ tự học cá nhân hóa.
-
-Xuất kết quả định dạng JSON theo đúng schema PrimaryAssessmentTT27.
 """
 
     client = llm_client or UnifiedLLMClient()

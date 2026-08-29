@@ -183,6 +183,12 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# Helper function để đồng bộ tức thì giá trị bài học khi chọn dropdown SGK
+def sync_sgk_topic(pick_key: str, input_key: str):
+    pick_val = st.session_state.get(pick_key, "")
+    if pick_val and not pick_val.startswith("✏️"):
+        st.session_state[input_key] = pick_val.split("  (")[0]
+
 # Nạp danh mục chương trình từ PromptEngine
 engine = PromptEngine()
 
@@ -191,7 +197,7 @@ st.markdown("""
 <div class="main-header">
     <div class="badge-hm">🏫 TRƯỜNG TIỂU HỌC HOÀNG MAI • CHẤT LƯỢNG CAO & ĐỔI MỚI SÁNG TẠO</div>
     <h1>🎓 AI4Edu Hub - Trợ Lý AI Giáo Dục Đa Mô Hình (Gemini / Claude / GPT)</h1>
-    <p>Tích hợp trọn bộ danh mục bài học SGK Toán Lớp 3 & Lớp 5 (Tập 1, 2) • Soạn KHBD 5 cột • Phân hóa 4 tầng • Xuất Google Docs / Word.</p>
+    <p>Tích hợp trọn bộ 81 bài học SGK Toán 3 & 66 bài học Toán 5 (KNTT) • Soạn KHBD 5 cột • Phân hóa 4 tầng • Xuất Google Docs / Word.</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -214,7 +220,7 @@ with st.sidebar:
     selected_grade_num = st.selectbox(
         "Chọn Khối Lớp:",
         grade_options,
-        index=2 if 3 in grade_options else 0, # Mặc định chọn Lớp 3 hoặc 5
+        index=2 if 3 in grade_options else 0, # Mặc định chọn Lớp 3
         format_func=lambda x: f"Khối Lớp {x}"
     )
     
@@ -305,7 +311,7 @@ with tab1:
     st.write(f"Đang sử dụng mô hình: **{model_labels.get(selected_model_id, selected_model_id)}**")
     
     # Bộ chọn bài học từ SGK nếu là Toán Lớp 3 hoặc Lớp 5
-    selected_topic_default = "Hình vuông - Hình tròn"
+    default_topic_t1 = "Bài 18: Góc, góc vuông, góc không vuông" if selected_grade_num == 3 else "Bài 26: Hình thang. Diện tích hình thang"
     if selected_subject_id == "math" and selected_grade_num in [3, 5]:
         st.markdown(f"##### 📚 Chọn Bài Học Từ Danh Mục SGK Toán Lớp {selected_grade_num} (Chuẩn CTGDPT 2018):")
         col_v1, col_v2 = st.columns([1, 3])
@@ -318,31 +324,35 @@ with tab1:
             lesson_pick = st.selectbox(
                 "Danh sách bài học chính thức:",
                 ["✏️ [Tự nhập chủ đề tùy chỉnh...]"] + lesson_labels,
-                key="sgk_pick_t1"
+                key="sgk_pick_t1",
+                on_change=sync_sgk_topic,
+                args=("sgk_pick_t1", "input_topic_t1")
             )
-        if lesson_pick != "✏️ [Tự nhập chủ đề tùy chỉnh...]":
-            # Trích xuất tên bài
-            selected_topic_default = lesson_pick.split("  (")[0]
-        else:
-            selected_topic_default = "Diện tích hình thang" if selected_grade_num == 5 else "Bảng nhân 7, bảng chia 7"
+            if lesson_pick != "✏️ [Tự nhập chủ đề tùy chỉnh...]":
+                default_topic_t1 = lesson_pick.split("  (")[0]
+
+    if "input_topic_t1" not in st.session_state or not st.session_state["input_topic_t1"].strip():
+        st.session_state["input_topic_t1"] = default_topic_t1
 
     col_t1, col_t2 = st.columns([3, 1])
     with col_t1:
         lesson_topic = st.text_input(
             "Tên bài học / Chủ đề (Có thể chỉnh sửa chi tiết):",
-            value=selected_topic_default,
             key="input_topic_t1"
         )
     with col_t2:
         include_adv = st.checkbox("Thử thách HS khá giỏi", value=True, help="Tích hợp các câu hỏi mở và nhiệm vụ mở rộng tránh lặp lại SGK")
 
+    # Đảm bảo topic không bao giờ rỗng
+    final_topic_t1 = lesson_topic.strip() if lesson_topic.strip() else default_topic_t1
+
     if st.button("🚀 Tự Động Sinh Kế Hoạch Bài Dạy 2345", type="primary", key="btn_plan_2345"):
-        with st.spinner("🔄 Đang phân tích Yêu cầu cần đạt và xây dựng Kế hoạch bài dạy 5 cột..."):
+        with st.spinner(f"🔄 Đang phân tích Yêu cầu cần đạt SGK và xây dựng KHBD cho '{final_topic_t1}'..."):
             try:
                 plan = generate_lesson_plan_2345(
                     grade=selected_grade_num,
                     subject=selected_subject_id,
-                    topic=lesson_topic,
+                    topic=final_topic_t1,
                     advanced_focus=include_adv,
                     llm_client=llm_client
                 )
@@ -362,7 +372,7 @@ with tab1:
             st.download_button(
                 label="📥 Tải File Word (.docx)",
                 data=docx_data,
-                file_name=f"KHBD_{plan.subject}_Lop{selected_grade_num}_{lesson_topic}.docx",
+                file_name=f"KHBD_{plan.subject}_Lop{selected_grade_num}_{final_topic_t1}.docx",
                 mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 help="Tải file Word có sẵn bảng biểu và màu sắc để mở trên Word hoặc kéo thả vào Google Drive"
             )
@@ -500,9 +510,9 @@ with tab1:
 # ==========================================
 with tab2:
     st.subheader("🎯 Phân Hóa 4 Tầng Nhiệm Vụ Cho Học Sinh Khá Giỏi & Cần Hỗ Trợ")
-    st.write("Từ 1 đơn vị kiến thức, chia tách thành 4 tầng bài tập/nhiệm vụ với giàn giáo hỗ trợ (Scaffolding) phù hợp năng lực từng nhóm học sinh.")
+    st.write("Từ 1 đơn vị kiến thức SGK, chia tách thành 4 tầng bài tập/nhiệm vụ với giàn giáo hỗ trợ (Scaffolding) phù hợp năng lực từng nhóm học sinh.")
     
-    diff_topic_default = "Diện tích hình thang" if selected_grade_num == 5 else "Cộng trừ có nhớ trong phạm vi 100"
+    default_diff_t2 = "Bài 18: Góc, góc vuông, góc không vuông" if selected_grade_num == 3 else "Bài 26: Hình thang. Diện tích hình thang"
     if selected_subject_id == "math" and selected_grade_num in [3, 5]:
         st.markdown(f"##### 📚 Chọn Bài Học Từ SGK Toán Lớp {selected_grade_num}:")
         col_vd1, col_vd2 = st.columns([1, 3])
@@ -512,23 +522,33 @@ with tab2:
             avail_diff = get_math_lessons(selected_grade_num, v_idx)
             diff_labels = [f"{l['title']}  ({l['topic_group']})" for l in avail_diff]
         with col_vd2:
-            p_pick = st.selectbox("Danh sách bài học:", ["✏️ [Tự nhập chủ đề...]"] + diff_labels, key="sgk_pick_t2")
-        if p_pick != "✏️ [Tự nhập chủ đề...]":
-            diff_topic_default = p_pick.split("  (")[0]
+            p_pick = st.selectbox(
+                "Danh sách bài học:",
+                ["✏️ [Tự nhập chủ đề...]"] + diff_labels,
+                key="sgk_pick_t2",
+                on_change=sync_sgk_topic,
+                args=("sgk_pick_t2", "input_diff_topic")
+            )
+            if p_pick != "✏️ [Tự nhập chủ đề...]":
+                default_diff_t2 = p_pick.split("  (")[0]
+
+    if "input_diff_topic" not in st.session_state or not st.session_state["input_diff_topic"].strip():
+        st.session_state["input_diff_topic"] = default_diff_t2
 
     diff_topic = st.text_input(
         "Chủ đề / Đơn vị kiến thức cần phân hóa:",
-        value=diff_topic_default,
         key="input_diff_topic"
     )
     
+    final_topic_t2 = diff_topic.strip() if diff_topic.strip() else default_diff_t2
+
     if st.button("✨ Thiết Kế 4 Tầng Nhiệm Vụ", type="primary", key="btn_differentiate"):
-        with st.spinner("🔄 Đang thiết kế ma trận nhiệm vụ phân hóa 4 tầng..."):
+        with st.spinner(f"🔄 Đang thiết kế ma trận nhiệm vụ phân hóa 4 tầng cho '{final_topic_t2}'..."):
             try:
                 taskset = generate_differentiated_taskset(
                     grade=selected_grade_num,
                     subject=selected_subject_id,
-                    topic=diff_topic,
+                    topic=final_topic_t2,
                     llm_client=llm_client
                 )
                 st.session_state["current_taskset"] = taskset
@@ -680,7 +700,7 @@ with tab5:
     st.subheader("🎮 Tạo Bộ Câu Hỏi Trắc Nghiệm Đố Vui Cho Quizizz / Wordwall / Kahoot")
     st.write("Tự động sinh bộ câu hỏi trắc nghiệm đố vui và xuất ra file Excel chuẩn để nạp vào Quizizz chỉ trong 1 cú click.")
     
-    quiz_topic_default = "Bài 23: Hình thang. Diện tích hình thang" if selected_grade_num == 5 else "Bài 10: Bảng nhân 7, bảng chia 7"
+    default_quiz_t5 = "Bài 18: Góc, góc vuông, góc không vuông" if selected_grade_num == 3 else "Bài 26: Hình thang. Diện tích hình thang"
     if selected_subject_id == "math" and selected_grade_num in [3, 5]:
         st.markdown(f"##### 📚 Chọn Bài Học Từ SGK Toán Lớp {selected_grade_num}:")
         col_vq1, col_vq2 = st.columns([1, 3])
@@ -690,27 +710,37 @@ with tab5:
             avail_quiz = get_math_lessons(selected_grade_num, vq_idx)
             quiz_labels = [f"{l['title']}  ({l['topic_group']})" for l in avail_quiz]
         with col_vq2:
-            q_pick = st.selectbox("Danh sách bài học:", ["✏️ [Tự nhập chủ đề...]"] + quiz_labels, key="sgk_pick_t5")
-        if q_pick != "✏️ [Tự nhập chủ đề...]":
-            quiz_topic_default = q_pick.split("  (")[0]
+            q_pick = st.selectbox(
+                "Danh sách bài học:",
+                ["✏️ [Tự nhập chủ đề...]"] + quiz_labels,
+                key="sgk_pick_t5",
+                on_change=sync_sgk_topic,
+                args=("sgk_pick_t5", "input_quiz_topic")
+            )
+            if q_pick != "✏️ [Tự nhập chủ đề...]":
+                default_quiz_t5 = q_pick.split("  (")[0]
+
+    if "input_quiz_topic" not in st.session_state or not st.session_state["input_quiz_topic"].strip():
+        st.session_state["input_quiz_topic"] = default_quiz_t5
 
     col_q1, col_q2 = st.columns([3, 1])
     with col_q1:
         quiz_topic = st.text_input(
             "Chủ đề trò chơi trắc nghiệm:",
-            value=quiz_topic_default,
             key="input_quiz_topic"
         )
     with col_q2:
         num_q = st.slider("Số lượng câu hỏi:", min_value=3, max_value=10, value=5)
         
+    final_topic_t5 = quiz_topic.strip() if quiz_topic.strip() else default_quiz_t5
+
     if st.button("🎲 Sinh Câu Hỏi Trắc Nghiệm Game", type="primary", key="btn_gen_quiz"):
-        with st.spinner("🔄 Đang sinh bộ câu hỏi đố vui hấp dẫn..."):
+        with st.spinner(f"🔄 Đang sinh bộ câu hỏi đố vui cho '{final_topic_t5}'..."):
             try:
                 quiz_set = generate_quizizz_questions(
                     grade=selected_grade_num,
                     subject=selected_subject_id,
-                    topic=quiz_topic,
+                    topic=final_topic_t5,
                     num_questions=num_q,
                     llm_client=llm_client
                 )
@@ -727,7 +757,7 @@ with tab5:
         st.download_button(
             label="📥 Tải File Excel Mẫu Chuẩn Quizizz (.xlsx)",
             data=excel_data,
-            file_name=f"Quizizz_{qs.subject}_Lop{selected_grade_num}_{quiz_topic}.xlsx",
+            file_name=f"Quizizz_{qs.subject}_Lop{selected_grade_num}_{final_topic_t5}.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
         
