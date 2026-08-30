@@ -202,6 +202,72 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# Khung Hướng Dẫn Sử Dụng Chi Tiết Hiện Đại (Interactive User Guide Banner)
+with st.expander("📖 HƯỚNG DẪN SỬ DỤNG CHI TIẾT THEO TỪNG KHỐI LỚP, MÔN HỌC & BÀI HỌC (BẤM ĐỂ MỞ/ĐÓNG)", expanded=False):
+    g_tab1, g_tab2, g_tab3, g_tab4, g_tab5 = st.tabs([
+        "🚀 1. Quy Trình 3 Bước",
+        "🎒 2. Hướng Dẫn Từng Khối Lớp (1-5)",
+        "📐 3. Hướng Dẫn Từng Bài Học SGK",
+        "📋 4. Xuất Google Docs & Word",
+        "🌐 5. Cẩm Nang Trực Tuyến"
+    ])
+    
+    with g_tab1:
+        st.markdown("""
+        #### 🚀 Quy Trình 3 Bước Soạn Giáo Án & Học Liệu Tự Động:
+        1. **Bước 1 (Sidebar trái):** Chọn **Khối Lớp** (ví dụ: `Khối Lớp 3`) $\rightarrow$ Chọn **Môn Học** (ví dụ: `Toán học`) $\rightarrow$ Chọn **Mô hình AI** (`Gemini 3.5 Flash` khuyên dùng).
+        2. **Bước 2 (Giao diện chính):** Chọn **Tập sách** (Tập 1 hoặc 2) $\rightarrow$ Chọn **Bài học chính thức từ SGK** (Ví dụ: `Bài 18: Góc, góc vuông, góc không vuông`). Kiểm tra khung trích dẫn nguyên văn SGK.
+        3. **Bước 3:** Bấm **`🚀 Tự Động Sinh Kế Hoạch Bài Dạy 2345`** $\rightarrow$ Bấm nút màu xanh **`📋 SAO CHÉP GOOGLE DOCS`** hoặc tải file Word `.docx`.
+        """)
+        
+    with g_tab2:
+        st.markdown("""
+        #### 🎒 Hướng Dẫn Sư Phạm Chi Tiết Cho Từng Khối Lớp:
+        * 🧸 **Khối Lớp 1 & 2 (Trực quan - Cảm tính):**
+          - **Toán:** Tập trung đếm que tính, hình học trực quan, phép tính có nhớ phạm vi 20 & 100.
+          - **Tiếng Việt:** Nhận diện âm vần, ghép chữ, tập đọc trơn đoạn văn ngắn 20-30 chữ.
+          - **Trợ giảng AI (Tab 4):** Chọn nhân vật `🐰 Thỏ Trắng Dễ Thương` với lời khen ngợi vui tươi.
+        * 📘 **Khối Lớp 3 (Bảng cửu chương & Đại số sơ cấp):**
+          - **Toán:** Bảng nhân chia 6, 7, 8, 9; Làm quen Góc, Bán kính/Đường kính; Bài toán 2 bước tính.
+          - **Tiếng Việt:** Mở rộng vốn từ, nhận biết hình ảnh so sánh, nhân hóa, viết đoạn văn ngắn.
+        * 🔬 **Khối Lớp 4 (Tư duy Trừu tượng & Khám phá):**
+          - **Toán:** Khái niệm phân số, quy đồng mẫu số, diện tích hình bình hành & hình thoi.
+          - **Khoa học / Lịch sử - Địa lý:** Kịch bản thí nghiệm nước, không khí; tìm hiểu lược đồ địa lý.
+        * 🎓 **Khối Lớp 5 (Tổng kết Tiểu học & Chuyển cấp):**
+          - **Toán:** Số thập phân, Tỉ số phần trăm, Thể tích, Toán chuyển động đều ($v, s, t$).
+          - **Quizizz (Tab 5):** Tự động tạo 10-15 câu trắc nghiệm ma trận 4 mức độ ôn thi chuyển cấp.
+        """)
+        
+    with g_tab3:
+        st.markdown("""
+        #### 📐 Hướng Dẫn Khớp Chính Xác Từng Bài Học Từ Sách Giáo Khoa:
+        * **100% Không Bịa Đặt:** Hệ thống đã nạp sẵn toàn bộ 81 bài học Toán 3 và 66 bài học Toán 5 chuẩn sách *Kết nối tri thức với cuộc sống*.
+        * **Trích Dẫn Nguyên Bản:** Khi chọn bài (ví dụ `Bài 18`), hệ thống hiển thị ngay:
+          - Số trang chính xác trong SGK (Trang 54 - 55).
+          - Định nghĩa cốt lõi: Góc đỉnh O; cạnh OA, OB; Thước ê-ke kiểm tra góc vuông.
+          - Bài tập mẫu và tình huống khám phá gốc của Mai, Việt, Rô-bốt.
+        * **Tùy chỉnh linh hoạt:** Giáo viên có thể chỉnh sửa thêm ghi chú riêng vào ô Tên bài học trước khi bấm sinh.
+        """)
+        
+    with g_tab4:
+        st.markdown("""
+        #### 📋 Hướng Dẫn Đồng Bộ Sang Google Docs & In Ấn:
+        * **Cách 1: Sao chép sang Google Docs (Khuyên dùng - Nhanh nhất):**
+          1. Bấm nút màu xanh **`📋 BẤM VÀO ĐÂY ĐỂ SAO CHÉP ĐỊNH DẠNG GOOGLE DOCS`**.
+          2. Bấm nút **`🌐 Mở Google Docs Mới (docs.new)`**.
+          3. Tại trang Google Docs, nhấn **`Ctrl + V`** (Dán) $\rightarrow$ Bảng 5 cột có màu sắc, tiêu đề và kẻ viền xuất hiện hoàn hảo!
+        * **Cách 2: Tải File Word (.docx):**
+          - Bấm nút **`📥 Tải Kế Hoạch Bài Dạy (.docx)`** để lưu file về máy tính chỉnh sửa và in ấn.
+        """)
+        
+    with g_tab5:
+        st.markdown("""
+        #### 🌐 Cẩm Nang & Tài Liệu Sư Phạm Trực Tuyến:
+        * 📖 **Cẩm nang Tổng quan:** [Xem tài liệu trực tuyến](https://ai4edu-hm.streamlit.app/)
+        * 🏫 **Chuyên trang Tiểu học Hoàng Mai:** Hướng dẫn Công văn 2345, Phân hóa 4 tầng & Thông tư 27.
+        * 📐 **Mục lục 81 Bài Toán 3 & 66 Bài Toán 5:** Tra cứu số trang và trọng tâm sư phạm.
+        """)
+
 # Sidebar điều khiển
 with st.sidebar:
     st.markdown("## 🏫 Tiểu Học Hoàng Mai")
@@ -296,7 +362,12 @@ with st.sidebar:
                 os.environ["OPENAI_API_KEY"] = active_api_key
 
     st.markdown("---")
-    st.markdown("### 📌 Chuẩn Sư Phạm")
+    st.markdown("### 📖 Cẩm Nang Sư Phạm")
+    st.markdown("""
+    * 🚀 [Quy Trình 3 Bước](#)
+    * 🎒 [Hướng Dẫn Từng Khối Lớp (1-5)](#)
+    * 📑 [Mục Lục 81 Bài Toán 3 & 66 Bài Toán 5](#)
+    """)
     st.caption(f"**Giai đoạn nhận thức:** {grade_info.cognitive_stage if grade_info else 'N/A'}")
     st.caption(f"**Văn bản pháp quy:** Công văn 2345/BGDĐT-GDTH & Thông tư 27/2020/TT-BGDĐT")
 

@@ -10,7 +10,7 @@ export default defineConfig({
     siteTitle: 'AI4Edu Hub',
     nav: [
       { text: 'Trang chủ', link: '/' },
-      { text: 'Tổng quan', link: '/overview/' },
+      { text: '📖 Hướng Dẫn Sử Dụng', link: '/user-guide/' },
       { text: '🏫 Tiểu học Hoàng Mai', link: '/hoang-mai-primary/' },
       { text: 'Khung K-12 (Lớp 1-12)', link: '/curriculum/' },
       { text: 'Ứng dụng Chung', link: '/applications/ai-tutor' },
@@ -19,8 +19,17 @@ export default defineConfig({
     ],
     sidebar: [
       {
-        text: '📖 1. Tổng quan AI4Edu',
+        text: '📖 1. Hướng Dẫn Sử Dụng AI4Edu Hub',
         collapsed: false,
+        items: [
+          { text: '🌟 Cẩm Nang Sử Dụng Tổng Quan', link: '/user-guide/' },
+          { text: '🎒 Hướng Dẫn Từng Lớp & Môn Học (Lớp 1-5)', link: '/user-guide/grade-subject-guide' },
+          { text: '📑 Hướng Dẫn Soạn KHBD 5 Cột & Xuất File', link: '/user-guide/lesson-planning-tutorial' }
+        ]
+      },
+      {
+        text: '📖 2. Tổng quan Hệ Thống AI4Edu',
+        collapsed: true,
         items: [
           { text: 'Giới thiệu & Tầm nhìn', link: '/overview/' },
           { text: 'Lộ trình ứng dụng AI trong Giáo dục', link: '/overview/roadmap' },
