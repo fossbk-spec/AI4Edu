@@ -190,6 +190,99 @@ def sync_sgk_topic(pick_key: str, input_key: str):
     if pick_val and not pick_val.startswith("✏️"):
         st.session_state[input_key] = pick_val.split("  (")[0]
 
+# Các Dialog Modal Cẩm Nang Sư Phạm Tương Tác 100%
+@st.dialog("🚀 Quy Trình 3 Bước Soạn Bài Chuẩn Sư Phạm", width="large")
+def show_quickstart_dialog():
+    st.markdown("""
+    ### 🎯 Quy Trình 3 Bước Soạn Giáo Án & Học Liệu Tự Động:
+    ---
+    #### 🔹 Bước 1: Thiết lập cấu hình tại Sidebar (Thanh bên trái)
+    1. **Chọn Khối Lớp:** Chọn lớp giảng dạy (ví dụ: `Khối Lớp 3` hoặc `Khối Lớp 5`).
+    2. **Chọn Môn Học:** Chọn môn tương ứng (Toán học, Tiếng Việt, Tự nhiên & Xã hội, Khoa học...).
+    3. **Chọn Mô hình AI:** Khuyên dùng `Gemini 3.5 Flash` (Rất nhanh & ổn định).
+
+    #### 🔹 Bước 2: Chọn Bài Học từ Danh Mục SGK Chuẩn
+    1. Chọn **Tập sách** (Tập 1 hoặc Tập 2).
+    2. Chọn **Bài học chính thức từ SGK** (Ví dụ: `Bài 18: Góc, góc vuông, góc không vuông`).
+    3. Kiểm tra khung **Trích dẫn nguyên văn từ SGK** (Số trang, định nghĩa, bài tập gốc).
+    4. Tích chọn `Thử thách HS khá giỏi` để AI tích hợp các câu hỏi mở, nhiệm vụ liên môn.
+
+    #### 🔹 Bước 3: Sinh Kế Hoạch Bài Dạy & Xuất File
+    1. Bấm **`🚀 Tự Động Sinh Kế Hoạch Bài Dạy 2345`**.
+    2. **Xuất sang Google Docs (Khuyên dùng):** Bấm nút màu xanh **`📋 SAO CHÉP GOOGLE DOCS`** ➔ Mở Google Docs ➔ Nhấn **`Ctrl + V`** (Giữ nguyên bảng 5 cột có màu sắc).
+    3. **Tải File Word:** Bấm nút **`📥 Tải Kế Hoạch Bài Dạy (.docx)`** để lưu về máy tính.
+    """)
+
+@st.dialog("🎒 Hướng Dẫn Sư Phạm Chi Tiết Từng Khối Lớp (1-5)", width="large")
+def show_grade_guide_dialog():
+    st.markdown("""
+    ### 🎒 Hướng Dẫn Sư Phạm Theo Tâm Lý Nhận Thức Lớp 1 Đến Lớp 5:
+    ---
+    * 🧸 **Khối Lớp 1 & Lớp 2 (Trực quan - Cảm tính):**
+      - **Đặc điểm:** Tư duy dựa trên đồ vật thật (que tính, viên bi, ngón tay), hình ảnh màu sắc.
+      - **Môn Toán:** Đếm, so sánh, phép cộng trừ có nhớ phạm vi 20 & 100, nhận biết hình phẳng đơn giản.
+      - **Môn Tiếng Việt:** Âm, chữ cái, ghép vần, đọc trơn đoạn văn ngắn 20-30 chữ.
+      - **Trợ giảng AI (Tab 4):** Chọn `🐰 Thỏ Trắng Dễ Thương` với lời khuyên ngắn gọn, vui vẻ.
+
+    * 📘 **Khối Lớp 3 (Bảng cửu chương & Tư duy Số học sơ cấp):**
+      - **Đặc điểm:** Chuyển từ đếm cộng sang tư duy phép nhân/chia và cấu tạo số 4-5 chữ số.
+      - **Môn Toán:** Bảng nhân chia 6, 7, 8, 9; Điểm ở giữa, Trung điểm; Góc vuông (thước ê-ke); Bán kính, Đường kính; Bài toán 2 bước tính.
+      - **Môn Tiếng Việt:** Mở rộng vốn từ, Biện pháp Tu từ So sánh và Nhân hóa.
+
+    * 🔬 **Khối Lớp 4 (Tư duy Trừu tượng & Khám phá Khoa học):**
+      - **Đặc điểm:** Bắt đầu hình thành các khái niệm trừu tượng, phân tích và tổng hợp.
+      - **Môn Toán:** Khái niệm phân số, quy đồng mẫu số, 4 phép tính phân số, hình bình hành, hình thoi.
+      - **Khoa học / Lịch sử - Địa lý:** Kịch bản thí nghiệm nước, không khí; tìm hiểu lược đồ địa lý.
+
+    * 🎓 **Khối Lớp 5 (Tổng kết Tiểu học & Chuẩn bị Chuyển cấp):**
+      - **Đặc điểm:** Hoàn thiện tư duy logic, tính toán đại số và hình học không gian.
+      - **Môn Toán:** Số thập phân, Tỉ số phần trăm, Diện tích hình thang/hình tròn, Thể tích, Chuyển động đều ($v, s, t$).
+      - **Quizizz (Tab 5):** Tạo đề trắc nghiệm ma trận 4 mức độ Bloom ôn thi vào lớp 6.
+    """)
+
+@st.dialog("📑 Danh Mục 81 Bài Toán 3 & 66 Bài Toán 5 (SGK Kết Nối Tri Thức)", width="large")
+def show_curriculum_dialog():
+    st.markdown("""
+    ### 📐 Tra Cứu Toàn Bộ Bài Học SGK Chuẩn (CTGDPT 2018):
+    ---
+    """)
+    tab_m3, tab_m5 = st.tabs(["📘 Toán Lớp 3 (81 Bài Học)", "🎓 Toán Lớp 5 (66 Bài Học)"])
+    
+    with tab_m3:
+        st.markdown("#### 📘 Sách Giáo Khoa Toán 3 - Tập 1 (44 Bài):")
+        st.markdown("""
+        * **Chủ đề 1: Ôn tập và bổ sung (Bài 1 - 8):** Ôn tập số đến 1000 (Tr.6), Phép cộng trừ (Tr.9), Tìm thành phần phép tính (Tr.11), Bảng nhân chia 2, 3, 4, 5 (Tr.14-20), Hình học đo lường (Tr.21).
+        * **Chủ đề 2: Bảng nhân, bảng chia (Bài 9 - 15):** Bảng nhân chia 6, 7, 8, 9 (Tr.28-38), Tìm thừa số/SBC/Số chia (Tr.39), Một phần mấy (Tr.42).
+        * **Chủ đề 3: Làm quen hình phẳng, hình khối (Bài 16 - 22):** Điểm ở giữa, trung điểm (Tr.49), Hình tròn, tâm, bán kính (Tr.52), **Bài 18: Góc, góc vuông, góc không vuông (Tr.54)**, Hình tam giác, tứ giác, chữ nhật, hình vuông (Tr.56), Thực hành vẽ trang trí (Tr.61), Khối lập phương & hộp chữ nhật (Tr.63).
+        * **Chủ đề 4: Phép nhân, phép chia trong phạm vi 100 (Bài 23 - 29):** Nhân chia 2 chữ số (Tr.67-78), Gấp/Giảm số lần (Tr.70, 79), Bài toán 2 bước tính (Tr.81).
+        * **Chủ đề 5: Đo lường (Bài 30 - 35):** Mi-li-mét (Tr.85), Gam (Tr.87), Mi-li-lít (Tr.89), Nhiệt độ độ C (Tr.91), Thực hành đo lường (Tr.93).
+        * **Chủ đề 6 & 7: Phép tính phạm vi 1000 & Ôn tập Học kì I (Bài 36 - 44):** Nhân chia 3 chữ số (Tr.97-103), Biểu thức số (Tr.104), So sánh số lớn gấp mấy lần số bé (Tr.109), Ôn tập tổng kết (Tr.113-122).
+        """)
+        st.markdown("#### 📘 Sách Giáo Khoa Toán 3 - Tập 2 (37 Bài):")
+        st.markdown("""
+        * **Chủ đề 8: Các số đến 10 000 (Bài 45 - 49):** Các số có 4 chữ số, So sánh, Làm tròn số đến hàng nghìn.
+        * **Chủ đề 9: Chu vi, diện tích một số hình phẳng (Bài 50 - 55):** Chu vi tam giác/tứ giác/hình chữ nhật/hình vuông, Làm quen diện tích, Xăng-ti-mét vuông, Diện tích hình chữ nhật & hình vuông.
+        * **Chủ đề 10 & 11: Phép tính phạm vi 10 000 & Tiền Việt Nam (Bài 56 - 62):** Cộng trừ nhân chia trong phạm vi 10 000, Tiền Việt Nam.
+        * **Chủ đề 12 & 13: Các số đến 100 000 & Phép tính trong phạm vi 100 000 (Bài 63 - 72).**
+        * **Chủ đề 14 & 15: Xem đồng hồ, số La Mã & Bảng số liệu, khả năng (Bài 73 - 77).**
+        * **Chủ đề 16: Ôn tập cuối năm (Bài 78 - 81).**
+        """)
+        
+    with tab_m5:
+        st.markdown("#### 🎓 Sách Giáo Khoa Toán 5 - Tập 1 (35 Bài):")
+        st.markdown("""
+        * **Chủ đề 1 & 2: Ôn tập, phân số & Số thập phân (Bài 1 - 18):** Phân số thập phân, Hỗn số, Hàng của số thập phân, Đọc viết và so sánh số thập phân, Các đơn vị đo $ha, km^2$.
+        * **Chủ đề 3 & 4: Các phép tính với số thập phân (Bài 19 - 30):** Cộng, trừ, nhân, chia số thập phân, Nhân chia nhẩm với 10, 100, 0.1, 0.01.
+        * **Chủ đề 5 & 6: Hình phẳng & Ôn tập Học kì I (Bài 31 - 35):** Diện tích hình tam giác, Diện tích hình thang, Ôn tập cuối HKI.
+        """)
+        st.markdown("#### 🎓 Sách Giáo Khoa Toán 5 - Tập 2 (31 Bài):")
+        st.markdown("""
+        * **Chủ đề 7: Tỉ số và Tỉ số phần trăm (Bài 36 - 42):** Tìm tỉ số phần trăm, Tìm giá trị phần trăm, Giải toán tỉ số thực tế.
+        * **Chủ đề 8: Thể tích & Hình khối (Bài 43 - 48):** Hình lập phương, Hình hộp chữ nhật, $cm^3, dm^3, m^3$, Thể tích hình hộp và hình lập phương.
+        * **Chủ đề 9: Số đo thời gian & Toán chuyển động đều (Bài 49 - 56):** Vận tốc, Quãng đường, Thời gian ($v = s / t$), Bài toán chuyển động ngược chiều/cùng chiều.
+        * **Chủ đề 10, 11, 12: Thống kê, xác suất & Ôn tập tốt nghiệp Tiểu học (Bài 57 - 66).**
+        """)
+
 # Nạp danh mục chương trình từ PromptEngine
 engine = PromptEngine()
 
@@ -363,11 +456,13 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown("### 📖 Cẩm Nang Sư Phạm")
-    st.markdown("""
-    * 🚀 [Quy Trình 3 Bước](#)
-    * 🎒 [Hướng Dẫn Từng Khối Lớp (1-5)](#)
-    * 📑 [Mục Lục 81 Bài Toán 3 & 66 Bài Toán 5](#)
-    """)
+    if st.button("🚀 Quy Trình 3 Bước", use_container_width=True, key="btn_dlg1"):
+        show_quickstart_dialog()
+    if st.button("🎒 Hướng Dẫn Từng Khối Lớp", use_container_width=True, key="btn_dlg2"):
+        show_grade_guide_dialog()
+    if st.button("📑 Mục Lục 81 Bài Toán 3 & 5", use_container_width=True, key="btn_dlg3"):
+        show_curriculum_dialog()
+
     st.caption(f"**Giai đoạn nhận thức:** {grade_info.cognitive_stage if grade_info else 'N/A'}")
     st.caption(f"**Văn bản pháp quy:** Công văn 2345/BGDĐT-GDTH & Thông tư 27/2020/TT-BGDĐT")
 
