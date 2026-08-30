@@ -293,10 +293,10 @@ def show_pdf_library_dialog():
     ---
     #### 🎒 Liên Kết Tải Trọn Bộ Theo Từng Khối Lớp:
     * 🧸 **Khối Lớp 1:** [Tải trọn bộ PDF SGK Lớp 1 (Toán, Tiếng Việt, TN&XH, Đạo đức, HĐTN...)](https://drive.google.com/drive/folders/169N_qc2yAINJ3QLibudU2bQsro0mv26q?usp=sharing)
-    * 🎒 **Khối Lớp 2:** [Tải trọn bộ PDF SGK Lớp 2 (Toán, Tiếng Việt, TN&XH, Đạo đức, HĐTN...)](https://drive.google.com/drive/folders/1xNffndI1me7vhl5M09toQiIWjsqCPYg2?usp=sharing)
+    * 🎒 **Khối Lớp 2:** [Tải trọn bộ PDF SGK Lớp 2 (Toán, Tiếng Việt, TN&XH, Đạo đức, HĐTN...)](https://drive.google.com/drive/folders/1TUkLbCcAYDYopEsicPR7FweoiHhMwcBK?usp=sharing)
     * 📘 **Khối Lớp 3:** [Tải trọn bộ PDF SGK Lớp 3 (Toán, Tiếng Việt, TN&XH, Tin học, Công nghệ...)](https://drive.google.com/drive/folders/1aLHxjgpYsvcR54JGlYlb7PgW3v3Wkhy0?usp=sharing)
-    * 🔬 **Khối Lớp 4:** [Tải trọn bộ PDF SGK Lớp 4 (Toán, Tiếng Việt, Khoa học, Lịch sử - Địa lý, Tin học...)](https://drive.google.com/drive/folders/1ivPO0NaCYhdJrncJlPA8OFMNZNHJftB2?usp=sharing)
-    * 🎓 **Khối Lớp 5:** [Tải trọn bộ PDF SGK Lớp 5 (Toán, Tiếng Việt, Khoa học, Lịch sử - Địa lý, Tin học...)](https://drive.google.com/drive/folders/1OfOZQW4SVQA3VjFp_bkf84U1_zgR473t?usp=sharing)
+    * 🔬 **Khối Lớp 4:** [Tải trọn bộ PDF SGK Lớp 4 (Toán, Tiếng Việt, Khoa học, Lịch sử - Địa lý, Tin học...)](https://drive.google.com/drive/folders/1EyJEo4JuVxvOBHwdVpwZkbCayvrFwvHu?usp=sharing)
+    * 🎓 **Khối Lớp 5:** [Tải trọn bộ PDF SGK Lớp 5 (Toán, Tiếng Việt, Khoa học, Lịch sử - Địa lý, Tin học...)](https://drive.google.com/drive/folders/1kw3n1xGwdgCa8RPgLRb_g6d4hADDei98?usp=sharing)
     """)
 
 # Nạp danh mục chương trình từ PromptEngine

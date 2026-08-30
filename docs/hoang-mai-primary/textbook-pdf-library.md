@@ -51,7 +51,7 @@ graph TD
 ---
 
 ### 🎒 2. Khối Lớp 2
-* 📂 **Thư mục Drive tải nhanh Lớp 2:** [Tải Trọn Bộ Lớp 2 (Google Drive)](https://drive.google.com/drive/folders/1xNffndI1me7vhl5M09toQiIWjsqCPYg2?usp=sharing)
+* 📂 **Thư mục Drive tải nhanh Lớp 2:** [Tải Trọn Bộ Lớp 2 (Google Drive)](https://drive.google.com/drive/folders/1TUkLbCcAYDYopEsicPR7FweoiHhMwcBK?usp=sharing)
 * **Các môn học chính:**
   1. **Toán 2 (Tập 1 & Tập 2):** Phép cộng, phép trừ có nhớ trong phạm vi 100 và 1000; Làm quen phép nhân chia 2 và 5.
   2. **Tiếng Việt 2 (Tập 1 & Tập 2):** Rèn kĩ năng đọc trơn, nghe viết chính tả, mở rộng vốn từ gia đình, trường lớp.
@@ -74,7 +74,7 @@ graph TD
 ---
 
 ### 🔬 4. Khối Lớp 4
-* 📂 **Thư mục Drive tải nhanh Lớp 4:** [Tải Trọn Bộ Lớp 4 (Google Drive)](https://drive.google.com/drive/folders/1ivPO0NaCYhdJrncJlPA8OFMNZNHJftB2?usp=sharing)
+* 📂 **Thư mục Drive tải nhanh Lớp 4:** [Tải Trọn Bộ Lớp 4 (Google Drive)](https://drive.google.com/drive/folders/1EyJEo4JuVxvOBHwdVpwZkbCayvrFwvHu?usp=sharing)
 * **Các môn học chính:**
   1. **Toán 4 (Tập 1 & Tập 2):** Khái niệm phân số, bốn phép tính phân số, hình bình hành, hình thoi, tỉ số.
   2. **Tiếng Việt 4 (Tập 1 & Tập 2):** Văn miêu tả cây cối, con vật; Luyện từ và câu (Động từ, Tính từ, Trạng ngữ).
@@ -86,7 +86,7 @@ graph TD
 ---
 
 ### 🎓 5. Khối Lớp 5
-* 📂 **Thư mục Drive tải nhanh Lớp 5:** [Tải Trọn Bộ Lớp 5 (Google Drive)](https://drive.google.com/drive/folders/1OfOZQW4SVQA3VjFp_bkf84U1_zgR473t?usp=sharing)
+* 📂 **Thư mục Drive tải nhanh Lớp 5:** [Tải Trọn Bộ Lớp 5 (Google Drive)](https://drive.google.com/drive/folders/1kw3n1xGwdgCa8RPgLRb_g6d4hADDei98?usp=sharing)
 * **Các môn học chính:**
   1. **Toán 5 (Tập 1 & Tập 2 - Trọn bộ 66 bài):** Số thập phân, Tỉ số phần trăm, Diện tích hình thang/hình tròn, Thể tích hình khối ($cm^3, dm^3, m^3$), Toán chuyển động đều ($v = s / t$).
   2. **Tiếng Việt 5 (Tập 1 & Tập 2):** Văn tả người, tả cảnh sinh hoạt; Đại từ, Quan hệ từ, Liên kết câu.
