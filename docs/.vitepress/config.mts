@@ -32,6 +32,7 @@ export default defineConfig({
         collapsed: true,
         items: [
           { text: 'Giới thiệu & Tầm nhìn', link: '/overview/' },
+          { text: '🌐 Chuẩn UNESCO & Tiêu Chuẩn Quốc Tế', link: '/overview/unesco-ai-standards' },
           { text: 'Lộ trình ứng dụng AI trong Giáo dục', link: '/overview/roadmap' },
           { text: 'Đạo đức & An toàn AI (Ethics & Safety)', link: '/overview/ethics-safety' },
           { text: '📔 Nhật ký Phát triển (Dev Journal)', link: '/dev-journal' }

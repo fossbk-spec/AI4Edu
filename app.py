@@ -391,6 +391,38 @@ def show_pdf_library_dialog():
     * 🎓 **Khối Lớp 5:** [Tải trọn bộ PDF SGK Lớp 5 (Toán, Tiếng Việt, Khoa học, Lịch sử - Địa lý, Tin học...)](https://drive.google.com/drive/folders/1kw3n1xGwdgCa8RPgLRb_g6d4hADDei98?usp=sharing)
     """)
 
+@st.dialog("🌐 Chuẩn UNESCO & Đạo Đức Ứng Dụng AI Trong Giáo Dục", width="large")
+def show_unesco_standards_dialog():
+    st.markdown("""
+    ### 🌐 Hướng Dẫn Ứng Dụng AI Giáo Dục Theo UNESCO & Chuẩn Quốc Tế
+    *Căn cứ Khung Năng Lực AI Cho Giáo Viên (UNESCO AI Competency Framework - 2024) & Tiêu chuẩn ISTE / OECD*
+    ---
+    
+    #### ⚠️ 1. KHUYẾN CÁO QUAN TRỌNG KHI SỬ DỤNG CÔNG CỤ (DISCLAIMER):
+    > 🔴 **Tính chất Demo & Trợ lý:** Ứng dụng mang tính chất **trình diễn công nghệ (Demo) và hỗ trợ sư phạm**, không thay thế vai trò chuyên môn của nhà giáo.  
+    > 🔴 **Trách nhiệm thẩm định:** Giáo viên giữ vai trò quyết định chuyên môn cao nhất (**Teacher-in-the-loop**) và **bắt buộc phải kiểm tra, rà soát và thẩm định lại toàn bộ tính chính xác khoa học, tính chuẩn mực ngôn ngữ và độ phù hợp lứa tuổi** của các nội dung do AI sinh ra trước khi đưa vào giảng dạy thực tế.
+
+    ---
+    
+    #### 🏛️ 2. 5 Trụ Cột Khung Năng Lực AI Giáo Viên Của UNESCO (2024):
+    1. **Tư duy Lấy Con Người Làm Trung Tâm (Human-Centred Mindset):**  
+       AI chỉ đóng vai trò trợ lý khuếch đại năng lực sư phạm. Người thầy luôn là người truyền cảm hứng, thấu cảm và trực tiếp dẫn dắt tương tác xã hội - cảm xúc (Social-Emotional Learning) của học sinh.
+    2. **Đạo Đức AI & Bảo Vệ Quyền Riêng Tư Của Trẻ Em (AI Ethics & Child Privacy):**  
+       Tuyệt đối không nhập thông tin định danh cá nhân nhạy cảm, hình ảnh riêng tư hoặc học bạ của học sinh lên các nền tảng AI công cộng. Tuân thủ nghiêm ngặt Luật An toàn Thông tin và Quyền trẻ em.
+    3. **Sư Phạm Số & Dạy Học Phân Hóa (AI Pedagogy & Differentiation):**  
+       Sử dụng AI để thiết kế các kịch bản học tập cá nhân hóa, giàn giáo hỗ trợ 4 tầng (Scaffolding) giúp học sinh chậm tiến bộ và mở rộng thử thách sáng tạo (STEM/STEAM) cho học sinh năng khiếu.
+    4. **Năng Lực Thẩm Định & Phản Biện (Critical AI Literacy & Fact-Checking):**  
+       Giáo viên cần nắm vững kỹ năng kiểm tra chéo (Cross-verification), phát hiện hiện tượng "ảo giác" (Hallucination) hoặc thiên kiến thông tin (Bias) từ mô hình ngôn ngữ lớn.
+    5. **Học Tập Suốt Đời & Sinh Hoạt Chuyên Môn (Continuous Professional Learning):**  
+       Chủ động cập nhật tri thức công nghệ mới, tích cực chia sẻ các kịch bản và Prompt mẫu hiệu quả trong tổ chuyên môn nhà trường.
+
+    ---
+    
+    #### 🌍 3. Tiêu Chuẩn Quốc Tế ISTE & OECD:
+    * **ISTE Standards for Educators & Students:** Khuyến khích học sinh trở thành **Nhà kiến tạo số (Digital Creators)**, sử dụng công nghệ để giải quyết các vấn đề thực tiễn của cuộc sống địa phương.
+    * **OECD Digital Education Outlook:** Đảm bảo tính công bằng (Equity) trong tiếp cận giáo dục số, không để bất kỳ học sinh nào bị bỏ lại phía sau trong thời đại số.
+    """)
+
 # Nạp danh mục chương trình từ PromptEngine
 engine = PromptEngine()
 
@@ -399,18 +431,19 @@ st.markdown("""
 <div class="main-header">
     <div class="badge-hm">🏫 TRƯỜNG TIỂU HỌC HOÀNG MAI • CHẤT LƯỢNG CAO & ĐỔI MỚI SÁNG TẠO</div>
     <h1>🎓 AI4Edu Hub - Trợ Lý AI Giáo Dục Đa Mô Hình (Gemini / Claude / GPT)</h1>
-    <p>Tích hợp trọn bộ 81 bài học SGK Toán 3 & 66 bài học Toán 5 (KNTT) • Soạn KHBD 5 cột • Phân hóa 4 tầng • Xuất Google Docs / Word.</p>
+    <p>Tích hợp trọn bộ 323 bài Toán & 174 bài Tiếng Việt (Lớp 1-5 KNTT) • Soạn KHBD 5 cột • Phân hóa 4 tầng • Chuẩn UNESCO.</p>
 </div>
 """, unsafe_allow_html=True)
 
 # Khung Hướng Dẫn Sử Dụng Chi Tiết Hiện Đại (Interactive User Guide Banner)
 with st.expander("📖 HƯỚNG DẪN SỬ DỤNG CHI TIẾT THEO TỪNG KHỐI LỚP, MÔN HỌC & BÀI HỌC (BẤM ĐỂ MỞ/ĐÓNG)", expanded=False):
-    g_tab1, g_tab2, g_tab3, g_tab4, g_tab5 = st.tabs([
+    g_tab1, g_tab2, g_tab3, g_tab4, g_tab5, g_tab6 = st.tabs([
         "🚀 1. Quy Trình 3 Bước",
         "🎒 2. Hướng Dẫn Từng Khối Lớp (1-5)",
         "📐 3. Hướng Dẫn Từng Bài Học SGK",
         "📋 4. Xuất Google Docs & Word",
-        "🌐 5. Cẩm Nang Trực Tuyến"
+        "🌐 5. Cẩm Nang Trực Tuyến",
+        "🏛️ 6. Chuẩn UNESCO & Khuyến Cáo Demo"
     ])
     
     with g_tab1:
@@ -442,7 +475,7 @@ with st.expander("📖 HƯỚNG DẪN SỬ DỤNG CHI TIẾT THEO TỪNG KHỐI 
     with g_tab3:
         st.markdown("""
         #### 📐 Hướng Dẫn Khớp Chính Xác Từng Bài Học Từ Sách Giáo Khoa:
-        * **100% Không Bịa Đặt:** Hệ thống đã nạp sẵn toàn bộ 81 bài học Toán 3 và 66 bài học Toán 5 chuẩn sách *Kết nối tri thức với cuộc sống*.
+        * **100% Không Bịa Đặt:** Hệ thống đã nạp sẵn toàn bộ 323 bài Toán và 174 bài Tiếng Việt (Lớp 1-5) chuẩn sách *Kết nối tri thức với cuộc sống*.
         * **Trích Dẫn Nguyên Bản:** Khi chọn bài (ví dụ `Bài 18`), hệ thống hiển thị ngay:
           - Số trang chính xác trong SGK (Trang 54 - 55).
           - Định nghĩa cốt lõi: Góc đỉnh O; cạnh OA, OB; Thước ê-ke kiểm tra góc vuông.
@@ -466,7 +499,14 @@ with st.expander("📖 HƯỚNG DẪN SỬ DỤNG CHI TIẾT THEO TỪNG KHỐI 
         #### 🌐 Cẩm Nang & Tài Liệu Sư Phạm Trực Tuyến:
         * 📖 **Cẩm nang Tổng quan:** [Xem tài liệu trực tuyến](https://ai4edu-hm.streamlit.app/)
         * 🏫 **Chuyên trang Tiểu học Hoàng Mai:** Hướng dẫn Công văn 2345, Phân hóa 4 tầng & Thông tư 27.
-        * 📐 **Mục lục 81 Bài Toán 3 & 66 Bài Toán 5:** Tra cứu số trang và trọng tâm sư phạm.
+        * 📐 **Mục lục Toàn diện Toán & Tiếng Việt (1-5):** Tra cứu số trang và trọng tâm sư phạm.
+        """)
+
+    with g_tab6:
+        st.markdown("""
+        #### 🏛️ Chuẩn UNESCO & Khuyến Cáo Khi Sử Dụng (Disclaimer):
+        * ⚠️ **Khuyến Cáo Sử Dụng:** Hệ thống mang tính chất **trình diễn công nghệ (Demo) và hỗ trợ sư phạm**. Giáo viên giữ vai trò chuyên môn chủ đạo và **phải kiểm tra, thẩm định lại tính chính xác** của kết quả do AI sinh ra trước khi áp dụng vào lớp học.
+        * 🌐 **Khung UNESCO 2024:** Lấy con người làm trung tâm, tôn trọng đạo đức AI, bảo vệ bí mật thông tin học sinh và rèn luyện năng lực phản biện thẩm định dữ liệu.
         """)
 
 # Sidebar điều khiển
@@ -501,8 +541,26 @@ with st.sidebar:
         format_func=lambda x: subject_map.get(x, x)
     )
     
+    # -------------------------------------------------------------
+    # 📖 CẨM NANG SƯ PHẠM (ĐƯỢC ĐƯA LÊN TRƯỚC CHỌN AI MODEL)
+    # -------------------------------------------------------------
     st.markdown("---")
-    st.markdown("### 🤖 Chọn AI Model")
+    st.markdown("### 📖 Cẩm Nang Sư Phạm")
+    if st.button("🚀 Quy Trình 3 Bước", use_container_width=True, key="btn_dlg1"):
+        show_quickstart_dialog()
+    if st.button("🎒 Hướng Dẫn Từng Khối Lớp", use_container_width=True, key="btn_dlg2"):
+        show_grade_guide_dialog()
+    if st.button("📑 Mục Lục Bài Học Toán & Tiếng Việt (Lớp 1 - 5)", use_container_width=True, key="btn_dlg3"):
+        show_curriculum_dialog()
+    if st.button("📚 Tải File PDF SGK Lớp 1 - 5", use_container_width=True, key="btn_dlg4"):
+        show_pdf_library_dialog()
+    if st.button("🌐 Chuẩn UNESCO & Đạo Đức AI", use_container_width=True, key="btn_dlg5"):
+        show_unesco_standards_dialog()
+
+    st.info("⚠️ **Khuyến cáo:** Ứng dụng mang tính chất thử nghiệm Demo & hỗ trợ sư phạm. Thầy cô cần kiểm tra, thẩm định lại tính chính xác của kết quả do AI sinh ra trước khi giảng dạy.")
+
+    st.markdown("---")
+    st.markdown("### 🤖 Chọn AI Model & API Key")
     
     provider_options = list(SUPPORTED_PROVIDERS.keys())
     selected_provider = st.selectbox("Nhà cung cấp AI:", provider_options, index=0)
@@ -561,17 +619,6 @@ with st.sidebar:
             active_api_key = st.text_input("Nhập OpenAI API Key:", type="password")
             if active_api_key:
                 os.environ["OPENAI_API_KEY"] = active_api_key
-
-    st.markdown("---")
-    st.markdown("### 📖 Cẩm Nang Sư Phạm")
-    if st.button("🚀 Quy Trình 3 Bước", use_container_width=True, key="btn_dlg1"):
-        show_quickstart_dialog()
-    if st.button("🎒 Hướng Dẫn Từng Khối Lớp", use_container_width=True, key="btn_dlg2"):
-        show_grade_guide_dialog()
-    if st.button("📑 Mục Lục Bài Học Toán & Tiếng Việt (Lớp 1 - 5)", use_container_width=True, key="btn_dlg3"):
-        show_curriculum_dialog()
-    if st.button("📚 Tải File PDF SGK Lớp 1 - 5", use_container_width=True, key="btn_dlg4"):
-        show_pdf_library_dialog()
 
     st.caption(f"**Giai đoạn nhận thức:** {grade_info.cognitive_stage if grade_info else 'N/A'}")
     st.caption(f"**Văn bản pháp quy:** Công văn 2345/BGDĐT-GDTH & Thông tư 27/2020/TT-BGDĐT")
