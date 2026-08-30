@@ -391,6 +391,52 @@ def show_pdf_library_dialog():
     * 🎓 **Khối Lớp 5:** [Tải trọn bộ PDF SGK Lớp 5 (Toán, Tiếng Việt, Khoa học, Lịch sử - Địa lý, Tin học...)](https://drive.google.com/drive/folders/1kw3n1xGwdgCa8RPgLRb_g6d4hADDei98?usp=sharing)
     """)
 
+@st.dialog("ℹ️ Giới Thiệu Nền Tảng AI4Edu Hub", width="large")
+def show_about_dialog():
+    st.markdown("""
+    ### 🎓 AI4Edu Hub - Trợ Lý Trí Tuệ Nhân Tạo Giáo Dục Đa Mô Hình
+    *Giải pháp chuyển đổi số sư phạm toàn diện cho Trường Tiểu học Hoàng Mai & Hệ thống K-12*
+    ---
+
+    #### 🌟 1. TỔNG QUAN & SỨ MỆNH:
+    **AI4Edu Hub** là nền tảng trợ lý sư phạm thông minh được phát triển nhằm hỗ trợ thầy cô giáo tối ưu hóa thời gian chuẩn bị bài học, nâng cao chất lượng giảng dạy và đổi mới phương pháp sư phạm theo định hướng phát triển phẩm chất, năng lực của **Chương trình Giáo dục Phổ thông 2018 (CTGDPT 2018)**.
+
+    ---
+
+    #### 🚀 2. 5 TÍNH NĂNG ĐỘT PHÁ CỦA ỨNG DỤNG:
+    1. 📑 **Soạn Kế Hoạch Bài Dạy (KHBD) 5 Cột Chuẩn CV 2345/BGDĐT-GDTH:**
+       - Tự động xây dựng tiến trình 4 hoạt động (*Khởi động, Khám phá, Luyện tập, Vận dụng*).
+       - Cấu trúc chi tiết 4 bước thực hiện chuẩn mực (*Chuyển giao, Thực hiện, Báo cáo, Kết luận*).
+    2. 🎯 **Thiết Kế Nhiệm Vụ Phân Hóa 4 Tầng & Giàn Giáo Hỗ Trợ (Scaffolding):**
+       - Chia tách 1 đơn vị bài học SGK thành 4 cấp độ nhận thức theo thang đo Bloom.
+       - Hỗ trợ học sinh gặp khó khăn và mở rộng thử thách sáng tạo liên môn (STEM/STEAM) cho học sinh năng khiếu.
+    3. 📊 **Đánh Giá & Nhận Xét Học Sinh Theo Thông Tư 27/2020/TT-BGDĐT:**
+       - Sinh nhận xét định tính cá nhân hóa theo 3 nhóm đối tượng (*Hoàn thành tốt, Hoàn thành, Cần cố gắng*), chỉ rõ ưu điểm và hướng dẫn khắc phục cụ thể.
+    4. 📚 **Cơ Sở Dữ Liệu SGK Chuẩn 100% (Bộ Kết Nối Tri Thức Với Cuộc Sống):**
+       - Tích hợp trọn bộ **323 bài học Toán (Lớp 1 - 5)** và **174 bài học Tiếng Việt (Lớp 1 - 5)** của NXB Giáo dục Việt Nam, trích dẫn chính xác số trang, định nghĩa cốt lõi, phòng chống tuyệt đối hiện tượng bịa đặt thông tin (*Anti-Hallucination*).
+    5. 📋 **Đồng Bộ Dữ Liệu Đa Nền Tảng Chỉ Trong 1 Click:**
+       - **Sao chép Google Docs:** Copy Rich-Text giữ nguyên bảng 5 cột có màu sắc và định dạng chuẩn sang `docs.new` bằng phím tắt `Ctrl + V`.
+       - **Xuất File Word (.docx):** Tải về máy tính chỉnh sửa và lưu trữ văn bản.
+       - **Xuất File Excel Quizizz (.xlsx):** Tự động tạo bộ câu hỏi trắc nghiệm đố vui nạp thẳng vào Quizizz, Kahoot hoặc Wordwall.
+
+    ---
+
+    #### 🤖 3. NỀN TẢNG CÔNG NGHỆ ĐA MÔ HÌNH HÀNG ĐẦU:
+    * 🔷 **Google Gemini:** `Gemini 2.5 Flash`, `Gemini 2.5 Pro`, `Gemini 1.5 Pro` (Tốc độ xử lý siêu nhanh, ngữ cảnh dài, tối ưu tiếng Việt).
+    * 🔶 **Anthropic Claude:** `Claude 3.7 Sonnet`, `Claude 3.5 Haiku` (Tư duy lập luận sư phạm sâu sắc và tinh tế).
+    * 🟢 **OpenAI GPT:** `GPT-4o`, `GPT-4o Mini` (Mô hình đa nhiệm linh hoạt).
+
+    ---
+
+    #### 🌐 4. TUÂN THỦ CHUẨN MỰC QUỐC TẾ & KHUYẾN CÁO SƯ PHẠM:
+    * **Khung Năng Lực AI Giáo Viên của UNESCO (2024):** Lấy con người làm trung tâm, tôn trọng đạo đức AI và bảo mật thông tin học sinh.
+    * **Nguyên tắc "Teacher-in-the-loop":** Thầy cô giáo luôn là người ra quyết định chuyên môn cao nhất. Ứng dụng mang tính chất **trình diễn công nghệ (Demo) và hỗ trợ sư phạm**; thầy cô cần kiểm tra, thẩm định lại kết quả trước khi đưa vào lớp học.
+
+    ---
+    *🏫 Đơn vị phối hợp nghiên cứu & thử nghiệm: Trường Tiểu học Hoàng Mai*  
+    *💻 Phiên bản: v2.5 (2026) • Bộ sách: Kết nối tri thức với cuộc sống*
+    """)
+
 @st.dialog("🌐 Chuẩn UNESCO & Đạo Đức Ứng Dụng AI Trong Giáo Dục", width="large")
 def show_unesco_standards_dialog():
     st.markdown("""
@@ -622,6 +668,25 @@ with st.sidebar:
 
     st.caption(f"**Giai đoạn nhận thức:** {grade_info.cognitive_stage if grade_info else 'N/A'}")
     st.caption(f"**Văn bản pháp quy:** Công văn 2345/BGDĐT-GDTH & Thông tư 27/2020/TT-BGDĐT")
+
+    # -------------------------------------------------------------
+    # ℹ️ FOOTER SIDEBAR: GIỚI THIỆU ỨNG DỤNG (ABOUT AI4EDU HUB)
+    # -------------------------------------------------------------
+    st.markdown("---")
+    st.markdown("### ℹ️ Thông Tin Nền Tảng")
+    if st.button("ℹ️ Giới Thiệu AI4Edu Hub", use_container_width=True, key="btn_dlg_about"):
+        show_about_dialog()
+        
+    st.markdown("""
+    <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; font-size: 12.5px; color: #334155; line-height: 1.5; margin-top: 6px;">
+        <strong style="color: #0b57d0; font-size: 13.5px;">🎓 AI4Edu Hub (v2.5)</strong><br>
+        <em>Trợ lý Sư phạm Trí tuệ Nhân tạo Đa Mô Hình</em><br>
+        🏫 <strong>Đơn vị:</strong> TH Hoàng Mai & fossbk-spec<br>
+        ⚖️ <strong>Quy chuẩn:</strong> CV 2345, TT 27 & UNESCO 2024<br>
+        📚 <strong>SGK:</strong> 323 bài Toán & 174 bài Tiếng Việt (KNTT)<br>
+        ⚠️ <em>Bản quyền thử nghiệm Demo & Nghiên cứu</em>
+    </div>
+    """, unsafe_allow_html=True)
 
 # Khởi tạo Unified LLM Client hiện tại
 llm_client = UnifiedLLMClient(
