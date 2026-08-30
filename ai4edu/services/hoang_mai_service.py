@@ -1,7 +1,8 @@
 from typing import Optional, List, Dict, Any
 from ai4edu.core.prompt_engine import PromptEngine
 from ai4edu.core.llm_provider import UnifiedLLMClient
-from ai4edu.data.math_curriculum import MATH_GRADE_3_LESSONS, MATH_GRADE_5_LESSONS
+from ai4edu.data.math_curriculum import get_math_lessons
+from ai4edu.data.vietnamese_curriculum import get_vietnamese_lessons
 from ai4edu.data.math_grade3_textbook_content import get_textbook_lesson_detail
 from ai4edu.models.lesson_plan_2345 import LessonPlan2345
 from ai4edu.models.differentiated_task import DifferentiatedTaskSet
@@ -10,24 +11,36 @@ from ai4edu.models.primary_assessment import PrimaryAssessmentTT27
 import re
 
 def _find_curriculum_lesson(grade: int, subject: str, topic: str) -> Optional[Dict[str, Any]]:
-    """Tìm thông tin bài học trong dữ liệu chuẩn SGK để cấp bối cảnh chính xác cho AI."""
-    if subject in ["math", "Toán", "Toán học"] and topic:
-        lessons = MATH_GRADE_3_LESSONS if grade == 3 else (MATH_GRADE_5_LESSONS if grade == 5 else [])
-        topic_clean = topic.strip().lower()
+    """Tìm thông tin bài học trong dữ liệu chuẩn SGK (Toán & Tiếng Việt Lớp 1-5) để cấp bối cảnh chính xác cho AI."""
+    if not topic:
+        return None
         
-        # 1. Match theo tiêu đề đầy đủ
-        for l in lessons:
-            title_clean = l["title"].strip().lower()
-            if topic_clean in title_clean or title_clean in topic_clean:
-                return l
-                
-        # 2. Match theo số thứ tự bài học với word boundary (ví dụ "Bài 20" không bao giờ nhầm với "Bài 2")
-        sorted_lessons = sorted(lessons, key=lambda x: len(x["title"].split(":")[0]), reverse=True)
-        for l in sorted_lessons:
-            lesson_prefix = l["title"].split(":")[0].strip().lower() # "bài 20", "bài 2"
-            pattern = r'\b' + re.escape(lesson_prefix) + r'\b'
-            if re.search(pattern, topic_clean):
-                return l
+    subject_norm = subject.lower()
+    if any(k in subject_norm for k in ["toán", "math"]):
+        lessons = get_math_lessons(grade)
+    elif any(k in subject_norm for k in ["tiếng việt", "vietnamese", "văn"]):
+        lessons = get_vietnamese_lessons(grade)
+    else:
+        lessons = []
+
+    if not lessons:
+        return None
+
+    topic_clean = topic.strip().lower()
+    
+    # 1. Match theo tiêu đề đầy đủ
+    for l in lessons:
+        title_clean = l["title"].strip().lower()
+        if topic_clean in title_clean or title_clean in topic_clean:
+            return l
+            
+    # 2. Match theo số thứ tự bài học với word boundary (ví dụ "Bài 20" không bao giờ nhầm với "Bài 2")
+    sorted_lessons = sorted(lessons, key=lambda x: len(x["title"].split(":")[0]), reverse=True)
+    for l in sorted_lessons:
+        lesson_prefix = l["title"].split(":")[0].strip().lower() # "bài 20", "bài 2"
+        pattern = r'\b' + re.escape(lesson_prefix) + r'\b'
+        if re.search(pattern, topic_clean):
+            return l
     return None
 
 def generate_lesson_plan_2345(

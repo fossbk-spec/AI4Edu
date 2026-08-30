@@ -48,6 +48,7 @@ export default defineConfig({
           { text: '🛠️ Quy Trình Công Cụ Số (Toolchain)', link: '/hoang-mai-primary/digital-toolchain' },
           { text: '🚀 STEM/STEAM & Năng Lực Số Trẻ Em', link: '/hoang-mai-primary/stem-ai-literacy' },
           { text: '💡 Prompt Chaining & Trợ Lý Khối 1-5', link: '/hoang-mai-primary/prompt-engineering' },
+          { text: '📑 Mục Lục Bài Học Toán & Tiếng Việt (Lớp 1-5)', link: '/hoang-mai-primary/curriculum-toc-primary' },
           { text: '📐 Danh Mục Bài Học Toán 3 & 5 (Tập 1, 2)', link: '/hoang-mai-primary/math-grade3-grade5' },
           { text: '📚 Kho PDF Sách Giáo Khoa Lớp 1 - 5', link: '/hoang-mai-primary/textbook-pdf-library' }
         ]

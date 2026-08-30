@@ -1,16 +1,138 @@
 """
-Cơ sở dữ liệu danh mục bài học chuẩn 100% SGK Toán Lớp 3 và Lớp 5 (Tập 1 và Tập 2)
+Cơ sở dữ liệu danh mục bài học chuẩn 100% SGK Toán Cấp Tiểu Học (Lớp 1 đến Lớp 5)
 Bộ sách KẾT NỐI TRI THỨC VỚI CUỘC SỐNG - Nhà xuất bản Giáo dục Việt Nam (CTGDPT 2018).
+Tổng Chủ biên: GS.TSKH. Hà Huy Khoái; Chủ biên: PGS.TS. Lê Anh Vinh.
 """
 
 from typing import List, Dict, Any
 
 # ==============================================================================
-# TOÁN LỚP 3 (KẾT NỐI TRI THỨC VỚI CUỘC SỐNG - 16 CHỦ ĐỀ, 81 BÀI HỌC)
+# 1. TOÁN LỚP 1 (39 BÀI HỌC)
+# ==============================================================================
+MATH_GRADE_1_LESSONS = [
+    # Tập 1
+    {"id": "t1_b01", "grade": 1, "volume": 1, "page": 6, "topic_group": "Chủ đề 1: Các số từ 0 đến 10", "title": "Bài 1: Tiết học đầu tiên"},
+    {"id": "t1_b02", "grade": 1, "volume": 1, "page": 8, "topic_group": "Chủ đề 1: Các số từ 0 đến 10", "title": "Bài 2: Các số 0, 1, 2, 3, 4, 5"},
+    {"id": "t1_b03", "grade": 1, "volume": 1, "page": 14, "topic_group": "Chủ đề 1: Các số từ 0 đến 10", "title": "Bài 3: Các số 6, 7, 8, 9, 10"},
+    {"id": "t1_b04", "grade": 1, "volume": 1, "page": 20, "topic_group": "Chủ đề 1: Các số từ 0 đến 10", "title": "Bài 4: Nhiều hơn, ít hơn, bằng nhau"},
+    {"id": "t1_b05", "grade": 1, "volume": 1, "page": 24, "topic_group": "Chủ đề 1: Các số từ 0 đến 10", "title": "Bài 5: Mấy và mấy"},
+    {"id": "t1_b06", "grade": 1, "volume": 1, "page": 28, "topic_group": "Chủ đề 1: Các số từ 0 đến 10", "title": "Bài 6: Luyện tập chung"},
+    {"id": "t1_b07", "grade": 1, "volume": 1, "page": 32, "topic_group": "Chủ đề 2: Làm quen với hình phẳng", "title": "Bài 7: Hình vuông, hình tròn, hình tam giác, hình chữ nhật"},
+    {"id": "t1_b08", "grade": 1, "volume": 1, "page": 36, "topic_group": "Chủ đề 2: Làm quen với hình phẳng", "title": "Bài 8: Thực hành lắp ghép, xếp hình"},
+    {"id": "t1_b09", "grade": 1, "volume": 1, "page": 40, "topic_group": "Chủ đề 2: Làm quen với hình phẳng", "title": "Bài 9: Luyện tập chung"},
+    {"id": "t1_b10", "grade": 1, "volume": 1, "page": 44, "topic_group": "Chủ đề 3: Phép cộng, phép trừ phạm vi 10", "title": "Bài 10: Phép cộng trong phạm vi 10"},
+    {"id": "t1_b11", "grade": 1, "volume": 1, "page": 52, "topic_group": "Chủ đề 3: Phép cộng, phép trừ phạm vi 10", "title": "Bài 11: Bảng cộng trong phạm vi 10"},
+    {"id": "t1_b12", "grade": 1, "volume": 1, "page": 60, "topic_group": "Chủ đề 3: Phép cộng, phép trừ phạm vi 10", "title": "Bài 12: Bảng trừ trong phạm vi 10"},
+    {"id": "t1_b13", "grade": 1, "volume": 1, "page": 68, "topic_group": "Chủ đề 3: Phép cộng, phép trừ phạm vi 10", "title": "Bài 13: Luyện tập chung"},
+    {"id": "t1_b14", "grade": 1, "volume": 1, "page": 72, "topic_group": "Chủ đề 3: Phép cộng, phép trừ phạm vi 10", "title": "Bài 14: Luyện tập phép cộng, phép trừ phạm vi 10"},
+    {"id": "t1_b15", "grade": 1, "volume": 1, "page": 78, "topic_group": "Chủ đề 4: Làm quen với hình khối", "title": "Bài 15: Vị trí, định hướng trong không gian"},
+    {"id": "t1_b16", "grade": 1, "volume": 1, "page": 82, "topic_group": "Chủ đề 4: Làm quen với hình khối", "title": "Bài 16: Khối lập phương, khối hộp chữ nhật"},
+    {"id": "t1_b17", "grade": 1, "volume": 1, "page": 86, "topic_group": "Chủ đề 4: Làm quen với hình khối", "title": "Bài 17: Ôn tập Học kì I"},
+    # Tập 2
+    {"id": "t1_b18", "grade": 1, "volume": 2, "page": 4, "topic_group": "Chủ đề 5: Các số trong phạm vi 20", "title": "Bài 18: Các số từ 11 đến 20"},
+    {"id": "t1_b19", "grade": 1, "volume": 2, "page": 10, "topic_group": "Chủ đề 5: Các số trong phạm vi 20", "title": "Bài 19: Phép cộng, phép trừ không nhớ trong phạm vi 20"},
+    {"id": "t1_b20", "grade": 1, "volume": 2, "page": 18, "topic_group": "Chủ đề 5: Các số trong phạm vi 20", "title": "Bài 20: Luyện tập chung"},
+    {"id": "t1_b21", "grade": 1, "volume": 2, "page": 22, "topic_group": "Chủ đề 6: Các số trong phạm vi 100", "title": "Bài 21: Các số tròn chục"},
+    {"id": "t1_b22", "grade": 1, "volume": 2, "page": 26, "topic_group": "Chủ đề 6: Các số trong phạm vi 100", "title": "Bài 22: Các số có hai chữ số"},
+    {"id": "t1_b23", "grade": 1, "volume": 2, "page": 34, "topic_group": "Chủ đề 6: Các số trong phạm vi 100", "title": "Bài 23: So sánh các số có hai chữ số"},
+    {"id": "t1_b24", "grade": 1, "volume": 2, "page": 38, "topic_group": "Chủ đề 6: Các số trong phạm vi 100", "title": "Bài 24: Luyện tập chung"},
+    {"id": "t1_b25", "grade": 1, "volume": 2, "page": 42, "topic_group": "Chủ đề 7: Độ dài và đo độ dài", "title": "Bài 25: Dài hơn, ngắn hơn"},
+    {"id": "t1_b26", "grade": 1, "volume": 2, "page": 46, "topic_group": "Chủ đề 7: Độ dài và đo độ dài", "title": "Bài 26: Đơn vị đo độ dài Xăng-ti-mét"},
+    {"id": "t1_b27", "grade": 1, "volume": 2, "page": 50, "topic_group": "Chủ đề 7: Độ dài và đo độ dài", "title": "Bài 27: Thực hành đo độ dài"},
+    {"id": "t1_b28", "grade": 1, "volume": 2, "page": 54, "topic_group": "Chủ đề 7: Độ dài và đo độ dài", "title": "Bài 28: Luyện tập chung"},
+    {"id": "t1_b29", "grade": 1, "volume": 2, "page": 58, "topic_group": "Chủ đề 8: Phép tính không nhớ phạm vi 100", "title": "Bài 29: Phép cộng số có hai chữ số với số có một chữ số"},
+    {"id": "t1_b30", "grade": 1, "volume": 2, "page": 62, "topic_group": "Chủ đề 8: Phép tính không nhớ phạm vi 100", "title": "Bài 30: Phép cộng số có hai chữ số với số có hai chữ số"},
+    {"id": "t1_b31", "grade": 1, "volume": 2, "page": 66, "topic_group": "Chủ đề 8: Phép tính không nhớ phạm vi 100", "title": "Bài 31: Phép trừ số có hai chữ số cho số có một chữ số"},
+    {"id": "t1_b32", "grade": 1, "volume": 2, "page": 70, "topic_group": "Chủ đề 8: Phép tính không nhớ phạm vi 100", "title": "Bài 32: Phép trừ số có hai chữ số cho số có hai chữ số"},
+    {"id": "t1_b33", "grade": 1, "volume": 2, "page": 74, "topic_group": "Chủ đề 8: Phép tính không nhớ phạm vi 100", "title": "Bài 33: Luyện tập chung"},
+    {"id": "t1_b34", "grade": 1, "volume": 2, "page": 78, "topic_group": "Chủ đề 9: Thời gian, giờ và lịch", "title": "Bài 34: Xem đồng hồ, xem lịch ngày tháng"},
+    {"id": "t1_b35", "grade": 1, "volume": 2, "page": 82, "topic_group": "Chủ đề 9: Thời gian, giờ và lịch", "title": "Bài 35: Các ngày trong tuần lễ"},
+    {"id": "t1_b36", "grade": 1, "volume": 2, "page": 86, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 36: Ôn tập các số trong phạm vi 100"},
+    {"id": "t1_b37", "grade": 1, "volume": 2, "page": 90, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 37: Ôn tập phép cộng, phép trừ phạm vi 100"},
+    {"id": "t1_b38", "grade": 1, "volume": 2, "page": 94, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 38: Ôn tập hình học và đo lường"},
+    {"id": "t1_b39", "grade": 1, "volume": 2, "page": 98, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 39: Ôn tập chung cuối năm"}
+]
+
+# ==============================================================================
+# 2. TOÁN LỚP 2 (67 BÀI HỌC)
+# ==============================================================================
+MATH_GRADE_2_LESSONS = [
+    # Tập 1
+    {"id": "t2_b01", "grade": 2, "volume": 1, "page": 6, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 1: Ôn tập các số đến 100"},
+    {"id": "t2_b02", "grade": 2, "volume": 1, "page": 10, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 2: Tia số. Số liền trước, số liền sau"},
+    {"id": "t2_b03", "grade": 2, "volume": 1, "page": 13, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 3: Các thành phần của phép cộng, phép trừ"},
+    {"id": "t2_b04", "grade": 2, "volume": 1, "page": 16, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 4: Hơn, kém nhau bao nhiêu"},
+    {"id": "t2_b05", "grade": 2, "volume": 1, "page": 19, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 5: Ôn tập phép cộng, phép trừ (không nhớ) phạm vi 100"},
+    {"id": "t2_b06", "grade": 2, "volume": 1, "page": 23, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 6: Luyện tập chung"},
+    {"id": "t2_b07", "grade": 2, "volume": 1, "page": 26, "topic_group": "Chủ đề 2: Phép cộng trừ qua 10 phạm vi 20", "title": "Bài 7: Phép cộng (qua 10) trong phạm vi 20"},
+    {"id": "t2_b08", "grade": 2, "volume": 1, "page": 31, "topic_group": "Chủ đề 2: Phép cộng trừ qua 10 phạm vi 20", "title": "Bài 8: Bảng cộng (qua 10)"},
+    {"id": "t2_b09", "grade": 2, "volume": 1, "page": 36, "topic_group": "Chủ đề 2: Phép cộng trừ qua 10 phạm vi 20", "title": "Bài 9: Bài toán về thêm, bớt một số đơn vị"},
+    {"id": "t2_b10", "grade": 2, "volume": 1, "page": 40, "topic_group": "Chủ đề 2: Phép cộng trừ qua 10 phạm vi 20", "title": "Bài 10: Luyện tập chung"},
+    {"id": "t2_b11", "grade": 2, "volume": 1, "page": 44, "topic_group": "Chủ đề 2: Phép cộng trừ qua 10 phạm vi 20", "title": "Bài 11: Phép trừ (qua 10) trong phạm vi 20"},
+    {"id": "t2_b12", "grade": 2, "volume": 1, "page": 49, "topic_group": "Chủ đề 2: Phép cộng trừ qua 10 phạm vi 20", "title": "Bài 12: Bảng trừ (qua 10)"},
+    {"id": "t2_b13", "grade": 2, "volume": 1, "page": 54, "topic_group": "Chủ đề 2: Phép cộng trừ qua 10 phạm vi 20", "title": "Bài 13: Bài toán về nhiều hơn, ít hơn một số đơn vị"},
+    {"id": "t2_b14", "grade": 2, "volume": 1, "page": 58, "topic_group": "Chủ đề 2: Phép cộng trừ qua 10 phạm vi 20", "title": "Bài 14: Luyện tập chung"},
+    {"id": "t2_b15", "grade": 2, "volume": 1, "page": 62, "topic_group": "Chủ đề 3: Làm quen với hình phẳng", "title": "Bài 15: Điểm, đoạn thẳng"},
+    {"id": "t2_b16", "grade": 2, "volume": 1, "page": 66, "topic_group": "Chủ đề 3: Làm quen với hình phẳng", "title": "Bài 16: Đường thẳng, đường cong, đường gấp khúc"},
+    {"id": "t2_b17", "grade": 2, "volume": 1, "page": 71, "topic_group": "Chủ đề 3: Làm quen với hình phẳng", "title": "Bài 17: Thực hành và trải nghiệm với hình phẳng"},
+    {"id": "t2_b18", "grade": 2, "volume": 1, "page": 74, "topic_group": "Chủ đề 3: Làm quen với hình phẳng", "title": "Bài 18: Luyện tập chung"},
+    {"id": "t2_b19", "grade": 2, "volume": 1, "page": 77, "topic_group": "Chủ đề 4: Phép cộng trừ có nhớ phạm vi 100", "title": "Bài 19: Phép cộng (có nhớ) số có hai chữ số với số có một chữ số"},
+    {"id": "t2_b20", "grade": 2, "volume": 1, "page": 81, "topic_group": "Chủ đề 4: Phép cộng trừ có nhớ phạm vi 100", "title": "Bài 20: Phép cộng (có nhớ) số có hai chữ số với số có hai chữ số"},
+    {"id": "t2_b21", "grade": 2, "volume": 1, "page": 86, "topic_group": "Chủ đề 4: Phép cộng trừ có nhớ phạm vi 100", "title": "Bài 21: Luyện tập phép cộng"},
+    {"id": "t2_b22", "grade": 2, "volume": 1, "page": 90, "topic_group": "Chủ đề 4: Phép cộng trừ có nhớ phạm vi 100", "title": "Bài 22: Phép trừ (có nhớ) số có hai chữ số cho số có một chữ số"},
+    {"id": "t2_b23", "grade": 2, "volume": 1, "page": 94, "topic_group": "Chủ đề 4: Phép cộng trừ có nhớ phạm vi 100", "title": "Bài 23: Phép trừ (có nhớ) số có hai chữ số cho số có hai chữ số"},
+    {"id": "t2_b24", "grade": 2, "volume": 1, "page": 99, "topic_group": "Chủ đề 4: Phép cộng trừ có nhớ phạm vi 100", "title": "Bài 24: Luyện tập phép trừ"},
+    {"id": "t2_b25", "grade": 2, "volume": 1, "page": 103, "topic_group": "Chủ đề 4: Phép cộng trừ có nhớ phạm vi 100", "title": "Bài 25: Luyện tập chung"},
+    {"id": "t2_b26", "grade": 2, "volume": 1, "page": 106, "topic_group": "Chủ đề 5: Làm quen khối lượng, dung tích", "title": "Bài 26: Ki-lô-gam"},
+    {"id": "t2_b27", "grade": 2, "volume": 1, "page": 110, "topic_group": "Chủ đề 5: Làm quen khối lượng, dung tích", "title": "Bài 27: Lít"},
+    {"id": "t2_b28", "grade": 2, "volume": 1, "page": 114, "topic_group": "Chủ đề 5: Làm quen khối lượng, dung tích", "title": "Bài 28: Thực hành và trải nghiệm với ki-lô-gam, lít"},
+    {"id": "t2_b29", "grade": 2, "volume": 1, "page": 117, "topic_group": "Chủ đề 5: Làm quen khối lượng, dung tích", "title": "Bài 29: Luyện tập chung"},
+    {"id": "t2_b30", "grade": 2, "volume": 1, "page": 120, "topic_group": "Chủ đề 6: Ngày - giờ, ngày - tháng", "title": "Bài 30: Ngày - giờ, giờ - phút"},
+    {"id": "t2_b31", "grade": 2, "volume": 1, "page": 125, "topic_group": "Chủ đề 6: Ngày - giờ, ngày - tháng", "title": "Bài 31: Ngày - tháng"},
+    {"id": "t2_b32", "grade": 2, "volume": 1, "page": 129, "topic_group": "Chủ đề 6: Ngày - giờ, ngày - tháng", "title": "Bài 32: Thực hành và trải nghiệm"},
+    {"id": "t2_b33", "grade": 2, "volume": 1, "page": 132, "topic_group": "Chủ đề 7: Ôn tập học kì I", "title": "Bài 33: Ôn tập phép cộng, phép trừ trong phạm vi 20, 100"},
+    {"id": "t2_b34", "grade": 2, "volume": 1, "page": 136, "topic_group": "Chủ đề 7: Ôn tập học kì I", "title": "Bài 34: Ôn tập hình học và đo lường"},
+    {"id": "t2_b35", "grade": 2, "volume": 1, "page": 139, "topic_group": "Chủ đề 7: Ôn tập học kì I", "title": "Bài 35: Ôn tập chung học kì I"},
+    # Tập 2
+    {"id": "t2_b36", "grade": 2, "volume": 2, "page": 4, "topic_group": "Chủ đề 8: Phép nhân, phép chia", "title": "Bài 36: Phép nhân. Thừa số, tích"},
+    {"id": "t2_b37", "grade": 2, "volume": 2, "page": 9, "topic_group": "Chủ đề 8: Phép nhân, phép chia", "title": "Bài 37: Bảng nhân 2"},
+    {"id": "t2_b38", "grade": 2, "volume": 2, "page": 13, "topic_group": "Chủ đề 8: Phép nhân, phép chia", "title": "Bài 38: Bảng nhân 5"},
+    {"id": "t2_b39", "grade": 2, "volume": 2, "page": 17, "topic_group": "Chủ đề 8: Phép nhân, phép chia", "title": "Bài 39: Bảng chia 2"},
+    {"id": "t2_b40", "grade": 2, "volume": 2, "page": 21, "topic_group": "Chủ đề 8: Phép nhân, phép chia", "title": "Bài 40: Bảng chia 5"},
+    {"id": "t2_b41", "grade": 2, "volume": 2, "page": 25, "topic_group": "Chủ đề 8: Phép nhân, phép chia", "title": "Bài 41: Số bị chia, số chia, thương"},
+    {"id": "t2_b42", "grade": 2, "volume": 2, "page": 29, "topic_group": "Chủ đề 8: Phép nhân, phép chia", "title": "Bài 42: Luyện tập chung"},
+    {"id": "t2_b43", "grade": 2, "volume": 2, "page": 33, "topic_group": "Chủ đề 9: Làm quen với hình khối", "title": "Bài 43: Khối trụ, khối cầu"},
+    {"id": "t2_b44", "grade": 2, "volume": 2, "page": 37, "topic_group": "Chủ đề 9: Làm quen với hình khối", "title": "Bài 44: Thực hành gấp, cắt, ghép, xếp hình vẽ trang trí"},
+    {"id": "t2_b45", "grade": 2, "volume": 2, "page": 40, "topic_group": "Chủ đề 9: Làm quen với hình khối", "title": "Bài 45: Luyện tập chung"},
+    {"id": "t2_b46", "grade": 2, "volume": 2, "page": 43, "topic_group": "Chủ đề 10: Các số trong phạm vi 1 000", "title": "Bài 46: Đơn vị, chục, trăm, nghìn"},
+    {"id": "t2_b47", "grade": 2, "volume": 2, "page": 47, "topic_group": "Chủ đề 10: Các số trong phạm vi 1 000", "title": "Bài 47: Các số có ba chữ số"},
+    {"id": "t2_b48", "grade": 2, "volume": 2, "page": 53, "topic_group": "Chủ đề 10: Các số trong phạm vi 1 000", "title": "Bài 48: Viết số thành tổng các trăm, chục, đơn vị"},
+    {"id": "t2_b49", "grade": 2, "volume": 2, "page": 56, "topic_group": "Chủ đề 10: Các số trong phạm vi 1 000", "title": "Bài 49: So sánh các số có ba chữ số"},
+    {"id": "t2_b50", "grade": 2, "volume": 2, "page": 60, "topic_group": "Chủ đề 10: Các số trong phạm vi 1 000", "title": "Bài 50: Luyện tập chung"},
+    {"id": "t2_b51", "grade": 2, "volume": 2, "page": 63, "topic_group": "Chủ đề 11: Độ dài. Tiền Việt Nam", "title": "Bài 51: Đề-xi-mét, Mét, Ki-lô-mét"},
+    {"id": "t2_b52", "grade": 2, "volume": 2, "page": 70, "topic_group": "Chủ đề 11: Độ dài. Tiền Việt Nam", "title": "Bài 52: Thực hành đo độ dài"},
+    {"id": "t2_b53", "grade": 2, "volume": 2, "page": 73, "topic_group": "Chủ đề 11: Độ dài. Tiền Việt Nam", "title": "Bài 53: Tiền Việt Nam"},
+    {"id": "t2_b54", "grade": 2, "volume": 2, "page": 76, "topic_group": "Chủ đề 11: Độ dài. Tiền Việt Nam", "title": "Bài 54: Luyện tập chung"},
+    {"id": "t2_b55", "grade": 2, "volume": 2, "page": 79, "topic_group": "Chủ đề 12: Phép cộng trừ phạm vi 1 000", "title": "Bài 55: Phép cộng (không nhớ) trong phạm vi 1 000"},
+    {"id": "t2_b56", "grade": 2, "volume": 2, "page": 83, "topic_group": "Chủ đề 12: Phép cộng trừ phạm vi 1 000", "title": "Bài 56: Phép trừ (không nhớ) trong phạm vi 1 000"},
+    {"id": "t2_b57", "grade": 2, "volume": 2, "page": 87, "topic_group": "Chủ đề 12: Phép cộng trừ phạm vi 1 000", "title": "Bài 57: Phép cộng (có nhớ) trong phạm vi 1 000"},
+    {"id": "t2_b58", "grade": 2, "volume": 2, "page": 92, "topic_group": "Chủ đề 12: Phép cộng trừ phạm vi 1 000", "title": "Bài 58: Phép trừ (có nhớ) trong phạm vi 1 000"},
+    {"id": "t2_b59", "grade": 2, "volume": 2, "page": 97, "topic_group": "Chủ đề 12: Phép cộng trừ phạm vi 1 000", "title": "Bài 59: Luyện tập chung"},
+    {"id": "t2_b60", "grade": 2, "volume": 2, "page": 101, "topic_group": "Chủ đề 13: Thống kê, xác suất", "title": "Bài 60: Thu thập, phân loại, kiểm đếm số liệu"},
+    {"id": "t2_b61", "grade": 2, "volume": 2, "page": 105, "topic_group": "Chủ đề 13: Thống kê, xác suất", "title": "Bài 61: Biểu đồ tranh"},
+    {"id": "t2_b62", "grade": 2, "volume": 2, "page": 109, "topic_group": "Chủ đề 13: Thống kê, xác suất", "title": "Bài 62: Chắc chắn, có thể, không thể"},
+    {"id": "t2_b63", "grade": 2, "volume": 2, "page": 113, "topic_group": "Chủ đề 14: Ôn tập cuối năm", "title": "Bài 63: Ôn tập các số trong phạm vi 1 000"},
+    {"id": "t2_b64", "grade": 2, "volume": 2, "page": 117, "topic_group": "Chủ đề 14: Ôn tập cuối năm", "title": "Bài 64: Ôn tập phép cộng, phép trừ trong phạm vi 1 000"},
+    {"id": "t2_b65", "grade": 2, "volume": 2, "page": 121, "topic_group": "Chủ đề 14: Ôn tập cuối năm", "title": "Bài 65: Ôn tập phép nhân, phép chia"},
+    {"id": "t2_b66", "grade": 2, "volume": 2, "page": 125, "topic_group": "Chủ đề 14: Ôn tập cuối năm", "title": "Bài 66: Ôn tập hình học và đo lường"},
+    {"id": "t2_b67", "grade": 2, "volume": 2, "page": 129, "topic_group": "Chủ đề 14: Ôn tập cuối năm", "title": "Bài 67: Ôn tập chung cuối năm"}
+]
+
+# ==============================================================================
+# 3. TOÁN LỚP 3 (81 BÀI HỌC)
 # ==============================================================================
 MATH_GRADE_3_LESSONS = [
-    # ------------------ TẬP 1 (BÀI 1 -> BÀI 44) ------------------
-    # Chủ đề 1: Ôn tập và bổ sung
+    # Tập 1
     {"id": "t3_b01", "grade": 3, "volume": 1, "page": 6, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 1: Ôn tập các số đến 1 000"},
     {"id": "t3_b02", "grade": 3, "volume": 1, "page": 9, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 2: Ôn tập phép cộng, phép trừ trong phạm vi 1 000"},
     {"id": "t3_b03", "grade": 3, "volume": 1, "page": 11, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 3: Tìm thành phần trong phép cộng, phép trừ"},
@@ -19,8 +141,6 @@ MATH_GRADE_3_LESSONS = [
     {"id": "t3_b06", "grade": 3, "volume": 1, "page": 19, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 6: Bảng nhân 4, bảng chia 4"},
     {"id": "t3_b07", "grade": 3, "volume": 1, "page": 21, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 7: Ôn tập hình học và đo lường"},
     {"id": "t3_b08", "grade": 3, "volume": 1, "page": 24, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 8: Luyện tập chung"},
-    
-    # Chủ đề 2: Bảng nhân, bảng chia
     {"id": "t3_b09", "grade": 3, "volume": 1, "page": 28, "topic_group": "Chủ đề 2: Bảng nhân, bảng chia", "title": "Bài 9: Bảng nhân 6, bảng chia 6"},
     {"id": "t3_b10", "grade": 3, "volume": 1, "page": 31, "topic_group": "Chủ đề 2: Bảng nhân, bảng chia", "title": "Bài 10: Bảng nhân 7, bảng chia 7"},
     {"id": "t3_b11", "grade": 3, "volume": 1, "page": 33, "topic_group": "Chủ đề 2: Bảng nhân, bảng chia", "title": "Bài 11: Bảng nhân 8, bảng chia 8"},
@@ -28,207 +148,235 @@ MATH_GRADE_3_LESSONS = [
     {"id": "t3_b13", "grade": 3, "volume": 1, "page": 39, "topic_group": "Chủ đề 2: Bảng nhân, bảng chia", "title": "Bài 13: Tìm thành phần trong phép nhân, phép chia"},
     {"id": "t3_b14", "grade": 3, "volume": 1, "page": 42, "topic_group": "Chủ đề 2: Bảng nhân, bảng chia", "title": "Bài 14: Một phần mấy"},
     {"id": "t3_b15", "grade": 3, "volume": 1, "page": 46, "topic_group": "Chủ đề 2: Bảng nhân, bảng chia", "title": "Bài 15: Luyện tập chung"},
-    
-    # Chủ đề 3: Làm quen với hình phẳng, hình khối
-    {"id": "t3_b16", "grade": 3, "volume": 1, "page": 49, "topic_group": "Chủ đề 3: Làm quen với hình phẳng, hình khối", "title": "Bài 16: Điểm ở giữa, trung điểm của đoạn thẳng"},
-    {"id": "t3_b17", "grade": 3, "volume": 1, "page": 52, "topic_group": "Chủ đề 3: Làm quen với hình phẳng, hình khối", "title": "Bài 17: Hình tròn. Tâm, bán kính, đường kính của hình tròn"},
-    {"id": "t3_b18", "grade": 3, "volume": 1, "page": 54, "topic_group": "Chủ đề 3: Làm quen với hình phẳng, hình khối", "title": "Bài 18: Góc, góc vuông, góc không vuông"},
-    {"id": "t3_b19", "grade": 3, "volume": 1, "page": 56, "topic_group": "Chủ đề 3: Làm quen với hình phẳng, hình khối", "title": "Bài 19: Hình tam giác, hình tứ giác. Hình chữ nhật, hình vuông"},
-    {"id": "t3_b20", "grade": 3, "volume": 1, "page": 61, "topic_group": "Chủ đề 3: Làm quen với hình phẳng, hình khối", "title": "Bài 20: Thực hành vẽ góc vuông, vẽ đường tròn, hình vuông, hình chữ nhật và vẽ trang trí"},
-    {"id": "t3_b21", "grade": 3, "volume": 1, "page": 63, "topic_group": "Chủ đề 3: Làm quen với hình phẳng, hình khối", "title": "Bài 21: Khối lập phương, khối hộp chữ nhật"},
-    {"id": "t3_b22", "grade": 3, "volume": 1, "page": 65, "topic_group": "Chủ đề 3: Làm quen với hình phẳng, hình khối", "title": "Bài 22: Luyện tập chung"},
-    
-    # Chủ đề 4: Phép nhân, phép chia trong phạm vi 100
-    {"id": "t3_b23", "grade": 3, "volume": 1, "page": 67, "topic_group": "Chủ đề 4: Phép nhân, phép chia trong phạm vi 100", "title": "Bài 23: Nhân số có hai chữ số với số có một chữ số"},
-    {"id": "t3_b24", "grade": 3, "volume": 1, "page": 70, "topic_group": "Chủ đề 4: Phép nhân, phép chia trong phạm vi 100", "title": "Bài 24: Gấp một số lên một số lần"},
-    {"id": "t3_b25", "grade": 3, "volume": 1, "page": 72, "topic_group": "Chủ đề 4: Phép nhân, phép chia trong phạm vi 100", "title": "Bài 25: Phép chia hết, phép chia có dư"},
-    {"id": "t3_b26", "grade": 3, "volume": 1, "page": 75, "topic_group": "Chủ đề 4: Phép nhân, phép chia trong phạm vi 100", "title": "Bài 26: Chia số có hai chữ số cho số có một chữ số"},
-    {"id": "t3_b27", "grade": 3, "volume": 1, "page": 79, "topic_group": "Chủ đề 4: Phép nhân, phép chia trong phạm vi 100", "title": "Bài 27: Giảm một số đi một số lần"},
-    {"id": "t3_b28", "grade": 3, "volume": 1, "page": 81, "topic_group": "Chủ đề 4: Phép nhân, phép chia trong phạm vi 100", "title": "Bài 28: Bài toán giải bằng hai bước tính"},
-    {"id": "t3_b29", "grade": 3, "volume": 1, "page": 83, "topic_group": "Chủ đề 4: Phép nhân, phép chia trong phạm vi 100", "title": "Bài 29: Luyện tập chung"},
-    
-    # Chủ đề 5: Một số đơn vị đo độ dài, khối lượng, dung tích, nhiệt độ
+    {"id": "t3_b16", "grade": 3, "volume": 1, "page": 49, "topic_group": "Chủ đề 3: Làm quen hình phẳng, hình khối", "title": "Bài 16: Điểm ở giữa, trung điểm của đoạn thẳng"},
+    {"id": "t3_b17", "grade": 3, "volume": 1, "page": 52, "topic_group": "Chủ đề 3: Làm quen hình phẳng, hình khối", "title": "Bài 17: Hình tròn. Tâm, bán kính, đường kính của hình tròn"},
+    {"id": "t3_b18", "grade": 3, "volume": 1, "page": 54, "topic_group": "Chủ đề 3: Làm quen hình phẳng, hình khối", "title": "Bài 18: Góc, góc vuông, góc không vuông"},
+    {"id": "t3_b19", "grade": 3, "volume": 1, "page": 56, "topic_group": "Chủ đề 3: Làm quen hình phẳng, hình khối", "title": "Bài 19: Hình tam giác, hình tứ giác. Hình chữ nhật, hình vuông"},
+    {"id": "t3_b20", "grade": 3, "volume": 1, "page": 61, "topic_group": "Chủ đề 3: Làm quen hình phẳng, hình khối", "title": "Bài 20: Thực hành vẽ góc vuông, vẽ đường tròn, hình vuông, hình chữ nhật và vẽ trang trí"},
+    {"id": "t3_b21", "grade": 3, "volume": 1, "page": 63, "topic_group": "Chủ đề 3: Làm quen hình phẳng, hình khối", "title": "Bài 21: Khối lập phương, khối hộp chữ nhật"},
+    {"id": "t3_b22", "grade": 3, "volume": 1, "page": 65, "topic_group": "Chủ đề 3: Làm quen hình phẳng, hình khối", "title": "Bài 22: Luyện tập chung"},
+    {"id": "t3_b23", "grade": 3, "volume": 1, "page": 67, "topic_group": "Chủ đề 4: Phép nhân chia phạm vi 100", "title": "Bài 23: Nhân số có hai chữ số với số có một chữ số"},
+    {"id": "t3_b24", "grade": 3, "volume": 1, "page": 70, "topic_group": "Chủ đề 4: Phép nhân chia phạm vi 100", "title": "Bài 24: Gấp một số lên một số lần"},
+    {"id": "t3_b25", "grade": 3, "volume": 1, "page": 72, "topic_group": "Chủ đề 4: Phép nhân chia phạm vi 100", "title": "Bài 25: Phép chia hết, phép chia có dư"},
+    {"id": "t3_b26", "grade": 3, "volume": 1, "page": 75, "topic_group": "Chủ đề 4: Phép nhân chia phạm vi 100", "title": "Bài 26: Chia số có hai chữ số cho số có một chữ số"},
+    {"id": "t3_b27", "grade": 3, "volume": 1, "page": 79, "topic_group": "Chủ đề 4: Phép nhân chia phạm vi 100", "title": "Bài 27: Giảm một số đi một số lần"},
+    {"id": "t3_b28", "grade": 3, "volume": 1, "page": 81, "topic_group": "Chủ đề 4: Phép nhân chia phạm vi 100", "title": "Bài 28: Bài toán giải bằng hai bước tính"},
+    {"id": "t3_b29", "grade": 3, "volume": 1, "page": 83, "topic_group": "Chủ đề 4: Phép nhân chia phạm vi 100", "title": "Bài 29: Luyện tập chung"},
     {"id": "t3_b30", "grade": 3, "volume": 1, "page": 85, "topic_group": "Chủ đề 5: Đơn vị đo độ dài, khối lượng, dung tích, nhiệt độ", "title": "Bài 30: Mi-li-mét"},
     {"id": "t3_b31", "grade": 3, "volume": 1, "page": 87, "topic_group": "Chủ đề 5: Đơn vị đo độ dài, khối lượng, dung tích, nhiệt độ", "title": "Bài 31: Gam"},
     {"id": "t3_b32", "grade": 3, "volume": 1, "page": 89, "topic_group": "Chủ đề 5: Đơn vị đo độ dài, khối lượng, dung tích, nhiệt độ", "title": "Bài 32: Mi-li-lít"},
     {"id": "t3_b33", "grade": 3, "volume": 1, "page": 91, "topic_group": "Chủ đề 5: Đơn vị đo độ dài, khối lượng, dung tích, nhiệt độ", "title": "Bài 33: Nhiệt độ. Đơn vị đo nhiệt độ"},
     {"id": "t3_b34", "grade": 3, "volume": 1, "page": 93, "topic_group": "Chủ đề 5: Đơn vị đo độ dài, khối lượng, dung tích, nhiệt độ", "title": "Bài 34: Thực hành và trải nghiệm với các đơn vị mi-li-mét, gam, mi-li-lít, độ C"},
     {"id": "t3_b35", "grade": 3, "volume": 1, "page": 95, "topic_group": "Chủ đề 5: Đơn vị đo độ dài, khối lượng, dung tích, nhiệt độ", "title": "Bài 35: Luyện tập chung"},
-    
-    # Chủ đề 6: Phép nhân, phép chia trong phạm vi 1 000
-    {"id": "t3_b36", "grade": 3, "volume": 1, "page": 97, "topic_group": "Chủ đề 6: Phép nhân, phép chia trong phạm vi 1 000", "title": "Bài 36: Nhân số có ba chữ số với số có một chữ số"},
-    {"id": "t3_b37", "grade": 3, "volume": 1, "page": 99, "topic_group": "Chủ đề 6: Phép nhân, phép chia trong phạm vi 1 000", "title": "Bài 37: Chia số có ba chữ số cho số có một chữ số"},
-    {"id": "t3_b38", "grade": 3, "volume": 1, "page": 104, "topic_group": "Chủ đề 6: Phép nhân, phép chia trong phạm vi 1 000", "title": "Bài 38: Biểu thức số. Tính giá trị của biểu thức số"},
-    {"id": "t3_b39", "grade": 3, "volume": 1, "page": 109, "topic_group": "Chủ đề 6: Phép nhân, phép chia trong phạm vi 1 000", "title": "Bài 39: So sánh số lớn gấp mấy lần số bé"},
-    {"id": "t3_b40", "grade": 3, "volume": 1, "page": 111, "topic_group": "Chủ đề 6: Phép nhân, phép chia trong phạm vi 1 000", "title": "Bài 40: Luyện tập chung"},
-    
-    # Chủ đề 7: Ôn tập học kì 1
-    {"id": "t3_b41", "grade": 3, "volume": 1, "page": 113, "topic_group": "Chủ đề 7: Ôn tập học kì 1", "title": "Bài 41: Ôn tập phép nhân, phép chia trong phạm vi 100, 1 000"},
-    {"id": "t3_b42", "grade": 3, "volume": 1, "page": 116, "topic_group": "Chủ đề 7: Ôn tập học kì 1", "title": "Bài 42: Ôn tập biểu thức số"},
-    {"id": "t3_b43", "grade": 3, "volume": 1, "page": 118, "topic_group": "Chủ đề 7: Ôn tập học kì 1", "title": "Bài 43: Ôn tập hình học và đo lường"},
-    {"id": "t3_b44", "grade": 3, "volume": 1, "page": 120, "topic_group": "Chủ đề 7: Ôn tập học kì 1", "title": "Bài 44: Ôn tập chung"},
-
-    # ------------------ TẬP 2 (BÀI 45 -> BÀI 81) ------------------
-    # Chủ đề 8: Các số đến 10 000
-    {"id": "t3_b45", "grade": 3, "volume": 2, "topic_group": "Chủ đề 8: Các số đến 10 000", "title": "Bài 45: Các số có bốn chữ số. Số 10 000"},
-    {"id": "t3_b46", "grade": 3, "volume": 2, "topic_group": "Chủ đề 8: Các số đến 10 000", "title": "Bài 46: So sánh các số trong phạm vi 10 000"},
-    {"id": "t3_b47", "grade": 3, "volume": 2, "topic_group": "Chủ đề 8: Các số đến 10 000", "title": "Bài 47: Làm quen với chữ số La Mã"},
-    {"id": "t3_b48", "grade": 3, "volume": 2, "topic_group": "Chủ đề 8: Các số đến 10 000", "title": "Bài 48: Làm tròn số đến hàng chục, hàng trăm"},
-    {"id": "t3_b49", "grade": 3, "volume": 2, "topic_group": "Chủ đề 8: Các số đến 10 000", "title": "Bài 49: Luyện tập chung"},
-    
-    # Chủ đề 9: Chu vi, diện tích một số hình phẳng
-    {"id": "t3_b50", "grade": 3, "volume": 2, "topic_group": "Chủ đề 9: Chu vi, diện tích một số hình phẳng", "title": "Bài 50: Chu vi hình tam giác, hình tứ giác, hình chữ nhật, hình vuông"},
-    {"id": "t3_b51", "grade": 3, "volume": 2, "topic_group": "Chủ đề 9: Chu vi, diện tích một số hình phẳng", "title": "Bài 51: Diện tích của một hình. Xăng-ti-mét vuông"},
-    {"id": "t3_b52", "grade": 3, "volume": 2, "topic_group": "Chủ đề 9: Chu vi, diện tích một số hình phẳng", "title": "Bài 52: Diện tích hình chữ nhật, diện tích hình vuông"},
-    {"id": "t3_b53", "grade": 3, "volume": 2, "topic_group": "Chủ đề 9: Chu vi, diện tích một số hình phẳng", "title": "Bài 53: Luyện tập chung"},
-    
-    # Chủ đề 10: Cộng, trừ, nhân, chia trong phạm vi 10 000
-    {"id": "t3_b54", "grade": 3, "volume": 2, "topic_group": "Chủ đề 10: Cộng, trừ, nhân, chia trong phạm vi 10 000", "title": "Bài 54: Phép cộng trong phạm vi 10 000"},
-    {"id": "t3_b55", "grade": 3, "volume": 2, "topic_group": "Chủ đề 10: Cộng, trừ, nhân, chia trong phạm vi 10 000", "title": "Bài 55: Phép trừ trong phạm vi 10 000"},
-    {"id": "t3_b56", "grade": 3, "volume": 2, "topic_group": "Chủ đề 10: Cộng, trừ, nhân, chia trong phạm vi 10 000", "title": "Bài 56: Nhân số có bốn chữ số với số có một chữ số"},
-    {"id": "t3_b57", "grade": 3, "volume": 2, "topic_group": "Chủ đề 10: Cộng, trừ, nhân, chia trong phạm vi 10 000", "title": "Bài 57: Chia số có bốn chữ số cho số có một chữ số"},
-    {"id": "t3_b58", "grade": 3, "volume": 2, "topic_group": "Chủ đề 10: Cộng, trừ, nhân, chia trong phạm vi 10 000", "title": "Bài 58: Luyện tập chung"},
-    
-    # Chủ đề 11: Các số đến 100 000
-    {"id": "t3_b59", "grade": 3, "volume": 2, "topic_group": "Chủ đề 11: Các số đến 100 000", "title": "Bài 59: Các số có năm chữ số. Số 100 000"},
-    {"id": "t3_b60", "grade": 3, "volume": 2, "topic_group": "Chủ đề 11: Các số đến 100 000", "title": "Bài 60: So sánh các số trong phạm vi 100 000"},
-    {"id": "t3_b61", "grade": 3, "volume": 2, "topic_group": "Chủ đề 11: Các số đến 100 000", "title": "Bài 61: Làm tròn số đến hàng nghìn, hàng chục nghìn"},
-    {"id": "t3_b62", "grade": 3, "volume": 2, "topic_group": "Chủ đề 11: Các số đến 100 000", "title": "Bài 62: Luyện tập chung"},
-    
-    # Chủ đề 12: Cộng, trừ trong phạm vi 100 000
-    {"id": "t3_b63", "grade": 3, "volume": 2, "topic_group": "Chủ đề 12: Cộng, trừ trong phạm vi 100 000", "title": "Bài 63: Phép cộng trong phạm vi 100 000"},
-    {"id": "t3_b64", "grade": 3, "volume": 2, "topic_group": "Chủ đề 12: Cộng, trừ trong phạm vi 100 000", "title": "Bài 64: Phép trừ trong phạm vi 100 000"},
-    {"id": "t3_b65", "grade": 3, "volume": 2, "topic_group": "Chủ đề 12: Cộng, trừ trong phạm vi 100 000", "title": "Bài 65: Luyện tập chung"},
-    
-    # Chủ đề 13: Xem đồng hồ. Tháng - năm. Tiền Việt Nam
-    {"id": "t3_b66", "grade": 3, "volume": 2, "topic_group": "Chủ đề 13: Xem đồng hồ. Tháng - năm. Tiền Việt Nam", "title": "Bài 66: Xem đồng hồ. Tháng - năm"},
-    {"id": "t3_b67", "grade": 3, "volume": 2, "topic_group": "Chủ đề 13: Xem đồng hồ. Tháng - năm. Tiền Việt Nam", "title": "Bài 67: Thực hành xem đồng hồ, xem lịch"},
-    {"id": "t3_b68", "grade": 3, "volume": 2, "topic_group": "Chủ đề 13: Xem đồng hồ. Tháng - năm. Tiền Việt Nam", "title": "Bài 68: Tiền Việt Nam"},
-    {"id": "t3_b69", "grade": 3, "volume": 2, "topic_group": "Chủ đề 13: Xem đồng hồ. Tháng - năm. Tiền Việt Nam", "title": "Bài 69: Luyện tập chung"},
-    
-    # Chủ đề 14: Nhân, chia trong phạm vi 100 000
-    {"id": "t3_b70", "grade": 3, "volume": 2, "topic_group": "Chủ đề 14: Nhân, chia trong phạm vi 100 000", "title": "Bài 70: Nhân số có năm chữ số với số có một chữ số"},
-    {"id": "t3_b71", "grade": 3, "volume": 2, "topic_group": "Chủ đề 14: Nhân, chia trong phạm vi 100 000", "title": "Bài 71: Chia số có năm chữ số cho số có một chữ số"},
-    {"id": "t3_b72", "grade": 3, "volume": 2, "topic_group": "Chủ đề 14: Nhân, chia trong phạm vi 100 000", "title": "Bài 72: Luyện tập chung"},
-    
-    # Chủ đề 15: Làm quen với yếu tố thống kê, xác suất
-    {"id": "t3_b73", "grade": 3, "volume": 2, "topic_group": "Chủ đề 15: Làm quen với yếu tố thống kê, xác suất", "title": "Bài 73: Thu thập, phân loại, ghi chép số liệu. Bảng số liệu"},
-    {"id": "t3_b74", "grade": 3, "volume": 2, "topic_group": "Chủ đề 15: Làm quen với yếu tố thống kê, xác suất", "title": "Bài 74: Khả năng xảy ra của một sự kiện"},
-    {"id": "t3_b75", "grade": 3, "volume": 2, "topic_group": "Chủ đề 15: Làm quen với yếu tố thống kê, xác suất", "title": "Bài 75: Thực hành và trải nghiệm thu thập, phân loại, ghi chép số liệu, đọc bảng số liệu"},
-    
-    # Chủ đề 16: Ôn tập cuối năm
-    {"id": "t3_b76", "grade": 3, "volume": 2, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 76: Ôn tập các số trong phạm vi 10 000, 100 000"},
-    {"id": "t3_b77", "grade": 3, "volume": 2, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 77: Ôn tập phép cộng, phép trừ trong phạm vi 100 000"},
-    {"id": "t3_b78", "grade": 3, "volume": 2, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 78: Ôn tập phép nhân, phép chia trong phạm vi 100 000"},
-    {"id": "t3_b79", "grade": 3, "volume": 2, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 79: Ôn tập hình học, đo lường"},
-    {"id": "t3_b80", "grade": 3, "volume": 2, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 80: Ôn tập bảng số liệu, khả năng xảy ra của một sự kiện"},
-    {"id": "t3_b81", "grade": 3, "volume": 2, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 81: Ôn tập chung"}
+    {"id": "t3_b36", "grade": 3, "volume": 1, "page": 97, "topic_group": "Chủ đề 6: Phép nhân chia phạm vi 1 000", "title": "Bài 36: Nhân số có ba chữ số với số có một chữ số"},
+    {"id": "t3_b37", "grade": 3, "volume": 1, "page": 99, "topic_group": "Chủ đề 6: Phép nhân chia phạm vi 1 000", "title": "Bài 37: Chia số có ba chữ số cho số có một chữ số"},
+    {"id": "t3_b38", "grade": 3, "volume": 1, "page": 104, "topic_group": "Chủ đề 6: Phép nhân chia phạm vi 1 000", "title": "Bài 38: Biểu thức số. Tính giá trị của biểu thức số"},
+    {"id": "t3_b39", "grade": 3, "volume": 1, "page": 109, "topic_group": "Chủ đề 6: Phép nhân chia phạm vi 1 000", "title": "Bài 39: So sánh số lớn gấp mấy lần số bé"},
+    {"id": "t3_b40", "grade": 3, "volume": 1, "page": 111, "topic_group": "Chủ đề 6: Phép nhân chia phạm vi 1 000", "title": "Bài 40: Luyện tập chung"},
+    {"id": "t3_b41", "grade": 3, "volume": 1, "page": 113, "topic_group": "Chủ đề 7: Ôn tập học kì I", "title": "Bài 41: Ôn tập phép nhân, phép chia trong phạm vi 100, 1 000"},
+    {"id": "t3_b42", "grade": 3, "volume": 1, "page": 116, "topic_group": "Chủ đề 7: Ôn tập học kì I", "title": "Bài 42: Ôn tập biểu thức số"},
+    {"id": "t3_b43", "grade": 3, "volume": 1, "page": 118, "topic_group": "Chủ đề 7: Ôn tập học kì I", "title": "Bài 43: Ôn tập hình học và đo lường"},
+    {"id": "t3_b44", "grade": 3, "volume": 1, "page": 120, "topic_group": "Chủ đề 7: Ôn tập học kì I", "title": "Bài 44: Ôn tập chung"},
+    # Tập 2
+    {"id": "t3_b45", "grade": 3, "volume": 2, "page": 4, "topic_group": "Chủ đề 8: Các số đến 10 000", "title": "Bài 45: Các số có bốn chữ số"},
+    {"id": "t3_b46", "grade": 3, "volume": 2, "page": 10, "topic_group": "Chủ đề 8: Các số đến 10 000", "title": "Bài 46: So sánh các số trong phạm vi 10 000"},
+    {"id": "t3_b47", "grade": 3, "volume": 2, "page": 13, "topic_group": "Chủ đề 8: Các số đến 10 000", "title": "Bài 47: Làm quen với chữ số La Mã"},
+    {"id": "t3_b48", "grade": 3, "volume": 2, "page": 16, "topic_group": "Chủ đề 8: Các số đến 10 000", "title": "Bài 48: Làm tròn số đến hàng chục, hàng trăm, hàng nghìn"},
+    {"id": "t3_b49", "grade": 3, "volume": 2, "page": 19, "topic_group": "Chủ đề 8: Các số đến 10 000", "title": "Bài 49: Luyện tập chung"},
+    {"id": "t3_b50", "grade": 3, "volume": 2, "page": 22, "topic_group": "Chủ đề 9: Chu vi, diện tích một số hình phẳng", "title": "Bài 50: Chu vi hình tam giác, hình tứ giác, hình chữ nhật, hình vuông"},
+    {"id": "t3_b51", "grade": 3, "volume": 2, "page": 27, "topic_group": "Chủ đề 9: Chu vi, diện tích một số hình phẳng", "title": "Bài 51: Diện tích của một hình. Xăng-ti-mét vuông"},
+    {"id": "t3_b52", "grade": 3, "volume": 2, "page": 31, "topic_group": "Chủ đề 9: Chu vi, diện tích một số hình phẳng", "title": "Bài 52: Diện tích hình chữ nhật, diện tích hình vuông"},
+    {"id": "t3_b53", "grade": 3, "volume": 2, "page": 36, "topic_group": "Chủ đề 9: Chu vi, diện tích một số hình phẳng", "title": "Bài 53: Luyện tập chung"},
+    {"id": "t3_b54", "grade": 3, "volume": 2, "page": 39, "topic_group": "Chủ đề 10: Phép cộng trừ phạm vi 10 000", "title": "Bài 54: Phép cộng trong phạm vi 10 000"},
+    {"id": "t3_b55", "grade": 3, "volume": 2, "page": 43, "topic_group": "Chủ đề 10: Phép cộng trừ phạm vi 10 000", "title": "Bài 55: Phép trừ trong phạm vi 10 000"},
+    {"id": "t3_b56", "grade": 3, "volume": 2, "page": 47, "topic_group": "Chủ đề 10: Phép cộng trừ phạm vi 10 000", "title": "Bài 56: Nhân số có bốn chữ số với số có một chữ số"},
+    {"id": "t3_b57", "grade": 3, "volume": 2, "page": 51, "topic_group": "Chủ đề 10: Phép cộng trừ phạm vi 10 000", "title": "Bài 57: Chia số có bốn chữ số cho số có một chữ số"},
+    {"id": "t3_b58", "grade": 3, "volume": 2, "page": 56, "topic_group": "Chủ đề 10: Phép cộng trừ phạm vi 10 000", "title": "Bài 58: Luyện tập chung"},
+    {"id": "t3_b59", "grade": 3, "volume": 2, "page": 59, "topic_group": "Chủ đề 11: Tiền Việt Nam", "title": "Bài 59: Tiền Việt Nam"},
+    {"id": "t3_b60", "grade": 3, "volume": 2, "page": 63, "topic_group": "Chủ đề 12: Các số đến 100 000", "title": "Bài 60: Các số có năm chữ số"},
+    {"id": "t3_b61", "grade": 3, "volume": 2, "page": 68, "topic_group": "Chủ đề 12: Các số đến 100 000", "title": "Bài 61: So sánh các số trong phạm vi 100 000"},
+    {"id": "t3_b62", "grade": 3, "volume": 2, "page": 71, "topic_group": "Chủ đề 12: Các số đến 100 000", "title": "Bài 62: Làm tròn số đến hàng chục nghìn"},
+    {"id": "t3_b63", "grade": 3, "volume": 2, "page": 74, "topic_group": "Chủ đề 12: Các số đến 100 000", "title": "Bài 63: Luyện tập chung"},
+    {"id": "t3_b64", "grade": 3, "volume": 2, "page": 77, "topic_group": "Chủ đề 13: Phép tính phạm vi 100 000", "title": "Bài 64: Phép cộng trong phạm vi 100 000"},
+    {"id": "t3_b65", "grade": 3, "volume": 2, "page": 81, "topic_group": "Chủ đề 13: Phép tính phạm vi 100 000", "title": "Bài 65: Phép trừ trong phạm vi 100 000"},
+    {"id": "t3_b66", "grade": 3, "volume": 2, "page": 85, "topic_group": "Chủ đề 13: Phép tính phạm vi 100 000", "title": "Bài 66: Nhân số có năm chữ số với số có một chữ số"},
+    {"id": "t3_b67", "grade": 3, "volume": 2, "page": 89, "topic_group": "Chủ đề 13: Phép tính phạm vi 100 000", "title": "Bài 67: Chia số có năm chữ số cho số có một chữ số"},
+    {"id": "t3_b68", "grade": 3, "volume": 2, "page": 94, "topic_group": "Chủ đề 13: Phép tính phạm vi 100 000", "title": "Bài 68: Luyện tập chung"},
+    {"id": "t3_b69", "grade": 3, "volume": 2, "page": 97, "topic_group": "Chủ đề 14: Xem đồng hồ, số La Mã", "title": "Bài 69: Xem đồng hồ, tháng - năm"},
+    {"id": "t3_b70", "grade": 3, "volume": 2, "page": 101, "topic_group": "Chủ đề 14: Xem đồng hồ, số La Mã", "title": "Bài 70: Thực hành và trải nghiệm"},
+    {"id": "t3_b71", "grade": 3, "volume": 2, "page": 104, "topic_group": "Chủ đề 15: Thống kê, xác suất", "title": "Bài 71: Thu thập, phân loại, ghi chép số liệu. Bảng số liệu"},
+    {"id": "t3_b72", "grade": 3, "volume": 2, "page": 108, "topic_group": "Chủ đề 15: Thống kê, xác suất", "title": "Bài 72: Khả năng xảy ra của một sự kiện"},
+    {"id": "t3_b73", "grade": 3, "volume": 2, "page": 111, "topic_group": "Chủ đề 15: Thống kê, xác suất", "title": "Bài 73: Luyện tập chung"},
+    {"id": "t3_b74", "grade": 3, "volume": 2, "page": 114, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 74: Ôn tập các số trong phạm vi 100 000"},
+    {"id": "t3_b75", "grade": 3, "volume": 2, "page": 117, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 75: Ôn tập phép cộng, phép trừ trong phạm vi 100 000"},
+    {"id": "t3_b76", "grade": 3, "volume": 2, "page": 120, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 76: Ôn tập phép nhân, phép chia trong phạm vi 100 000"},
+    {"id": "t3_b77", "grade": 3, "volume": 2, "page": 123, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 77: Ôn tập hình học và đo lường"},
+    {"id": "t3_b78", "grade": 3, "volume": 2, "page": 126, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 78: Ôn tập yếu tố thống kê, xác suất"},
+    {"id": "t3_b79", "grade": 3, "volume": 2, "page": 129, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 79: Ôn tập chung"}
 ]
 
 # ==============================================================================
-# TOÁN LỚP 5 (KẾT NỐI TRI THỨC VỚI CUỘC SỐNG - 12 CHỦ ĐỀ, 74 BÀI HỌC)
+# 4. TOÁN LỚP 4 (70 BÀI HỌC)
+# ==============================================================================
+MATH_GRADE_4_LESSONS = [
+    # Tập 1
+    {"id": "t4_b01", "grade": 4, "volume": 1, "page": 6, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 1: Ôn tập các số đến 100 000"},
+    {"id": "t4_b02", "grade": 4, "volume": 1, "page": 10, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 2: Ôn tập các phép tính trong phạm vi 100 000"},
+    {"id": "t4_b03", "grade": 4, "volume": 1, "page": 13, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 3: Số chẵn, số lẻ"},
+    {"id": "t4_b04", "grade": 4, "volume": 1, "page": 16, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 4: Biểu thức chứa chữ"},
+    {"id": "t4_b05", "grade": 4, "volume": 1, "page": 19, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 5: Giải bài toán có ba bước tính"},
+    {"id": "t4_b06", "grade": 4, "volume": 1, "page": 23, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 6: Luyện tập chung"},
+    {"id": "t4_b07", "grade": 4, "volume": 1, "page": 26, "topic_group": "Chủ đề 2: Góc và đơn vị đo góc", "title": "Bài 7: Đo góc, đơn vị đo góc"},
+    {"id": "t4_b08", "grade": 4, "volume": 1, "page": 30, "topic_group": "Chủ đề 2: Góc và đơn vị đo góc", "title": "Bài 8: Góc nhọn, góc tù, góc bẹt"},
+    {"id": "t4_b09", "grade": 4, "volume": 1, "page": 34, "topic_group": "Chủ đề 2: Góc và đơn vị đo góc", "title": "Bài 9: Luyện tập chung"},
+    {"id": "t4_b10", "grade": 4, "volume": 1, "page": 37, "topic_group": "Chủ đề 3: Số có nhiều chữ số", "title": "Bài 10: Số có sáu chữ số. Hàng và lớp"},
+    {"id": "t4_b11", "grade": 4, "volume": 1, "page": 42, "topic_group": "Chủ đề 3: Số có nhiều chữ số", "title": "Bài 11: Hàng triệu và lớp triệu"},
+    {"id": "t4_b12", "grade": 4, "volume": 1, "page": 47, "topic_group": "Chủ đề 3: Số có nhiều chữ số", "title": "Bài 12: Viết số tự nhiên trong hệ thập phân"},
+    {"id": "t4_b13", "grade": 4, "volume": 1, "page": 51, "topic_group": "Chủ đề 3: Số có nhiều chữ số", "title": "Bài 13: So sánh các số có nhiều chữ số"},
+    {"id": "t4_b14", "grade": 4, "volume": 1, "page": 55, "topic_group": "Chủ đề 3: Số có nhiều chữ số", "title": "Bài 14: Làm tròn số đến hàng trăm nghìn"},
+    {"id": "t4_b15", "grade": 4, "volume": 1, "page": 58, "topic_group": "Chủ đề 3: Số có nhiều chữ số", "title": "Bài 15: Luyện tập chung"},
+    {"id": "t4_b16", "grade": 4, "volume": 1, "page": 61, "topic_group": "Chủ đề 4: Một số đơn vị đo đại lượng", "title": "Bài 16: Yến, tạ, tấn"},
+    {"id": "t4_b17", "grade": 4, "volume": 1, "page": 65, "topic_group": "Chủ đề 4: Một số đơn vị đo đại lượng", "title": "Bài 17: Giây, thế kỉ"},
+    {"id": "t4_b18", "grade": 4, "volume": 1, "page": 69, "topic_group": "Chủ đề 4: Một số đơn vị đo đại lượng", "title": "Bài 18: Luyện tập chung"},
+    {"id": "t4_b19", "grade": 4, "volume": 1, "page": 72, "topic_group": "Chủ đề 5: Phép cộng và phép trừ", "title": "Bài 19: Phép cộng số có nhiều chữ số"},
+    {"id": "t4_b20", "grade": 4, "volume": 1, "page": 76, "topic_group": "Chủ đề 5: Phép cộng và phép trừ", "title": "Bài 20: Phép trừ số có nhiều chữ số"},
+    {"id": "t4_b21", "grade": 4, "volume": 1, "page": 80, "topic_group": "Chủ đề 5: Phép cộng và phép trừ", "title": "Bài 21: Tính chất giao hoán và kết hợp của phép cộng"},
+    {"id": "t4_b22", "grade": 4, "volume": 1, "page": 84, "topic_group": "Chủ đề 5: Phép cộng và phép trừ", "title": "Bài 22: Tìm hai số khi biết tổng và hiệu của hai số đó"},
+    {"id": "t4_b23", "grade": 4, "volume": 1, "page": 88, "topic_group": "Chủ đề 5: Phép cộng và phép trừ", "title": "Bài 23: Luyện tập chung"},
+    {"id": "t4_b24", "grade": 4, "volume": 1, "page": 91, "topic_group": "Chủ đề 6: Đường thẳng vuông góc, song song", "title": "Bài 24: Hai đường thẳng vuông góc"},
+    {"id": "t4_b25", "grade": 4, "volume": 1, "page": 95, "topic_group": "Chủ đề 6: Đường thẳng vuông góc, song song", "title": "Bài 25: Hai đường thẳng song song"},
+    {"id": "t4_b26", "grade": 4, "volume": 1, "page": 99, "topic_group": "Chủ đề 6: Đường thẳng vuông góc, song song", "title": "Bài 26: Thực hành vẽ hai đường thẳng vuông góc, song song"},
+    {"id": "t4_b27", "grade": 4, "volume": 1, "page": 103, "topic_group": "Chủ đề 6: Đường thẳng vuông góc, song song", "title": "Bài 27: Luyện tập chung"},
+    {"id": "t4_b28", "grade": 4, "volume": 1, "page": 106, "topic_group": "Chủ đề 7: Phép nhân và phép chia", "title": "Bài 28: Nhân với số có một chữ số"},
+    {"id": "t4_b29", "grade": 4, "volume": 1, "page": 110, "topic_group": "Chủ đề 7: Phép nhân và phép chia", "title": "Bài 29: Nhân với số có hai chữ số"},
+    {"id": "t4_b30", "grade": 4, "volume": 1, "page": 114, "topic_group": "Chủ đề 7: Phép nhân và phép chia", "title": "Bài 30: Chia cho số có một chữ số"},
+    {"id": "t4_b31", "grade": 4, "volume": 1, "page": 118, "topic_group": "Chủ đề 7: Phép nhân và phép chia", "title": "Bài 31: Chia cho số có hai chữ số"},
+    {"id": "t4_b32", "grade": 4, "volume": 1, "page": 123, "topic_group": "Chủ đề 7: Phép nhân và phép chia", "title": "Bài 32: Luyện tập chung"},
+    {"id": "t4_b33", "grade": 4, "volume": 1, "page": 126, "topic_group": "Chủ đề 8: Ôn tập học kì I", "title": "Bài 33: Ôn tập hình học và đo lường"},
+    {"id": "t4_b34", "grade": 4, "volume": 1, "page": 129, "topic_group": "Chủ đề 8: Ôn tập học kì I", "title": "Bài 34: Ôn tập phép tính"},
+    {"id": "t4_b35", "grade": 4, "volume": 1, "page": 133, "topic_group": "Chủ đề 8: Ôn tập học kì I", "title": "Bài 35: Ôn tập chung học kì I"},
+    # Tập 2
+    {"id": "t4_b36", "grade": 4, "volume": 2, "page": 4, "topic_group": "Chủ đề 9: Phân số", "title": "Bài 36: Khái niệm phân số"},
+    {"id": "t4_b37", "grade": 4, "volume": 2, "page": 9, "topic_group": "Chủ đề 9: Phân số", "title": "Bài 37: Phân số và phép chia số tự nhiên"},
+    {"id": "t4_b38", "grade": 4, "volume": 2, "page": 13, "topic_group": "Chủ đề 9: Phân số", "title": "Bài 38: Tính chất cơ bản của phân số"},
+    {"id": "t4_b39", "grade": 4, "volume": 2, "page": 17, "topic_group": "Chủ đề 9: Phân số", "title": "Bài 39: Rút gọn phân số"},
+    {"id": "t4_b40", "grade": 4, "volume": 2, "page": 21, "topic_group": "Chủ đề 9: Phân số", "title": "Bài 40: Quy đồng mẫu số các phân số"},
+    {"id": "t4_b41", "grade": 4, "volume": 2, "page": 25, "topic_group": "Chủ đề 9: Phân số", "title": "Bài 41: So sánh hai phân số cùng mẫu số"},
+    {"id": "t4_b42", "grade": 4, "volume": 2, "page": 29, "topic_group": "Chủ đề 9: Phân số", "title": "Bài 42: So sánh hai phân số khác mẫu số"},
+    {"id": "t4_b43", "grade": 4, "volume": 2, "page": 33, "topic_group": "Chủ đề 9: Phân số", "title": "Bài 43: Luyện tập chung"},
+    {"id": "t4_b44", "grade": 4, "volume": 2, "page": 36, "topic_group": "Chủ đề 10: Phép cộng, phép trừ phân số", "title": "Bài 44: Phép cộng phân số cùng mẫu số"},
+    {"id": "t4_b45", "grade": 4, "volume": 2, "page": 40, "topic_group": "Chủ đề 10: Phép cộng, phép trừ phân số", "title": "Bài 45: Phép cộng phân số khác mẫu số"},
+    {"id": "t4_b46", "grade": 4, "volume": 2, "page": 44, "topic_group": "Chủ đề 10: Phép cộng, phép trừ phân số", "title": "Bài 46: Tính chất của phép cộng phân số"},
+    {"id": "t4_b47", "grade": 4, "volume": 2, "page": 48, "topic_group": "Chủ đề 10: Phép cộng, phép trừ phân số", "title": "Bài 47: Phép trừ phân số cùng mẫu số"},
+    {"id": "t4_b48", "grade": 4, "volume": 2, "page": 52, "topic_group": "Chủ đề 10: Phép cộng, phép trừ phân số", "title": "Bài 48: Phép trừ phân số khác mẫu số"},
+    {"id": "t4_b49", "grade": 4, "volume": 2, "page": 56, "topic_group": "Chủ đề 10: Phép cộng, phép trừ phân số", "title": "Bài 49: Luyện tập chung"},
+    {"id": "t4_b50", "grade": 4, "volume": 2, "page": 59, "topic_group": "Chủ đề 11: Phép nhân, phép chia phân số", "title": "Bài 50: Phép nhân phân số"},
+    {"id": "t4_b51", "grade": 4, "volume": 2, "page": 63, "topic_group": "Chủ đề 11: Phép nhân, phép chia phân số", "title": "Bài 51: Tìm phân số của một số"},
+    {"id": "t4_b52", "grade": 4, "volume": 2, "page": 67, "topic_group": "Chủ đề 11: Phép nhân, phép chia phân số", "title": "Bài 52: Phép chia phân số"},
+    {"id": "t4_b53", "grade": 4, "volume": 2, "page": 71, "topic_group": "Chủ đề 11: Phép nhân, phép chia phân số", "title": "Bài 53: Luyện tập chung"},
+    {"id": "t4_b54", "grade": 4, "volume": 2, "page": 74, "topic_group": "Chủ đề 12: Hình phẳng và hình khối", "title": "Bài 54: Hình bình hành"},
+    {"id": "t4_b55", "grade": 4, "volume": 2, "page": 78, "topic_group": "Chủ đề 12: Hình phẳng và hình khối", "title": "Bài 55: Diện tích hình bình hành"},
+    {"id": "t4_b56", "grade": 4, "volume": 2, "page": 82, "topic_group": "Chủ đề 12: Hình phẳng và hình khối", "title": "Bài 56: Hình thoi"},
+    {"id": "t4_b57", "grade": 4, "volume": 2, "page": 86, "topic_group": "Chủ đề 12: Hình phẳng và hình khối", "title": "Bài 57: Diện tích hình thoi"},
+    {"id": "t4_b58", "grade": 4, "volume": 2, "page": 90, "topic_group": "Chủ đề 12: Hình phẳng và hình khối", "title": "Bài 58: Luyện tập chung"},
+    {"id": "t4_b59", "grade": 4, "volume": 2, "page": 93, "topic_group": "Chủ đề 13: Đơn vị đo đại lượng", "title": "Bài 59: Đề-xi-mét vuông, Mét vuông, Mi-li-mét vuông"},
+    {"id": "t4_b60", "grade": 4, "volume": 2, "page": 98, "topic_group": "Chủ đề 13: Đơn vị đo đại lượng", "title": "Bài 60: Luyện tập chung"},
+    {"id": "t4_b61", "grade": 4, "volume": 2, "page": 101, "topic_group": "Chủ đề 14: Tỉ số và bài toán liên quan", "title": "Bài 61: Tỉ số"},
+    {"id": "t4_b62", "grade": 4, "volume": 2, "page": 105, "topic_group": "Chủ đề 14: Tỉ số và bài toán liên quan", "title": "Bài 62: Tìm hai số khi biết tổng và tỉ số của hai số đó"},
+    {"id": "t4_b63", "grade": 4, "volume": 2, "page": 109, "topic_group": "Chủ đề 14: Tỉ số và bài toán liên quan", "title": "Bài 63: Tìm hai số khi biết hiệu và tỉ số của hai số đó"},
+    {"id": "t4_b64", "grade": 4, "volume": 2, "page": 113, "topic_group": "Chủ đề 14: Tỉ số và bài toán liên quan", "title": "Bài 64: Luyện tập chung"},
+    {"id": "t4_b65", "grade": 4, "volume": 2, "page": 116, "topic_group": "Chủ đề 15: Thống kê, xác suất", "title": "Bài 65: Biểu đồ cột"},
+    {"id": "t4_b66", "grade": 4, "volume": 2, "page": 120, "topic_group": "Chủ đề 15: Thống kê, xác suất", "title": "Bài 66: Số lần xuất hiện của một sự kiện"},
+    {"id": "t4_b67", "grade": 4, "volume": 2, "page": 124, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 67: Ôn tập số tự nhiên và phân số"},
+    {"id": "t4_b68", "grade": 4, "volume": 2, "page": 127, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 68: Ôn tập phép tính"},
+    {"id": "t4_b69", "grade": 4, "volume": 2, "page": 130, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 69: Ôn tập hình học và đo lường"},
+    {"id": "t4_b70", "grade": 4, "volume": 2, "page": 134, "topic_group": "Chủ đề 16: Ôn tập cuối năm", "title": "Bài 70: Ôn tập chung cuối năm"}
+]
+
+# ==============================================================================
+# 5. TOÁN LỚP 5 (66 BÀI HỌC)
 # ==============================================================================
 MATH_GRADE_5_LESSONS = [
-    # ------------------ TẬP 1 (BÀI 1 -> BÀI 35) ------------------
-    # Chủ đề 1: Ôn tập và bổ sung
-    {"id": "t5_b01", "grade": 5, "volume": 1, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 1: Ôn tập số tự nhiên"},
-    {"id": "t5_b02", "grade": 5, "volume": 1, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 2: Ôn tập các phép tính với số tự nhiên"},
-    {"id": "t5_b03", "grade": 5, "volume": 1, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 3: Ôn tập phân số"},
-    {"id": "t5_b04", "grade": 5, "volume": 1, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 4: Phân số thập phân"},
-    {"id": "t5_b05", "grade": 5, "volume": 1, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 5: Ôn tập các phép tính với phân số"},
-    {"id": "t5_b06", "grade": 5, "volume": 1, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 6: Cộng, trừ hai phân số khác mẫu số"},
-    {"id": "t5_b07", "grade": 5, "volume": 1, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 7: Hỗn số"},
-    {"id": "t5_b08", "grade": 5, "volume": 1, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 8: Ôn tập hình học và đo lường"},
-    {"id": "t5_b09", "grade": 5, "volume": 1, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 9: Luyện tập chung"},
-    
-    # Chủ đề 2: Số thập phân
-    {"id": "t5_b10", "grade": 5, "volume": 1, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 10: Khái niệm số thập phân"},
-    {"id": "t5_b11", "grade": 5, "volume": 1, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 11: So sánh các số thập phân"},
-    {"id": "t5_b12", "grade": 5, "volume": 1, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 12: Làm tròn số thập phân"},
-    {"id": "t5_b13", "grade": 5, "volume": 1, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 13: Viết số đo đại lượng dưới dạng số thập phân"},
-    {"id": "t5_b14", "grade": 5, "volume": 1, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 14: Một số đơn vị đo diện tích (Héc-ta, km²)"},
-    {"id": "t5_b15", "grade": 5, "volume": 1, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 15: Luyện tập chung"},
-    
-    # Chủ đề 3: Các phép tính với số thập phân
-    {"id": "t5_b16", "grade": 5, "volume": 1, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 16: Phép cộng số thập phân"},
-    {"id": "t5_b17", "grade": 5, "volume": 1, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 17: Phép trừ số thập phân"},
-    {"id": "t5_b18", "grade": 5, "volume": 1, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 18: Luyện tập chung"},
-    {"id": "t5_b19", "grade": 5, "volume": 1, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 19: Phép nhân số thập phân với số tự nhiên"},
-    {"id": "t5_b20", "grade": 5, "volume": 1, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 20: Phép nhân số thập phân với số thập phân"},
-    {"id": "t5_b21", "grade": 5, "volume": 1, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 21: Phép chia số thập phân cho số tự nhiên"},
-    {"id": "t5_b22", "grade": 5, "volume": 1, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 22: Phép chia một số tự nhiên cho một số thập phân"},
-    {"id": "t5_b23", "grade": 5, "volume": 1, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 23: Phép chia một số thập phân cho một số thập phân"},
-    {"id": "t5_b24", "grade": 5, "volume": 1, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 24: Luyện tập chung"},
-    
-    # Chủ đề 4: Hình phẳng (Tam giác, Thang, Tròn)
-    {"id": "t5_b25", "grade": 5, "volume": 1, "topic_group": "Chủ đề 4: Hình phẳng", "title": "Bài 25: Hình tam giác. Diện tích hình tam giác"},
-    {"id": "t5_b26", "grade": 5, "volume": 1, "topic_group": "Chủ đề 4: Hình phẳng", "title": "Bài 26: Hình thang. Diện tích hình thang"},
-    {"id": "t5_b27", "grade": 5, "volume": 1, "topic_group": "Chủ đề 4: Hình phẳng", "title": "Bài 27: Đường tròn. Chu vi và diện tích hình tròn"},
-    {"id": "t5_b28", "grade": 5, "volume": 1, "topic_group": "Chủ đề 4: Hình phẳng", "title": "Bài 28: Thực hành và trải nghiệm vẽ hình, cắt ghép hình phẳng"},
-    {"id": "t5_b29", "grade": 5, "volume": 1, "topic_group": "Chủ đề 4: Hình phẳng", "title": "Bài 29: Luyện tập chung"},
-    
-    # Chủ đề 5: Ôn tập học kì 1
-    {"id": "t5_b30", "grade": 5, "volume": 1, "topic_group": "Chủ đề 5: Ôn tập học kì 1", "title": "Bài 30: Ôn tập số thập phân"},
-    {"id": "t5_b31", "grade": 5, "volume": 1, "topic_group": "Chủ đề 5: Ôn tập học kì 1", "title": "Bài 31: Ôn tập các phép tính với số thập phân"},
-    {"id": "t5_b32", "grade": 5, "volume": 1, "topic_group": "Chủ đề 5: Ôn tập học kì 1", "title": "Bài 32: Ôn tập hình học và đo lường"},
-    {"id": "t5_b33", "grade": 5, "volume": 1, "topic_group": "Chủ đề 5: Ôn tập học kì 1", "title": "Bài 33: Ôn tập giải toán có lời văn"},
-    {"id": "t5_b34", "grade": 5, "volume": 1, "topic_group": "Chủ đề 5: Ôn tập học kì 1", "title": "Bài 34: Luyện tập chung"},
-    {"id": "t5_b35", "grade": 5, "volume": 1, "topic_group": "Chủ đề 5: Ôn tập học kì 1", "title": "Bài 35: Ôn tập học kì 1 tổng hợp"},
-
-    # ------------------ TẬP 2 (BÀI 36 -> BÀI 74) ------------------
-    # Chủ đề 6: Tỉ số và tỉ số phần trăm
-    {"id": "t5_b36", "grade": 5, "volume": 2, "topic_group": "Chủ đề 6: Tỉ số và các bài toán liên quan", "title": "Bài 36: Tỉ số. Tìm hai số khi biết tổng và tỉ số"},
-    {"id": "t5_b37", "grade": 5, "volume": 2, "topic_group": "Chủ đề 6: Tỉ số và các bài toán liên quan", "title": "Bài 37: Tìm hai số khi biết hiệu và tỉ số"},
-    {"id": "t5_b38", "grade": 5, "volume": 2, "topic_group": "Chủ đề 6: Tỉ số và các bài toán liên quan", "title": "Bài 38: Tìm tỉ số phần trăm của hai số"},
-    {"id": "t5_b39", "grade": 5, "volume": 2, "topic_group": "Chủ đề 6: Tỉ số và các bài toán liên quan", "title": "Bài 39: Tìm giá trị phần trăm của một số"},
-    {"id": "t5_b40", "grade": 5, "volume": 2, "topic_group": "Chủ đề 6: Tỉ số và các bài toán liên quan", "title": "Bài 40: Tỉ lệ bản đồ và ứng dụng thực tế"},
-    {"id": "t5_b41", "grade": 5, "volume": 2, "topic_group": "Chủ đề 6: Tỉ số và các bài toán liên quan", "title": "Bài 41: Luyện tập chung"},
-    
-    # Chủ đề 7: Thể tích. Một số đơn vị đo thể tích
-    {"id": "t5_b42", "grade": 5, "volume": 2, "topic_group": "Chủ đề 7: Thể tích & Hình khối", "title": "Bài 42: Khái niệm thể tích. Xăng-ti-mét khối (cm³), Đề-xi-mét khối (dm³)"},
-    {"id": "t5_b43", "grade": 5, "volume": 2, "topic_group": "Chủ đề 7: Thể tích & Hình khối", "title": "Bài 43: Mét khối (m³)"},
-    {"id": "t5_b44", "grade": 5, "volume": 2, "topic_group": "Chủ đề 7: Thể tích & Hình khối", "title": "Bài 44: Hình hộp chữ nhật, hình lập phương"},
-    {"id": "t5_b45", "grade": 5, "volume": 2, "topic_group": "Chủ đề 7: Thể tích & Hình khối", "title": "Bài 45: Diện tích xung quanh và diện tích toàn phần hình hộp chữ nhật"},
-    {"id": "t5_b46", "grade": 5, "volume": 2, "topic_group": "Chủ đề 7: Thể tích & Hình khối", "title": "Bài 46: Diện tích xung quanh và diện tích toàn phần hình lập phương"},
-    {"id": "t5_b47", "grade": 5, "volume": 2, "topic_group": "Chủ đề 7: Thể tích & Hình khối", "title": "Bài 47: Thể tích hình hộp chữ nhật, hình lập phương"},
-    {"id": "t5_b48", "grade": 5, "volume": 2, "topic_group": "Chủ đề 7: Thể tích & Hình khối", "title": "Bài 48: Làm quen với hình trụ, hình cầu"},
-    {"id": "t5_b49", "grade": 5, "volume": 2, "topic_group": "Chủ đề 7: Thể tích & Hình khối", "title": "Bài 49: Luyện tập chung"},
-    
-    # Chủ đề 8: Số đo thời gian & Toán chuyển động đều
-    {"id": "t5_b50", "grade": 5, "volume": 2, "topic_group": "Chủ đề 8: Thời gian & Toán chuyển động đều", "title": "Bài 50: Các đơn vị đo thời gian. Cộng, trừ số đo thời gian"},
-    {"id": "t5_b51", "grade": 5, "volume": 2, "topic_group": "Chủ đề 8: Thời gian & Toán chuyển động đều", "title": "Bài 51: Nhân, chia số đo thời gian với một số"},
-    {"id": "t5_b52", "grade": 5, "volume": 2, "topic_group": "Chủ đề 8: Thời gian & Toán chuyển động đều", "title": "Bài 52: Vận tốc trong chuyển động đều"},
-    {"id": "t5_b53", "grade": 5, "volume": 2, "topic_group": "Chủ đề 8: Thời gian & Toán chuyển động đều", "title": "Bài 53: Quãng đường trong chuyển động đều"},
-    {"id": "t5_b54", "grade": 5, "volume": 2, "topic_group": "Chủ đề 8: Thời gian & Toán chuyển động đều", "title": "Bài 54: Thời gian trong chuyển động đều"},
-    {"id": "t5_b55", "grade": 5, "volume": 2, "topic_group": "Chủ đề 8: Thời gian & Toán chuyển động đều", "title": "Bài 55: Bài toán chuyển động ngược chiều và cùng chiều"},
-    {"id": "t5_b56", "grade": 5, "volume": 2, "topic_group": "Chủ đề 8: Thời gian & Toán chuyển động đều", "title": "Bài 56: Luyện tập chung"},
-    
-    # Chủ đề 9: Một số yếu tố thống kê và xác suất
-    {"id": "t5_b57", "grade": 5, "volume": 2, "topic_group": "Chủ đề 9: Thống kê & Xác suất", "title": "Bài 57: Thu thập, phân loại, sắp xếp số liệu. Biểu đồ hình quạt tròn"},
-    {"id": "t5_b58", "grade": 5, "volume": 2, "topic_group": "Chủ đề 9: Thống kê & Xác suất", "title": "Bài 58: Mô tả xác suất của sự kiện"},
-    {"id": "t5_b59", "grade": 5, "volume": 2, "topic_group": "Chủ đề 9: Thống kê & Xác suất", "title": "Bài 59: Luyện tập chung"},
-    
-    # Chủ đề 10: Ôn tập cuối năm
-    {"id": "t5_b60", "grade": 5, "volume": 2, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 60: Ôn tập số tự nhiên, phân số, số thập phân"},
-    {"id": "t5_b61", "grade": 5, "volume": 2, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 61: Ôn tập các phép tính với số tự nhiên, phân số, số thập phân"},
-    {"id": "t5_b62", "grade": 5, "volume": 2, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 62: Ôn tập tỉ số, tỉ số phần trăm"},
-    {"id": "t5_b63", "grade": 5, "volume": 2, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 63: Ôn tập hình học"},
-    {"id": "t5_b64", "grade": 5, "volume": 2, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 64: Ôn tập đo lường và toán chuyển động đều"},
-    {"id": "t5_b65", "grade": 5, "volume": 2, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 65: Ôn tập thống kê và xác suất"},
-    {"id": "t5_b66", "grade": 5, "volume": 2, "topic_group": "Chủ đề 10: Ôn tập cuối năm", "title": "Bài 66: Ôn tập chung cuối năm"}
+    # Tập 1
+    {"id": "t5_b01", "grade": 5, "volume": 1, "page": 6, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 1: Ôn tập số tự nhiên và các phép tính"},
+    {"id": "t5_b02", "grade": 5, "volume": 1, "page": 10, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 2: Ôn tập phân số và các phép tính với phân số"},
+    {"id": "t5_b03", "grade": 5, "volume": 1, "page": 14, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 3: Phân số thập phân"},
+    {"id": "t5_b04", "grade": 5, "volume": 1, "page": 18, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 4: Hỗn số"},
+    {"id": "t5_b05", "grade": 5, "volume": 1, "page": 22, "topic_group": "Chủ đề 1: Ôn tập và bổ sung", "title": "Bài 5: Luyện tập chung"},
+    {"id": "t5_b06", "grade": 5, "volume": 1, "page": 26, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 6: Khái niệm số thập phân"},
+    {"id": "t5_b07", "grade": 5, "volume": 1, "page": 30, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 7: Hàng của số thập phân. Đọc, viết số thập phân"},
+    {"id": "t5_b08", "grade": 5, "volume": 1, "page": 34, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 8: Số thập phân bằng nhau"},
+    {"id": "t5_b09", "grade": 5, "volume": 1, "page": 38, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 9: So sánh các số thập phân"},
+    {"id": "t5_b10", "grade": 5, "volume": 1, "page": 42, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 10: Làm tròn số thập phân"},
+    {"id": "t5_b11", "grade": 5, "volume": 1, "page": 46, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 11: Viết các số đo độ dài, khối lượng dưới dạng số thập phân"},
+    {"id": "t5_b12", "grade": 5, "volume": 1, "page": 50, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 12: Viết các số đo diện tích dưới dạng số thập phân. Héc-ta"},
+    {"id": "t5_b13", "grade": 5, "volume": 1, "page": 54, "topic_group": "Chủ đề 2: Số thập phân", "title": "Bài 13: Luyện tập chung"},
+    {"id": "t5_b14", "grade": 5, "volume": 1, "page": 58, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 14: Phép cộng số thập phân"},
+    {"id": "t5_b15", "grade": 5, "volume": 1, "page": 62, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 15: Phép trừ số thập phân"},
+    {"id": "t5_b16", "grade": 5, "volume": 1, "page": 66, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 16: Luyện tập phép cộng, phép trừ số thập phân"},
+    {"id": "t5_b17", "grade": 5, "volume": 1, "page": 70, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 17: Nhân số thập phân với số tự nhiên"},
+    {"id": "t5_b18", "grade": 5, "volume": 1, "page": 74, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 18: Nhân số thập phân với 10, 100, 1000,... Nhân với 0.1, 0.01, 0.001,..."},
+    {"id": "t5_b19", "grade": 5, "volume": 1, "page": 78, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 19: Nhân hai số thập phân"},
+    {"id": "t5_b20", "grade": 5, "volume": 1, "page": 82, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 20: Luyện tập phép nhân số thập phân"},
+    {"id": "t5_b21", "grade": 5, "volume": 1, "page": 86, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 21: Chia số thập phân cho số tự nhiên"},
+    {"id": "t5_b22", "grade": 5, "volume": 1, "page": 90, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 22: Chia số thập phân cho 10, 100, 1000,... Chia cho 0.1, 0.01, 0.001,..."},
+    {"id": "t5_b23", "grade": 5, "volume": 1, "page": 94, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 23: Chia một số tự nhiên cho một số tự nhiên mà thương là một số thập phân"},
+    {"id": "t5_b24", "grade": 5, "volume": 1, "page": 98, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 24: Chia một số tự nhiên cho một số thập phân"},
+    {"id": "t5_b25", "grade": 5, "volume": 1, "page": 102, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 25: Chia một số thập phân cho một số thập phân"},
+    {"id": "t5_b26", "grade": 5, "volume": 1, "page": 106, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 26: Luyện tập phép chia số thập phân"},
+    {"id": "t5_b27", "grade": 5, "volume": 1, "page": 110, "topic_group": "Chủ đề 3: Các phép tính với số thập phân", "title": "Bài 27: Luyện tập chung"},
+    {"id": "t5_b28", "grade": 5, "volume": 1, "page": 114, "topic_group": "Chủ đề 4: Hình tam giác, hình thang", "title": "Bài 28: Hình tam giác. Diện tích hình tam giác"},
+    {"id": "t5_b29", "grade": 5, "volume": 1, "page": 118, "topic_group": "Chủ đề 4: Hình tam giác, hình thang", "title": "Bài 29: Hình thang. Diện tích hình thang"},
+    {"id": "t5_b30", "grade": 5, "volume": 1, "page": 122, "topic_group": "Chủ đề 4: Hình tam giác, hình thang", "title": "Bài 30: Luyện tập chung"},
+    {"id": "t5_b31", "grade": 5, "volume": 1, "page": 126, "topic_group": "Chủ đề 5: Hình tròn", "title": "Bài 31: Chu vi hình tròn"},
+    {"id": "t5_b32", "grade": 5, "volume": 1, "page": 130, "topic_group": "Chủ đề 5: Hình tròn", "title": "Bài 32: Diện tích hình tròn"},
+    {"id": "t5_b33", "grade": 5, "volume": 1, "page": 134, "topic_group": "Chủ đề 5: Hình tròn", "title": "Bài 33: Luyện tập chung"},
+    {"id": "t5_b34", "grade": 5, "volume": 1, "page": 138, "topic_group": "Chủ đề 6: Ôn tập học kì I", "title": "Bài 34: Ôn tập các phép tính với số thập phân"},
+    {"id": "t5_b35", "grade": 5, "volume": 1, "page": 142, "topic_group": "Chủ đề 6: Ôn tập học kì I", "title": "Bài 35: Ôn tập hình học và đo lường. Ôn tập chung"},
+    # Tập 2
+    {"id": "t5_b36", "grade": 5, "volume": 2, "page": 4, "topic_group": "Chủ đề 7: Tỉ số và tỉ số phần trăm", "title": "Bài 36: Tỉ số và tỉ số phần trăm"},
+    {"id": "t5_b37", "grade": 5, "volume": 2, "page": 8, "topic_group": "Chủ đề 7: Tỉ số và tỉ số phần trăm", "title": "Bài 37: Tìm tỉ số phần trăm của hai số"},
+    {"id": "t5_b38", "grade": 5, "volume": 2, "page": 12, "topic_group": "Chủ đề 7: Tỉ số và tỉ số phần trăm", "title": "Bài 38: Tìm giá trị phần trăm của một số"},
+    {"id": "t5_b39", "grade": 5, "volume": 2, "page": 16, "topic_group": "Chủ đề 7: Tỉ số và tỉ số phần trăm", "title": "Bài 39: Tìm một số khi biết giá trị phần trăm của số đó"},
+    {"id": "t5_b40", "grade": 5, "volume": 2, "page": 20, "topic_group": "Chủ đề 7: Tỉ số và tỉ số phần trăm", "title": "Bài 40: Sử dụng máy tính cầm tay"},
+    {"id": "t5_b41", "grade": 5, "volume": 2, "page": 24, "topic_group": "Chủ đề 7: Tỉ số và tỉ số phần trăm", "title": "Bài 41: Luyện tập chung"},
+    {"id": "t5_b42", "grade": 5, "volume": 2, "page": 28, "topic_group": "Chủ đề 8: Thể tích và hình khối", "title": "Bài 42: Hình hộp chữ nhật, hình lập phương"},
+    {"id": "t5_b43", "grade": 5, "volume": 2, "page": 32, "topic_group": "Chủ đề 8: Thể tích và hình khối", "title": "Bài 43: Diện tích xung quanh và diện tích toàn phần của hình hộp chữ nhật"},
+    {"id": "t5_b44", "grade": 5, "volume": 2, "page": 36, "topic_group": "Chủ đề 8: Thể tích và hình khối", "title": "Bài 44: Diện tích xung quanh và diện tích toàn phần của hình lập phương"},
+    {"id": "t5_b45", "grade": 5, "volume": 2, "page": 40, "topic_group": "Chủ đề 8: Thể tích và hình khối", "title": "Bài 45: Thể tích của một hình. Xăng-ti-mét khối, Đề-xi-mét khối"},
+    {"id": "t5_b46", "grade": 5, "volume": 2, "page": 44, "topic_group": "Chủ đề 8: Thể tích và hình khối", "title": "Bài 46: Mét khối"},
+    {"id": "t5_b47", "grade": 5, "volume": 2, "page": 48, "topic_group": "Chủ đề 8: Thể tích và hình khối", "title": "Bài 47: Thể tích hình hộp chữ nhật, hình lập phương"},
+    {"id": "t5_b48", "grade": 5, "volume": 2, "page": 52, "topic_group": "Chủ đề 8: Thể tích và hình khối", "title": "Bài 48: Luyện tập chung"},
+    {"id": "t5_b49", "grade": 5, "volume": 2, "page": 56, "topic_group": "Chủ đề 9: Số đo thời gian. Toán chuyển động đều", "title": "Bài 49: Bảng đơn vị đo thời gian"},
+    {"id": "t5_b50", "grade": 5, "volume": 2, "page": 60, "topic_group": "Chủ đề 9: Số đo thời gian. Toán chuyển động đều", "title": "Bài 50: Cộng, trừ số đo thời gian"},
+    {"id": "t5_b51", "grade": 5, "volume": 2, "page": 64, "topic_group": "Chủ đề 9: Số đo thời gian. Toán chuyển động đều", "title": "Bài 51: Nhân, chia số đo thời gian"},
+    {"id": "t5_b52", "grade": 5, "volume": 2, "page": 68, "topic_group": "Chủ đề 9: Số đo thời gian. Toán chuyển động đều", "title": "Bài 52: Vận tốc trong chuyển động đều"},
+    {"id": "t5_b53", "grade": 5, "volume": 2, "page": 72, "topic_group": "Chủ đề 9: Số đo thời gian. Toán chuyển động đều", "title": "Bài 53: Quãng đường trong chuyển động đều"},
+    {"id": "t5_b54", "grade": 5, "volume": 2, "page": 76, "topic_group": "Chủ đề 9: Số đo thời gian. Toán chuyển động đều", "title": "Bài 54: Thời gian trong chuyển động đều"},
+    {"id": "t5_b55", "grade": 5, "volume": 2, "page": 80, "topic_group": "Chủ đề 9: Số đo thời gian. Toán chuyển động đều", "title": "Bài 55: Bài toán chuyển động ngược chiều, cùng chiều"},
+    {"id": "t5_b56", "grade": 5, "volume": 2, "page": 84, "topic_group": "Chủ đề 9: Số đo thời gian. Toán chuyển động đều", "title": "Bài 56: Luyện tập chung"},
+    {"id": "t5_b57", "grade": 5, "volume": 2, "page": 88, "topic_group": "Chủ đề 10: Thống kê và xác suất", "title": "Bài 57: Thu thập, phân loại, sắp xếp số liệu. Biểu đồ hình quạt tròn"},
+    {"id": "t5_b58", "grade": 5, "volume": 2, "page": 92, "topic_group": "Chủ đề 10: Thống kê và xác suất", "title": "Bài 58: Xác suất thực nghiệm của một biến cố"},
+    {"id": "t5_b59", "grade": 5, "volume": 2, "page": 96, "topic_group": "Chủ đề 10: Thống kê và xác suất", "title": "Bài 59: Luyện tập chung"},
+    {"id": "t5_b60", "grade": 5, "volume": 2, "page": 100, "topic_group": "Chủ đề 11: Ôn tập cuối năm", "title": "Bài 60: Ôn tập số tự nhiên, phân số, số thập phân"},
+    {"id": "t5_b61", "grade": 5, "volume": 2, "page": 104, "topic_group": "Chủ đề 11: Ôn tập cuối năm", "title": "Bài 61: Ôn tập các phép tính với số tự nhiên, phân số, số thập phân"},
+    {"id": "t5_b62", "grade": 5, "volume": 2, "page": 108, "topic_group": "Chủ đề 11: Ôn tập cuối năm", "title": "Bài 62: Ôn tập tỉ số và tỉ số phần trăm"},
+    {"id": "t5_b63", "grade": 5, "volume": 2, "page": 112, "topic_group": "Chủ đề 11: Ôn tập cuối năm", "title": "Bài 63: Ôn tập hình học và đo lường"},
+    {"id": "t5_b64", "grade": 5, "volume": 2, "page": 116, "topic_group": "Chủ đề 11: Ôn tập cuối năm", "title": "Bài 64: Ôn tập giải toán chuyển động đều"},
+    {"id": "t5_b65", "grade": 5, "volume": 2, "page": 120, "topic_group": "Chủ đề 11: Ôn tập cuối năm", "title": "Bài 65: Ôn tập thống kê và xác suất"},
+    {"id": "t5_b66", "grade": 5, "volume": 2, "page": 124, "topic_group": "Chủ đề 11: Ôn tập cuối năm", "title": "Bài 66: Ôn tập chung cuối năm"}
 ]
 
 def get_math_lessons(grade: int, volume: int = 0) -> List[Dict[str, Any]]:
-    """
-    Lấy danh sách bài học môn Toán theo Khối lớp (3 hoặc 5) và Tập (1, 2 hoặc 0 là cả năm).
-    """
-    if grade == 3:
-        lessons = MATH_GRADE_3_LESSONS
-    elif grade == 5:
-        lessons = MATH_GRADE_5_LESSONS
-    else:
-        return []
-        
+    """Tra cứu danh sách bài học SGK Toán theo khối lớp và tập sách."""
+    lesson_map = {
+        1: MATH_GRADE_1_LESSONS,
+        2: MATH_GRADE_2_LESSONS,
+        3: MATH_GRADE_3_LESSONS,
+        4: MATH_GRADE_4_LESSONS,
+        5: MATH_GRADE_5_LESSONS,
+    }
+    lessons = lesson_map.get(grade, [])
     if volume in [1, 2]:
         return [l for l in lessons if l["volume"] == volume]
     return lessons

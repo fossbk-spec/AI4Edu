@@ -19,7 +19,22 @@ load_dotenv()
 # Import các service từ ai4edu package
 from ai4edu.core.prompt_engine import PromptEngine
 from ai4edu.core.llm_provider import UnifiedLLMClient, SUPPORTED_PROVIDERS
-from ai4edu.data.math_curriculum import get_math_lessons
+from ai4edu.data.math_curriculum import (
+    get_math_lessons, 
+    MATH_GRADE_1_LESSONS, 
+    MATH_GRADE_2_LESSONS, 
+    MATH_GRADE_3_LESSONS, 
+    MATH_GRADE_4_LESSONS, 
+    MATH_GRADE_5_LESSONS
+)
+from ai4edu.data.vietnamese_curriculum import (
+    get_vietnamese_lessons, 
+    VIETNAMESE_GRADE_1_LESSONS, 
+    VIETNAMESE_GRADE_2_LESSONS, 
+    VIETNAMESE_GRADE_3_LESSONS, 
+    VIETNAMESE_GRADE_4_LESSONS, 
+    VIETNAMESE_GRADE_5_LESSONS
+)
 from ai4edu.data.math_grade3_textbook_content import get_textbook_lesson_detail
 from ai4edu.services.hoang_mai_service import (
     generate_lesson_plan_2345,
@@ -184,6 +199,15 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# Helper function tra cứu danh mục bài học SGK chuẩn
+def get_subject_curriculum_lessons(subject_id: str, grade: int, volume: int = 0):
+    sub_lower = (subject_id or "").lower()
+    if any(k in sub_lower for k in ["toán", "math"]):
+        return get_math_lessons(grade, volume)
+    elif any(k in sub_lower for k in ["tiếng việt", "vietnamese", "văn"]):
+        return get_vietnamese_lessons(grade, volume)
+    return []
+
 # Helper function để đồng bộ tức thì giá trị bài học khi chọn dropdown SGK
 def sync_sgk_topic(pick_key: str, input_key: str):
     pick_val = st.session_state.get(pick_key, "")
@@ -197,7 +221,7 @@ def show_quickstart_dialog():
     ### 🎯 Quy Trình 3 Bước Soạn Giáo Án & Học Liệu Tự Động:
     ---
     #### 🔹 Bước 1: Thiết lập cấu hình tại Sidebar (Thanh bên trái)
-    1. **Chọn Khối Lớp:** Chọn lớp giảng dạy (ví dụ: `Khối Lớp 3` hoặc `Khối Lớp 5`).
+    1. **Chọn Khối Lớp:** Chọn lớp giảng dạy (Khối Lớp 1, 2, 3, 4 hoặc 5).
     2. **Chọn Môn Học:** Chọn môn tương ứng (Toán học, Tiếng Việt, Tự nhiên & Xã hội, Khoa học...).
     3. **Chọn Mô hình AI:** Khuyên dùng `Gemini 3.5 Flash` (Rất nhanh & ổn định).
 
@@ -240,48 +264,116 @@ def show_grade_guide_dialog():
       - **Quizizz (Tab 5):** Tạo đề trắc nghiệm ma trận 4 mức độ Bloom ôn thi vào lớp 6.
     """)
 
-@st.dialog("📑 Danh Mục 81 Bài Toán 3 & 66 Bài Toán 5 (SGK Kết Nối Tri Thức)", width="large")
+@st.dialog("📑 Mục Lục Bài Học Toán & Tiếng Việt Lớp 1 - 5 (SGK Kết Nối Tri Thức)", width="large")
 def show_curriculum_dialog():
     st.markdown("""
-    ### 📐 Tra Cứu Toàn Bộ Bài Học SGK Chuẩn (CTGDPT 2018):
+    ### 📑 Mục Lục Chi Tiết Môn Toán & Tiếng Việt Lớp 1 - 5 (Bộ Kết Nối Tri Thức Với Cuộc Sống):
+    *Tổng Chủ biên môn Toán: GS.TSKH. Hà Huy Khoái • Chủ biên: PGS.TS. Lê Anh Vinh*  
+    *Tổng Chủ biên môn Tiếng Việt: GS.TS. Bùi Mạnh Hùng (NXB Giáo Dục Việt Nam)*
     ---
     """)
-    tab_m3, tab_m5 = st.tabs(["📘 Toán Lớp 3 (81 Bài Học)", "🎓 Toán Lớp 5 (66 Bài Học)"])
+    tab_g1, tab_g2, tab_g3, tab_g4, tab_g5 = st.tabs([
+        "🧸 Khối Lớp 1",
+        "🎒 Khối Lớp 2",
+        "📘 Khối Lớp 3",
+        "🔬 Khối Lớp 4",
+        "🎓 Khối Lớp 5"
+    ])
     
-    with tab_m3:
-        st.markdown("#### 📘 Sách Giáo Khoa Toán 3 - Tập 1 (44 Bài):")
-        st.markdown("""
-        * **Chủ đề 1: Ôn tập và bổ sung (Bài 1 - 8):** Ôn tập số đến 1000 (Tr.6), Phép cộng trừ (Tr.9), Tìm thành phần phép tính (Tr.11), Bảng nhân chia 2, 3, 4, 5 (Tr.14-20), Hình học đo lường (Tr.21).
-        * **Chủ đề 2: Bảng nhân, bảng chia (Bài 9 - 15):** Bảng nhân chia 6, 7, 8, 9 (Tr.28-38), Tìm thừa số/SBC/Số chia (Tr.39), Một phần mấy (Tr.42).
-        * **Chủ đề 3: Làm quen hình phẳng, hình khối (Bài 16 - 22):** Điểm ở giữa, trung điểm (Tr.49), Hình tròn, tâm, bán kính (Tr.52), **Bài 18: Góc, góc vuông, góc không vuông (Tr.54)**, Hình tam giác, tứ giác, chữ nhật, hình vuông (Tr.56), Thực hành vẽ trang trí (Tr.61), Khối lập phương & hộp chữ nhật (Tr.63).
-        * **Chủ đề 4: Phép nhân, phép chia trong phạm vi 100 (Bài 23 - 29):** Nhân chia 2 chữ số (Tr.67-78), Gấp/Giảm số lần (Tr.70, 79), Bài toán 2 bước tính (Tr.81).
-        * **Chủ đề 5: Đo lường (Bài 30 - 35):** Mi-li-mét (Tr.85), Gam (Tr.87), Mi-li-lít (Tr.89), Nhiệt độ độ C (Tr.91), Thực hành đo lường (Tr.93).
-        * **Chủ đề 6 & 7: Phép tính phạm vi 1000 & Ôn tập Học kì I (Bài 36 - 44):** Nhân chia 3 chữ số (Tr.97-103), Biểu thức số (Tr.104), So sánh số lớn gấp mấy lần số bé (Tr.109), Ôn tập tổng kết (Tr.113-122).
-        """)
-        st.markdown("#### 📘 Sách Giáo Khoa Toán 3 - Tập 2 (37 Bài):")
-        st.markdown("""
-        * **Chủ đề 8: Các số đến 10 000 (Bài 45 - 49):** Các số có 4 chữ số, So sánh, Làm tròn số đến hàng nghìn.
-        * **Chủ đề 9: Chu vi, diện tích một số hình phẳng (Bài 50 - 55):** Chu vi tam giác/tứ giác/hình chữ nhật/hình vuông, Làm quen diện tích, Xăng-ti-mét vuông, Diện tích hình chữ nhật & hình vuông.
-        * **Chủ đề 10 & 11: Phép tính phạm vi 10 000 & Tiền Việt Nam (Bài 56 - 62):** Cộng trừ nhân chia trong phạm vi 10 000, Tiền Việt Nam.
-        * **Chủ đề 12 & 13: Các số đến 100 000 & Phép tính trong phạm vi 100 000 (Bài 63 - 72).**
-        * **Chủ đề 14 & 15: Xem đồng hồ, số La Mã & Bảng số liệu, khả năng (Bài 73 - 77).**
-        * **Chủ đề 16: Ôn tập cuối năm (Bài 78 - 81).**
-        """)
-        
-    with tab_m5:
-        st.markdown("#### 🎓 Sách Giáo Khoa Toán 5 - Tập 1 (35 Bài):")
-        st.markdown("""
-        * **Chủ đề 1 & 2: Ôn tập, phân số & Số thập phân (Bài 1 - 18):** Phân số thập phân, Hỗn số, Hàng của số thập phân, Đọc viết và so sánh số thập phân, Các đơn vị đo $ha, km^2$.
-        * **Chủ đề 3 & 4: Các phép tính với số thập phân (Bài 19 - 30):** Cộng, trừ, nhân, chia số thập phân, Nhân chia nhẩm với 10, 100, 0.1, 0.01.
-        * **Chủ đề 5 & 6: Hình phẳng & Ôn tập Học kì I (Bài 31 - 35):** Diện tích hình tam giác, Diện tích hình thang, Ôn tập cuối HKI.
-        """)
-        st.markdown("#### 🎓 Sách Giáo Khoa Toán 5 - Tập 2 (31 Bài):")
-        st.markdown("""
-        * **Chủ đề 7: Tỉ số và Tỉ số phần trăm (Bài 36 - 42):** Tìm tỉ số phần trăm, Tìm giá trị phần trăm, Giải toán tỉ số thực tế.
-        * **Chủ đề 8: Thể tích & Hình khối (Bài 43 - 48):** Hình lập phương, Hình hộp chữ nhật, $cm^3, dm^3, m^3$, Thể tích hình hộp và hình lập phương.
-        * **Chủ đề 9: Số đo thời gian & Toán chuyển động đều (Bài 49 - 56):** Vận tốc, Quãng đường, Thời gian ($v = s / t$), Bài toán chuyển động ngược chiều/cùng chiều.
-        * **Chủ đề 10, 11, 12: Thống kê, xác suất & Ôn tập tốt nghiệp Tiểu học (Bài 57 - 66).**
-        """)
+    with tab_g1:
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown("#### 📐 TOÁN LỚP 1 (39 Bài Học)")
+            st.markdown("**Tập 1 (Bài 1 - 17):**")
+            for l in MATH_GRADE_1_LESSONS[:17]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+            st.markdown("**Tập 2 (Bài 18 - 39):**")
+            for l in MATH_GRADE_1_LESSONS[17:]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+        with c2:
+            st.markdown("#### 📖 TIẾNG VIỆT LỚP 1 (38 Bài Học)")
+            st.markdown("**Tập 1 - Âm chữ & Vần (Bài 1 - 20):**")
+            for l in VIETNAMESE_GRADE_1_LESSONS[:20]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+            st.markdown("**Tập 2 - Chủ điểm Luyện đọc (Bài 1 - 18):**")
+            for l in VIETNAMESE_GRADE_1_LESSONS[20:]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+
+    with tab_g2:
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown("#### 📐 TOÁN LỚP 2 (67 Bài Học)")
+            st.markdown("**Tập 1 (Bài 1 - 35):**")
+            for l in MATH_GRADE_2_LESSONS[:35]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+            st.markdown("**Tập 2 (Bài 36 - 67):**")
+            for l in MATH_GRADE_2_LESSONS[35:]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+        with c2:
+            st.markdown("#### 📖 TIẾNG VIỆT LỚP 2 (34 Bài Học)")
+            st.markdown("**Tập 1 - Chủ điểm 1 đến 4 (Bài 1 - 17):**")
+            for l in VIETNAMESE_GRADE_2_LESSONS[:17]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+            st.markdown("**Tập 2 - Chủ điểm 5 đến 8 (Bài 18 - 34):**")
+            for l in VIETNAMESE_GRADE_2_LESSONS[17:]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+
+    with tab_g3:
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown("#### 📐 TOÁN LỚP 3 (81 Bài Học)")
+            st.markdown("**Tập 1 (Bài 1 - 44):**")
+            for l in MATH_GRADE_3_LESSONS[:44]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+            st.markdown("**Tập 2 (Bài 45 - 81):**")
+            for l in MATH_GRADE_3_LESSONS[44:]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+        with c2:
+            st.markdown("#### 📖 TIẾNG VIỆT LỚP 3 (34 Bài Học)")
+            st.markdown("**Tập 1 - Chủ điểm 1 đến 4 (Bài 1 - 17):**")
+            for l in VIETNAMESE_GRADE_3_LESSONS[:17]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+            st.markdown("**Tập 2 - Chủ điểm 5 đến 8 (Bài 18 - 34):**")
+            for l in VIETNAMESE_GRADE_3_LESSONS[17:]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+
+    with tab_g4:
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown("#### 📐 TOÁN LỚP 4 (70 Bài Học)")
+            st.markdown("**Tập 1 (Bài 1 - 35):**")
+            for l in MATH_GRADE_4_LESSONS[:35]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+            st.markdown("**Tập 2 (Bài 36 - 70):**")
+            for l in MATH_GRADE_4_LESSONS[35:]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+        with c2:
+            st.markdown("#### 📖 TIẾNG VIỆT LỚP 4 (34 Bài Học)")
+            st.markdown("**Tập 1 - Chủ điểm 1 đến 4 (Bài 1 - 17):**")
+            for l in VIETNAMESE_GRADE_4_LESSONS[:17]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+            st.markdown("**Tập 2 - Chủ điểm 5 đến 8 (Bài 18 - 34):**")
+            for l in VIETNAMESE_GRADE_4_LESSONS[17:]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+
+    with tab_g5:
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown("#### 📐 TOÁN LỚP 5 (66 Bài Học)")
+            st.markdown("**Tập 1 (Bài 1 - 35):**")
+            for l in MATH_GRADE_5_LESSONS[:35]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+            st.markdown("**Tập 2 (Bài 36 - 66):**")
+            for l in MATH_GRADE_5_LESSONS[35:]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+        with c2:
+            st.markdown("#### 📖 TIẾNG VIỆT LỚP 5 (34 Bài Học)")
+            st.markdown("**Tập 1 - Chủ điểm 1 đến 4 (Bài 1 - 17):**")
+            for l in VIETNAMESE_GRADE_5_LESSONS[:17]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
+            st.markdown("**Tập 2 - Chủ điểm 5 đến 8 (Bài 18 - 34):**")
+            for l in VIETNAMESE_GRADE_5_LESSONS[17:]:
+                st.markdown(f"- **{l['title']}** (Tr.{l['page']}) - *{l['topic_group']}*")
 
 @st.dialog("📚 Kho Tải File PDF Sách Giáo Khoa Lớp 1 - 5 (Bộ Kết Nối Tri Thức)", width="large")
 def show_pdf_library_dialog():
@@ -476,7 +568,7 @@ with st.sidebar:
         show_quickstart_dialog()
     if st.button("🎒 Hướng Dẫn Từng Khối Lớp", use_container_width=True, key="btn_dlg2"):
         show_grade_guide_dialog()
-    if st.button("📑 Mục Lục 81 Bài Toán 3 & 5", use_container_width=True, key="btn_dlg3"):
+    if st.button("📑 Mục Lục Bài Học Toán & Tiếng Việt (Lớp 1 - 5)", use_container_width=True, key="btn_dlg3"):
         show_curriculum_dialog()
     if st.button("📚 Tải File PDF SGK Lớp 1 - 5", use_container_width=True, key="btn_dlg4"):
         show_pdf_library_dialog()
@@ -507,15 +599,22 @@ with tab1:
     st.subheader("📑 Soạn Kế Hoạch Bài Dạy 5 Cột Chuẩn Công Văn 2345/BGDĐT-GDTH")
     st.write(f"Đang sử dụng mô hình: **{model_labels.get(selected_model_id, selected_model_id)}**")
     
-    # Bộ chọn bài học từ SGK nếu là Toán Lớp 3 hoặc Lớp 5
-    default_topic_t1 = "Bài 18: Góc, góc vuông, góc không vuông" if selected_grade_num == 3 else "Bài 26: Hình thang. Diện tích hình thang"
-    if selected_subject_id == "math" and selected_grade_num in [3, 5]:
-        st.markdown(f"##### 📚 Chọn Bài Học Từ Danh Mục SGK Toán Lớp {selected_grade_num} (Chuẩn CTGDPT 2018):")
+    # Bộ chọn bài học từ SGK (Hỗ trợ Toán & Tiếng Việt Lớp 1 - 5)
+    curriculum_list_t1 = get_subject_curriculum_lessons(selected_subject_id, selected_grade_num, 0)
+    default_topic_t1 = curriculum_list_t1[0]["title"] if curriculum_list_t1 else "Bài học mới"
+    if selected_grade_num == 3 and "math" in selected_subject_id.lower():
+        default_topic_t1 = "Bài 18: Góc, góc vuông, góc không vuông"
+    elif selected_grade_num == 5 and "math" in selected_subject_id.lower():
+        default_topic_t1 = "Bài 28: Hình tam giác. Diện tích hình tam giác"
+        
+    if curriculum_list_t1:
+        sub_name_vi = "Toán" if any(k in selected_subject_id.lower() for k in ["math", "toán"]) else "Tiếng Việt"
+        st.markdown(f"##### 📚 Chọn Bài Học Từ Danh Mục SGK {sub_name_vi} Lớp {selected_grade_num} (Chuẩn CTGDPT 2018):")
         col_v1, col_v2 = st.columns([1, 3])
         with col_v1:
             vol_choice = st.selectbox("Chọn Tập sách:", ["Tất cả (Tập 1 & 2)", "Tập 1 (HK I)", "Tập 2 (HK II)"], key="vol_t1")
             vol_idx = 1 if "Tập 1" in vol_choice else (2 if "Tập 2" in vol_choice else 0)
-            available_lessons = get_math_lessons(selected_grade_num, vol_idx)
+            available_lessons = get_subject_curriculum_lessons(selected_subject_id, selected_grade_num, vol_idx)
             lesson_labels = [f"{l['title']}  ({l['topic_group']})" for l in available_lessons]
         with col_v2:
             lesson_pick = st.selectbox(
@@ -721,14 +820,21 @@ with tab2:
     st.subheader("🎯 Phân Hóa 4 Tầng Nhiệm Vụ Cho Học Sinh Khá Giỏi & Cần Hỗ Trợ")
     st.write("Từ 1 đơn vị kiến thức SGK, chia tách thành 4 tầng bài tập/nhiệm vụ với giàn giáo hỗ trợ (Scaffolding) phù hợp năng lực từng nhóm học sinh.")
     
-    default_diff_t2 = "Bài 18: Góc, góc vuông, góc không vuông" if selected_grade_num == 3 else "Bài 26: Hình thang. Diện tích hình thang"
-    if selected_subject_id == "math" and selected_grade_num in [3, 5]:
-        st.markdown(f"##### 📚 Chọn Bài Học Từ SGK Toán Lớp {selected_grade_num}:")
+    curriculum_list_t2 = get_subject_curriculum_lessons(selected_subject_id, selected_grade_num, 0)
+    default_diff_t2 = curriculum_list_t2[0]["title"] if curriculum_list_t2 else "Bài học mới"
+    if selected_grade_num == 3 and "math" in selected_subject_id.lower():
+        default_diff_t2 = "Bài 18: Góc, góc vuông, góc không vuông"
+    elif selected_grade_num == 5 and "math" in selected_subject_id.lower():
+        default_diff_t2 = "Bài 28: Hình tam giác. Diện tích hình tam giác"
+        
+    if curriculum_list_t2:
+        sub_name_vi = "Toán" if any(k in selected_subject_id.lower() for k in ["math", "toán"]) else "Tiếng Việt"
+        st.markdown(f"##### 📚 Chọn Bài Học Từ SGK {sub_name_vi} Lớp {selected_grade_num}:")
         col_vd1, col_vd2 = st.columns([1, 3])
         with col_vd1:
             v_choice = st.selectbox("Chọn Tập:", ["Tất cả (Tập 1 & 2)", "Tập 1", "Tập 2"], key="vol_t2")
             v_idx = 1 if "Tập 1" in v_choice else (2 if "Tập 2" in v_choice else 0)
-            avail_diff = get_math_lessons(selected_grade_num, v_idx)
+            avail_diff = get_subject_curriculum_lessons(selected_subject_id, selected_grade_num, v_idx)
             diff_labels = [f"{l['title']}  ({l['topic_group']})" for l in avail_diff]
         with col_vd2:
             p_pick = st.selectbox(
@@ -920,14 +1026,21 @@ with tab5:
     st.subheader("🎮 Tạo Bộ Câu Hỏi Trắc Nghiệm Đố Vui Cho Quizizz / Wordwall / Kahoot")
     st.write("Tự động sinh bộ câu hỏi trắc nghiệm đố vui và xuất ra file Excel chuẩn để nạp vào Quizizz chỉ trong 1 cú click.")
     
-    default_quiz_t5 = "Bài 18: Góc, góc vuông, góc không vuông" if selected_grade_num == 3 else "Bài 26: Hình thang. Diện tích hình thang"
-    if selected_subject_id == "math" and selected_grade_num in [3, 5]:
-        st.markdown(f"##### 📚 Chọn Bài Học Từ SGK Toán Lớp {selected_grade_num}:")
+    curriculum_list_t5 = get_subject_curriculum_lessons(selected_subject_id, selected_grade_num, 0)
+    default_quiz_t5 = curriculum_list_t5[0]["title"] if curriculum_list_t5 else "Bài học mới"
+    if selected_grade_num == 3 and "math" in selected_subject_id.lower():
+        default_quiz_t5 = "Bài 18: Góc, góc vuông, góc không vuông"
+    elif selected_grade_num == 5 and "math" in selected_subject_id.lower():
+        default_quiz_t5 = "Bài 28: Hình tam giác. Diện tích hình tam giác"
+        
+    if curriculum_list_t5:
+        sub_name_vi = "Toán" if any(k in selected_subject_id.lower() for k in ["math", "toán"]) else "Tiếng Việt"
+        st.markdown(f"##### 📚 Chọn Bài Học Từ SGK {sub_name_vi} Lớp {selected_grade_num}:")
         col_vq1, col_vq2 = st.columns([1, 3])
         with col_vq1:
             vq_choice = st.selectbox("Chọn Tập:", ["Tất cả (Tập 1 & 2)", "Tập 1", "Tập 2"], key="vol_t5")
             vq_idx = 1 if "Tập 1" in vq_choice else (2 if "Tập 2" in vq_choice else 0)
-            avail_quiz = get_math_lessons(selected_grade_num, vq_idx)
+            avail_quiz = get_subject_curriculum_lessons(selected_subject_id, selected_grade_num, vq_idx)
             quiz_labels = [f"{l['title']}  ({l['topic_group']})" for l in avail_quiz]
         with col_vq2:
             q_pick = st.selectbox(
