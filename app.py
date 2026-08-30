@@ -208,6 +208,39 @@ def get_subject_curriculum_lessons(subject_id: str, grade: int, volume: int = 0)
         return get_vietnamese_lessons(grade, volume)
     return []
 
+# Helper function lấy link đọc SGK trực tuyến chuẩn trên Hành Trang Số (NXB Giáo Dục Việt Nam)
+def get_hanhtrangso_ebook_url(grade: int, subject_id: str, volume: int = 1) -> str:
+    s_lower = (subject_id or "").lower()
+    is_tv = any(k in s_lower for k in ["tiếng việt", "vietnamese", "văn", "tieng viet"])
+    is_toan = any(k in s_lower for k in ["toán", "math", "toan"])
+    
+    if is_tv:
+        if grade == 1:
+            return "https://hanhtrangso.nxbgd.vn/ebook/read/tieng-viet-1-tap-hai-410" if volume == 2 else "https://hanhtrangso.nxbgd.vn/ebook/read/tieng-viet-1-tap-mot-409"
+        elif grade == 2:
+            return "https://hanhtrangso.nxbgd.vn/ebook/read/tieng-viet-2-tap-hai-418" if volume == 2 else "https://hanhtrangso.nxbgd.vn/ebook/read/tieng-viet-2-tap-mot-417"
+        elif grade == 3:
+            return "https://hanhtrangso.nxbgd.vn/ebook/read/tieng-viet-3-tap-hai-10762" if volume == 2 else "https://hanhtrangso.nxbgd.vn/ebook/read/tieng-viet-3-tap-mot-10761"
+        elif grade == 4:
+            return "https://hanhtrangso.nxbgd.vn/ebook/read/tieng-viet-4-tap-hai-11722" if volume == 2 else "https://hanhtrangso.nxbgd.vn/ebook/read/tieng-viet-4-tap-mot-11721"
+        elif grade == 5:
+            return "https://hanhtrangso.nxbgd.vn/ebook/read/tieng-viet-5-tap-hai-12682" if volume == 2 else "https://hanhtrangso.nxbgd.vn/ebook/read/tieng-viet-5-tap-mot-12681"
+        return "https://hanhtrangso.nxbgd.vn/ebook"
+    elif is_toan:
+        if grade == 1:
+            return "https://hanhtrangso.nxbgd.vn/ebook/read/toan-1-tap-hai-408" if volume == 2 else "https://hanhtrangso.nxbgd.vn/ebook/read/toan-1-tap-mot-407"
+        elif grade == 2:
+            return "https://hanhtrangso.nxbgd.vn/ebook/read/toan-2-tap-hai-416" if volume == 2 else "https://hanhtrangso.nxbgd.vn/ebook/read/toan-2-tap-mot-415"
+        elif grade == 3:
+            return "https://hanhtrangso.nxbgd.vn/ebook/read/toan-3-tap-hai-10760" if volume == 2 else "https://hanhtrangso.nxbgd.vn/ebook/read/toan-3-tap-mot-10759"
+        elif grade == 4:
+            return "https://hanhtrangso.nxbgd.vn/ebook/read/toan-4-tap-hai-11720" if volume == 2 else "https://hanhtrangso.nxbgd.vn/ebook/read/toan-4-tap-mot-11719"
+        elif grade == 5:
+            return "https://hanhtrangso.nxbgd.vn/ebook/read/toan-5-tap-hai-12680" if volume == 2 else "https://hanhtrangso.nxbgd.vn/ebook/read/toan-5-tap-mot-12679"
+        return "https://hanhtrangso.nxbgd.vn/ebook"
+    else:
+        return "https://hanhtrangso.nxbgd.vn/ebook"
+
 # Helper function để đồng bộ tức thì giá trị bài học khi chọn dropdown SGK
 def sync_sgk_topic(pick_key: str, input_key: str):
     pick_val = st.session_state.get(pick_key, "")
@@ -750,6 +783,24 @@ with tab1:
         )
     with col_t2:
         include_adv = st.checkbox("Thử thách HS khá giỏi", value=True, help="Tích hợp các câu hỏi mở và nhiệm vụ mở rộng tránh lặp lại SGK")
+        
+        # Link đến tài liệu chuẩn khi soạn từng bài học (Hành Trang Số)
+        cur_vol_t1 = 1
+        if "vol_t1" in st.session_state and "Tập 2" in st.session_state["vol_t1"]:
+            cur_vol_t1 = 2
+        elif curriculum_list_t1:
+            for l in curriculum_list_t1:
+                if l["title"] in lesson_topic and l.get("volume") == 2:
+                    cur_vol_t1 = 2
+                    break
+        
+        ebook_url_t1 = get_hanhtrangso_ebook_url(selected_grade_num, selected_subject_id, cur_vol_t1)
+        st.link_button(
+            "📖 Đọc SGK Hành Trang Số",
+            url=ebook_url_t1,
+            use_container_width=True,
+            help=f"Mở sách giáo khoa trực tuyến chuẩn: {ebook_url_t1}"
+        )
 
     # Đảm bảo topic không bao giờ rỗng
     final_topic_t1 = lesson_topic.strip() if lesson_topic.strip() else default_topic_t1
@@ -758,7 +809,7 @@ with tab1:
     tb_detail_t1 = get_textbook_lesson_detail(selected_grade_num, final_topic_t1)
     if tb_detail_t1:
         with st.expander(f"📖 Trích Dẫn Nguyên Văn Từ SGK: {tb_detail_t1['title']} ({tb_detail_t1['page']})", expanded=True):
-            st.markdown(f"**Vị trí:** `{tb_detail_t1['topic_group']}` • **Bộ sách:** *Kết nối tri thức với cuộc sống (NXB Giáo dục Việt Nam)*")
+            st.markdown(f"**Vị trí:** `{tb_detail_t1['topic_group']}` • **Bộ sách:** *Kết nối tri thức với cuộc sống* • 🌐 [Xem trực tiếp trên Hành Trang Số]({ebook_url_t1})")
             st.markdown("##### 📌 Khái niệm & Quy tắc gốc trong SGK:")
             for c in tb_detail_t1.get("original_concepts", []):
                 st.markdown(f"- {c}")
@@ -962,17 +1013,36 @@ with tab2:
     if "input_diff_topic" not in st.session_state or not st.session_state["input_diff_topic"].strip():
         st.session_state["input_diff_topic"] = default_diff_t2
 
-    diff_topic = st.text_input(
-        "Chủ đề / Đơn vị kiến thức cần phân hóa:",
-        key="input_diff_topic"
-    )
+    col_td1, col_td2 = st.columns([3, 1])
+    with col_td1:
+        diff_topic = st.text_input(
+            "Chủ đề / Đơn vị kiến thức cần phân hóa:",
+            key="input_diff_topic"
+        )
+    with col_td2:
+        cur_vol_t2 = 1
+        if "vol_t2" in st.session_state and "Tập 2" in st.session_state["vol_t2"]:
+            cur_vol_t2 = 2
+        elif curriculum_list_t2:
+            for l in curriculum_list_t2:
+                if l["title"] in (diff_topic or "") and l.get("volume") == 2:
+                    cur_vol_t2 = 2
+                    break
+        ebook_url_t2 = get_hanhtrangso_ebook_url(selected_grade_num, selected_subject_id, cur_vol_t2)
+        st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+        st.link_button(
+            "📖 Đọc SGK Hành Trang Số",
+            url=ebook_url_t2,
+            use_container_width=True,
+            help=f"Mở sách giáo khoa trực tuyến chuẩn: {ebook_url_t2}"
+        )
     
     final_topic_t2 = diff_topic.strip() if diff_topic.strip() else default_diff_t2
 
     tb_detail_t2 = get_textbook_lesson_detail(selected_grade_num, final_topic_t2)
     if tb_detail_t2:
         with st.expander(f"📖 Trích Dẫn Nguyên Văn Từ SGK: {tb_detail_t2['title']} ({tb_detail_t2['page']})", expanded=False):
-            st.markdown(f"**Vị trí:** `{tb_detail_t2['topic_group']}` • **Bộ sách:** *Kết nối tri thức với cuộc sống*")
+            st.markdown(f"**Vị trí:** `{tb_detail_t2['topic_group']}` • **Bộ sách:** *Kết nối tri thức với cuộc sống* • 🌐 [Xem trực tiếp trên Hành Trang Số]({ebook_url_t2})")
             st.markdown("##### 📌 Khái niệm & Quy tắc gốc:")
             for c in tb_detail_t2.get("original_concepts", []):
                 st.markdown(f"- {c}")
@@ -1176,6 +1246,21 @@ with tab5:
         )
     with col_q2:
         num_q = st.slider("Số lượng câu hỏi:", min_value=3, max_value=10, value=5)
+        cur_vol_t5 = 1
+        if "vol_t5" in st.session_state and "Tập 2" in st.session_state["vol_t5"]:
+            cur_vol_t5 = 2
+        elif curriculum_list_t5:
+            for l in curriculum_list_t5:
+                if l["title"] in (quiz_topic or "") and l.get("volume") == 2:
+                    cur_vol_t5 = 2
+                    break
+        ebook_url_t5 = get_hanhtrangso_ebook_url(selected_grade_num, selected_subject_id, cur_vol_t5)
+        st.link_button(
+            "📖 Đọc SGK Hành Trang Số",
+            url=ebook_url_t5,
+            use_container_width=True,
+            help=f"Mở sách giáo khoa trực tuyến chuẩn: {ebook_url_t5}"
+        )
         
     final_topic_t5 = quiz_topic.strip() if quiz_topic.strip() else default_quiz_t5
 

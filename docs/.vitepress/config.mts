@@ -43,6 +43,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: '🌟 Cẩm Nang Tổng Quan Hoàng Mai', link: '/hoang-mai-primary/' },
+          { text: '📄 Giới Thiệu & Phiếu Khảo Sát Thử Nghiệm', link: '/hoang-mai-primary/pilot-feedback-guide' },
           { text: '📝 Soạn KHBD 5 Cột (Công văn 2345)', link: '/hoang-mai-primary/lesson-planning-2345' },
           { text: '🎯 Phân Hóa Nhiệm Vụ 4 Cấp Độ', link: '/hoang-mai-primary/differentiation-advanced' },
           { text: '📊 Đánh Giá & Nhận Xét (Thông tư 27)', link: '/hoang-mai-primary/assessment-tt27' },
