@@ -283,6 +283,22 @@ def show_curriculum_dialog():
         * **Chủ đề 10, 11, 12: Thống kê, xác suất & Ôn tập tốt nghiệp Tiểu học (Bài 57 - 66).**
         """)
 
+@st.dialog("📚 Kho Tải File PDF Sách Giáo Khoa Lớp 1 - 5 (Bộ Kết Nối Tri Thức)", width="large")
+def show_pdf_library_dialog():
+    st.markdown("""
+    ### 📚 Tổng Hợp File PDF Sách Giáo Khoa Lớp 1 Đến Lớp 5 (NXB Giáo Dục Việt Nam):
+    ---
+    * 🌐 **Cổng đọc online chính thức NXBGDVN:** [Hành Trang Số (hanhtrangso.nxbgd.vn)](https://hanhtrangso.nxbgd.vn/)
+    * 📂 **Kho Google Drive Tổng Hợp (Tất cả các lớp):** [Mở Thư Viện Google Drive](https://drive.google.com/drive/folders/1OfOZQW4SVQA3VjFp_bkf84U1_zgR473t?usp=sharing)
+    ---
+    #### 🎒 Liên Kết Tải Trọn Bộ Theo Từng Khối Lớp:
+    * 🧸 **Khối Lớp 1:** [Tải trọn bộ PDF SGK Lớp 1 (Toán, Tiếng Việt, TN&XH, Đạo đức, HĐTN...)](https://drive.google.com/drive/folders/169N_qc2yAINJ3QLibudU2bQsro0mv26q?usp=sharing)
+    * 🎒 **Khối Lớp 2:** [Tải trọn bộ PDF SGK Lớp 2 (Toán, Tiếng Việt, TN&XH, Đạo đức, HĐTN...)](https://drive.google.com/drive/folders/1xNffndI1me7vhl5M09toQiIWjsqCPYg2?usp=sharing)
+    * 📘 **Khối Lớp 3:** [Tải trọn bộ PDF SGK Lớp 3 (Toán, Tiếng Việt, TN&XH, Tin học, Công nghệ...)](https://drive.google.com/drive/folders/1aLHxjgpYsvcR54JGlYlb7PgW3v3Wkhy0?usp=sharing)
+    * 🔬 **Khối Lớp 4:** [Tải trọn bộ PDF SGK Lớp 4 (Toán, Tiếng Việt, Khoa học, Lịch sử - Địa lý, Tin học...)](https://drive.google.com/drive/folders/1ivPO0NaCYhdJrncJlPA8OFMNZNHJftB2?usp=sharing)
+    * 🎓 **Khối Lớp 5:** [Tải trọn bộ PDF SGK Lớp 5 (Toán, Tiếng Việt, Khoa học, Lịch sử - Địa lý, Tin học...)](https://drive.google.com/drive/folders/1OfOZQW4SVQA3VjFp_bkf84U1_zgR473t?usp=sharing)
+    """)
+
 # Nạp danh mục chương trình từ PromptEngine
 engine = PromptEngine()
 
@@ -462,6 +478,8 @@ with st.sidebar:
         show_grade_guide_dialog()
     if st.button("📑 Mục Lục 81 Bài Toán 3 & 5", use_container_width=True, key="btn_dlg3"):
         show_curriculum_dialog()
+    if st.button("📚 Tải File PDF SGK Lớp 1 - 5", use_container_width=True, key="btn_dlg4"):
+        show_pdf_library_dialog()
 
     st.caption(f"**Giai đoạn nhận thức:** {grade_info.cognitive_stage if grade_info else 'N/A'}")
     st.caption(f"**Văn bản pháp quy:** Công văn 2345/BGDĐT-GDTH & Thông tư 27/2020/TT-BGDĐT")
